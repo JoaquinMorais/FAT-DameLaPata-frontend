@@ -11,8 +11,21 @@
     "start": "serve dist -s -n -L -p $PORT"
   },
   "dependencies": {
+    "@mui/icons-material": "^5.14.11",
+    "@mui/lab": "^5.0.0-alpha.146",
+    "@mui/material": "^5.14.11",
+    "axios": "^1.5.1",
+    "formik": "^2.4.5",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "react-modal": "^3.16.1",
+    "react-reveal": "^1.2.2",
+    "react-router-dom": "^6.16.0",
+    "react-select": "^5.7.5",
+    "react-wavify": "^1.9.0",
+    "styled-components": "^6.0.8",
+    "swiper": "^10.3.1",
+    "yup": "^1.3.2"
   },
   "devDependencies": {
     "@types/react": "^18.0.28",

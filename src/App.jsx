@@ -1,35 +1,86 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import React, { useEffect, useState } from 'react';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import './App.css';
+import Dogs from './Pages/Dogs';
+import ShowMore from './Pages/ShowMore';
+import Pinder from './Pages/Pinder';
+import Home from './Pages/Home';
+import Who from './Pages/Who';
+import Post from './Pages/Post';
+import Add from './Pages/Add';
+import Login from './Pages/Login';
+import Register from './Pages/Register';
+import Successful from './Pages/Successful';
+import Preferences from './Pages/Preferences';
+import Error from './Pages/Error';
+import Mismascotas_Sh from './Pages/Mismascotas_Sh';
+import Profile from './Pages/Profile';
+import Solicitud from './Pages/Solicitud';
+import Peticiones from './Pages/Peticiones';
 
-function App() {
-  const [count, setCount] = useState(0)
 
+const App = () => {
+
+
+
+  {/*
+    useEffect(() => {
+      const fetchUser = async () => {
+        try {
+          const response = await axios.get('http://localhost:5000/pets/all');
+          console.log(response)
+          console.log(response)
+        } catch (error) {
+          console.error(error);
+          console.log('error mediatico')
+        }
+      };
+    fetchUser();
+    })
+
+
+    useEffect(() => {
+      const fetchData = async () => {
+        try {
+          const response = await axios.get('http://localhost:5000/pets/all');
+          setData(response.data);
+        } catch (err) {
+          setError(err);
+        }
+      };
+      fetchData();
+    }, []);
+  */}
+  
+    {/* ====================================================================== */}
+    
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 10000)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
-}
+    <div className='App'>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/dogs" element={<Dogs />} />
+          <Route path="/pet/details/:id" element={<ShowMore />} />
+          <Route path="/pinder" element={<Pinder />} />
+          <Route path="/about" element={<Who />} />
+          <Route path="/post" element={<Post />} />
+          <Route path="/add" element={<Add />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/successful" element={<Successful />} />
+          <Route path="/profile/" element={<Profile />} />
+          <Route path="/preferences" element={<Preferences />} />
+          <Route path="/error" element={<Error />} />
+          <Route path="/mis-mascotas-shelter" element={<Mismascotas_Sh />} />
+          <Route path="/solicitud" element={<Solicitud />} />
+          <Route path="/peticiones" element={<Peticiones />} />
 
-export default App
+        </Routes>
+      </BrowserRouter>
+    </div>
+  );
+};
+
+export default App;
+
+
