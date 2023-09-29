@@ -8,7 +8,7 @@
     "build": "vite build",
     "lint": "eslint src --ext js,jsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
-    "start": "start"
+    "start": "serve dist -s -n -L -p $PORT"
   },
   "dependencies": {
     "@mui/icons-material": "^5.14.11",
@@ -16,7 +16,7 @@
     "@mui/material": "^5.14.11",
     "axios": "^1.5.1",
     "formik": "^2.4.5",
-    "react": "^18.2.0",
+    "react": "^16.8.0",
     "react-dom": "^18.2.0",
     "react-modal": "^3.16.1",
     "react-reveal": "^1.2.2",
