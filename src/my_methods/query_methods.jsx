@@ -52,7 +52,6 @@ export async function GetPets() {
     }
     else if(response_dogs.data['status'] === 200){
       dogs_array = response_dogs.data.colors;
-      response_dogs = console.log(response_dogs);
       console.log(response_dogs);
 
     }

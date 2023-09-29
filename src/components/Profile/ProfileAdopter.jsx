@@ -11,9 +11,7 @@ import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import {  GetProfile } from '../../my_methods/session_methods';
 import Navbar from '../NavBar/NavBar';
-import ConfirmDialog from '../CloseAccount/ConfirmDialog';
 import SuccessDialog from '../CloseAccount/SuccessDialog';
-import GetPreference from '../../my_methods/query_methods';
 import axios from 'axios';
 
 const BackgroundImage = styled.div`

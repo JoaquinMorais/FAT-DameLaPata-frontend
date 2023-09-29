@@ -19,7 +19,7 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 
 import NavBar from '../components/NavBar/NavBar'; 
-import IsLogged, { GetProfile } from '../my_methods/session_methods';
+import { GetProfile} from '../my_methods/session_methods';
 import LoaderComp from '../components/Loader/Loader';
 import { useNavigate } from 'react-router-dom';
 import { PutDogs } from '../my_methods/dogs_methods';
