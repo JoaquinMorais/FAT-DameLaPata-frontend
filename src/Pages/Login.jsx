@@ -9,7 +9,7 @@ import Paper from '@mui/material/Paper';
 import styled from 'styled-components';
 import NavBar from '../components/NavBar/NavBar';
 import LoaderComp from '../components/Loader/Loader';
-import { SendLogin, LogOut } from '../my_methods/session_methods';
+import { SendLogin } from '../my_methods/session_methods';
 import { Alert } from '@mui/material';
 
 // Enlace de la imagen de fondo
@@ -26,7 +26,8 @@ function Login() {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
 
   useEffect(() => {
-    LogOut()
+    localStorage.removeItem('id');
+    localStorage.removeItem('type');
     setIsLoading(false);
   }, []);
 
@@ -46,7 +47,12 @@ function Login() {
     onSubmit: async (values) => {
       let is_logged = await SendLogin(values);
       if (is_logged === true) {
-          window.location.href = "/profile";
+        if (localStorage.getItem('type') === 'adopter'){
+          window.location.href = "/profile/adopter";
+        }
+        else if (localStorage.getItem('type') === 'shelter'){
+          window.location.href = "/profile/shelter";
+        }
       } else {
         setIsDialogOpen(true);
       }
@@ -59,7 +65,9 @@ function Login() {
       <LoaderComp/>
     ) : (
     <>
-      {/* <NavBar /> */}
+    
+      <NavBar />
+      
       <BackgroundImage>
         <CenteredContainer >
         {isDialogOpen && (

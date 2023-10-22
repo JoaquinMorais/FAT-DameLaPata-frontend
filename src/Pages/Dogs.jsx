@@ -7,6 +7,8 @@ import Fade from 'react-reveal/Fade';
 import Slide from 'react-reveal/Slide';
 import Zoom from 'react-reveal/Zoom';
 import NavBar from '../components/NavBar/NavBar';
+import IsLogged, { GetProfile } from '../my_methods/session_methods';
+import LoaderComp from '../components/Loader/Loader';
 import Filters from '../components/Dogs/Filters/Filters';
 import axios from 'axios';
 
@@ -16,11 +18,10 @@ const Dogs = () => {
   useEffect(() => {
     async function fetchData() {
       try {
-        if (localStorage.getItem('type') !== 'adopter'){
-          window.location.href = "/profile";
-        }
-        const response = await axios.get('http://localhost:5000/pets');
+        const response = await axios.get('https://hwamqnsad7.us-east-2.awsapprunner.com/pets');
         setResponseData(response.data);
+        console.log('response Data')
+        console.log(responseData)
       } catch (error) {
         console.error('Error al realizar la solicitud:', error.message);
       }
