@@ -15,6 +15,8 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 
+import CustomizedTabs from './CustomizedTabs';
+
 
 
 const Details = () => {
@@ -25,7 +27,7 @@ const Details = () => {
     useEffect(() => {
         async function fetchData() {
         try {
-            const response = await axios.get(`https://hwamqnsad7.us-east-2.awsapprunner.com/pet/${id}`);
+            const response = await axios.get(`http://localhost:5000/pet/${id}`);
             setResponseData(response.data);
         } catch (error) {
             console.error('Error al realizar la solicitud:', error.message);
@@ -43,7 +45,7 @@ const Details = () => {
     useEffect(() => {
     async function fetchData() {
       try {
-        const response = await axios.get('https://hwamqnsad7.us-east-2.awsapprunner.com/pets/info/colors'); 
+        const response = await axios.get('http://localhost:5000/pets/info/colors'); 
         setresponseDataColors(response.data);
       } catch (error) {
         console.error('Error al realizar la solicitud:', error.message);
@@ -51,7 +53,7 @@ const Details = () => {
     }
     
     fetchData(); // Llama a la función fetchData para obtener los datos
-  }, []);
+    }, []);
 
   /* ------------------------------------ */
 
@@ -70,7 +72,7 @@ const Details = () => {
   useEffect(() => {
     async function fetchAvailablePetIds() {
       try {
-        const response = await axios.get('https://hwamqnsad7.us-east-2.awsapprunner.com/adopter/match');
+        const response = await axios.get('http://localhost:5000/adopter/match');
         const availableIds = response.data.filter((id_pet) => id_pet !== id);
         setAvailablePetIds(availableIds);
       } catch (error) {
@@ -115,7 +117,7 @@ const navigate = useNavigate();
 //       id_status: 3,
 //     };
 
-//     const response = await axios.put('https://hwamqnsad7.us-east-2.awsapprunner.com/adopter/match', estado);
+//     const response = await axios.put('http://localhost:5000/adopter/match', estado);
 //     console.log('Respuesta del servidor:', response.data);
 
 //     // Redireccionar a la página de detalles del perro seleccionado aleatoriamente
@@ -135,7 +137,7 @@ console.log(estado);
 
 const handlePerroNoClick = async () => {
   try{
-    const response = axios.put('https://hwamqnsad7.us-east-2.awsapprunner.com/adopter/match', estado);
+    const response = axios.put('http://localhost:5000/adopter/match', estado);
   }
   catch{
     alert("no");
@@ -159,7 +161,7 @@ const handlePerroNoClick = async () => {
 //       id_status: 4,
 //     };
 
-//     const response = await axios.put('https://hwamqnsad7.us-east-2.awsapprunner.com/adopter/match', estado);
+//     const response = await axios.put('http://localhost:5000/adopter/match', estado);
 //     console.log('Respuesta del servidor:', response.data);
 
 //     // Redireccionar a la página de detalles del perro seleccionado aleatoriamente
@@ -188,6 +190,7 @@ const shelterContact = {
   whatsapp: '+54 9 351 123-1234',
   mail: 'refugio1@gmail.com',
 };
+
 
   return (
     <>
@@ -227,15 +230,11 @@ const shelterContact = {
                         aria-describedby="alert-dialog-description"
                       >
                         <DialogTitle id="alert-dialog-title">
-                          {"DATOS DEL REFUGIO."}
+                          {"FELICIDADES"}
                         </DialogTitle>
                         <DialogContent>
                           <DialogContentText id="alert-dialog-description">
-                            Refugio: {shelterContact.name}
-                            <br />
-                            Whatsapp: {shelterContact.whatsapp}
-                            <br />
-                            Mail: {shelterContact.mail}
+                            Tu peticion ha sido enviada con exito 
                           </DialogContentText>
                         </DialogContent>
                         <DialogActions>
@@ -247,60 +246,7 @@ const shelterContact = {
                 </Botones>
               </Abajo>
               </ImagenContainer>
-            <Container>
-
-            <Fade>
-              <Div1>
-                <Titulo2>Nombre</Titulo2>
-                <Caracteristicas>{`${responseData?.response.name}`}</Caracteristicas>
-              </Div1>
-            </Fade>
-              
-            <Fade>
-              <Div2>
-                <Titulo2>Nacimiento</Titulo2>
-                <Caracteristicas>{`${responseData?.response.birth_date}`}</Caracteristicas>
-              </Div2>
-            </Fade>
-
-            <Fade>
-              <Div3>
-                <Titulo2>Tamaño y peso</Titulo2>
-                <Caracteristicas>{`${responseData?.response.size}`} - {`${responseData?.response.weight}`}kg</Caracteristicas>
-              </Div3>
-            </Fade>
-            
-            <Fade>
-              <Div4>
-                <Titulo2>Color/es</Titulo2>
-                <Caracteristicas>
-                  {responseData?.response.colors.map(color => (
-                    <span key={color.id_color}>{color.title} {ifGuion(responseData?.response.colors,color)}</span>
-
-                  ))}
-                </Caracteristicas>
-              </Div4>
-            </Fade>
-
-            <Fade>
-              <Div5>
-                <Titulo2>Caracteristica/s</Titulo2>
-                <Caracteristicas>
-                  {responseData?.response.characteristics.map(carac => (
-                    <span key={carac.id_category}>{carac.title} {ifGuion(responseData?.response.characteristics,carac)} </span>
-                  ))}
-                </Caracteristicas>
-              </Div5>
-            </Fade>
-              
-            <Fade>
-              <Div6>
-                <Titulo2>Vacunas</Titulo2>
-                <Caracteristicas>Consultar</Caracteristicas>
-              </Div6>
-            </Fade>
-              
-            </Container>
+              <CustomizedTabs/>
           </Carta>
         </SwiperSlide>
         }
@@ -458,52 +404,4 @@ const Caracteristicas = styled.p`
     color: black;
     padding: 0px 15px 20px 15px;
     word-wrap: break-word;
-`;
-
-const Div1 = styled.div`
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    background-color: #ffffff;
-`;
-
-const Div2 = styled.div`
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    background-color: #fafafa;
-`;
-
-const Div3 = styled.div`
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    background-color: #f5f5f5;
-`;
-
-const Div4 = styled.div`
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    background-color: #f0f0f0;
-`;
-
-const Div5 = styled.div`
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    background-color: #ebebeb;
-`;
-
-const Div6 = styled.div`
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    background-color: #e0e0e0;
 `;

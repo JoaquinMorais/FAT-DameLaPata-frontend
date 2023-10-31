@@ -7,30 +7,45 @@ import Fade from 'react-reveal/Fade';
 import Slide from 'react-reveal/Slide';
 import Zoom from 'react-reveal/Zoom';
 import NavBar from '../components/NavBar/NavBar';
-import IsLogged, { GetProfile } from '../my_methods/session_methods';
-import LoaderComp from '../components/Loader/Loader';
 import Filters from '../components/Dogs/Filters/Filters';
-import axios from 'axios';
-
+import { GetPets } from '../my_methods/dogs_methods';
 const Dogs = () => {
-  const [responseData, setResponseData] = useState(null); // Agrega el estado para la respuesta de axios
+  const [responseData, setResponseData] = useState([]); // Agrega el estado para la respuesta de axios
+  const [responseStatus, setResponseStatus] = useState(''); // Agrega el estado para la respuesta de axios
+  const [responseMessage, setResponseMessage] = useState(''); // Agrega el estado para la respuesta de axios
+  const [isLoading, setIsLoading] = useState(true);
+  const [favoritePets, setFavoritePets] = useState([]);
 
-  useEffect(() => {
-    async function fetchData() {
-      try {
-        const response = await axios.get('https://hwamqnsad7.us-east-2.awsapprunner.com/pets');
-        setResponseData(response.data);
-        console.log('response Data')
-        console.log(responseData)
-      } catch (error) {
-        console.error('Error al realizar la solicitud:', error.message);
-      }
+  async function fetchData() {
+    try {
+      await GetPets().then(checking => {
+        setResponseData(checking.data);
+        setResponseStatus(checking.response_status);
+        setResponseMessage(checking.response_message);
+        setIsLoading(false)
+      });
+    } catch (error) {
+      console.error('Error al realizar la solicitud:', error.message);
     }
-    
-    fetchData(); // Llama a la función fetchData para obtener los datos
+
+  }
+  useEffect(() => {
+  if (localStorage.getItem('type') !== 'adopter'){
+    window.location.href = "/profile";
+  }
+   
+  fetchData(); // Llama a la función fetchData para obtener los datos
   }, []);
 
-  if(responseData?.status == 200){
+  const toggleFavorite = (id_pet) => {
+    if (favoritePets.includes(id_pet)) {
+      setFavoritePets(favoritePets.filter((id) => id !== id_pet));
+    } else {
+      setFavoritePets([...favoritePets, id_pet]);
+    }
+  };
+
+  while (isLoading){
     return (
       <>
         <NavBar />
@@ -55,27 +70,15 @@ const Dogs = () => {
             </Filters>
           </slide> */}
         </Principio>
-  
-        <Grid>
+        <Grid style={{textAlign:'center'}}>
           
-          {responseData?.response.map((item) => ( 
-            <Container key={item.id}>
-              <Zoom>
-                <Cards
-                  id_pet={`${item.id_pet}`}
-                  foto={`${item.image_path}`}
-                  nombre={`${item.name}`}
-                  titulo={`${item.name} es un perro muy feliz :D`}
-                  descripcion={`${item.name} nació el ${item.birth_date}.`}
-                />
-              </Zoom>
-            </Container>
-          ))}
+          No hay perros que cumplan tus requisitos
+          
         </Grid>
+        
       </>
     );
   }
-  else {
     return (
       <>
         <NavBar />
@@ -101,13 +104,25 @@ const Dogs = () => {
           </slide>
         </Principio>
   
-        <Grid style={{textAlign:'center'}}>
+        
+        <Grid>
           
-          No hay perros que cumplan tus requisitos
+          {responseData?.map((item) => ( // elemento a lodear
+            <Container key={item.id}>
+              <Zoom>
+                <Cards
+                  id_pet={`${item.id_pet}`}
+                  foto={`${item.image_path}`}
+                  nombre={`${item.name}`}
+                  titulo={`${item.name} es un perro muy feliz :D`}
+                  descripcion={`${item.name} nació el ${item.birth_date}.`}
+                />
+              </Zoom>
+            </Container>
+          ))}
         </Grid>
       </>
     );
-  }
   
   
 
