@@ -28,6 +28,7 @@ const Subtitulo = styled(Typography)`
   text-align: center;
   margin: 20px 0; /* Añadir margen superior e inferior */
 `;
+//a
 
 const Boton = styled(Button)`
   margin-top: 20px;
