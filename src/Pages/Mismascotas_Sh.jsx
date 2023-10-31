@@ -6,11 +6,12 @@ import NavBar from '../components/NavBar/NavBar';
 import axios from 'axios';
 import CardPets from '../components/Mismascotas/CardComponent';
 import { GetPets } from '../my_methods/dogs_methods';
+import { Grid } from '@mui/material';
 
 function Mismascotas_Sh() {
   const [responseData, setResponseData] = useState(null);
-  const [responseStatus, setResponseStatus] = useState(''); // Agrega el estado para la respuesta de axios
-  const [responseMessage, setResponseMessage] = useState(''); // Agrega el estado para la respuesta de axios
+  const [responseStatus, setResponseStatus] = useState('');
+  const [responseMessage, setResponseMessage] = useState('');
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
@@ -20,68 +21,45 @@ function Mismascotas_Sh() {
           setResponseData(checking.data);
           setResponseStatus(checking.response_status);
           setResponseMessage(checking.response_message);
-          setIsLoading(false)
+          setIsLoading(false);
         });
-        console.log('response Data:' + responseData)
+        console.log('response Data:' + responseData);
       } catch (error) {
         console.error('Error al realizar la solicitud:', error.message);
       }
     }
-    
-    fetchData(); 
+
+    fetchData();
   }, []);
 
   if (responseData && responseData.length > 0) {
     return (
-    <>
-    <NavBar />
-    <Principio>
-      <Lamina>
-        <Flip top>
-          <Titulo>MIS ANIMALITOS</Titulo>
-        </Flip>
-        <Hr />
-      </Lamina>
-    </Principio>
-    <Grid>
-      <Zoom>
-      <div>
-        {responseData.map((item) => (
-          <Container key={item.id}>
-            <div>
-              <div>
+      <>
+        <NavBar />
+        <Principio>
+          <Lamina>
+            <Flip top>
+              <Titulo>MIS ANIMALITOS</Titulo>
+            </Flip>
+            <Hr />
+          </Lamina>
+        </Principio>
+        <Grid container spacing={2}>
+          <Zoom>
+            {responseData.map((item) => (
+              <Grid item xs={12} key={item.id}>
                 <CardPets
                   imageUrl={`${item.image_path}`}
                   title={`${item.name}`}
                   descr={`${item.name} nació el ${item.birth_date}.`}
                 />
-              </div>
-            </div>
-          </Container>
-        ))}
-      </div>
-      </Zoom>
-    </Grid>
-
-    <Medio>
-      <Lamina>
-        <Flip top>
-          <Titulo>MATCHEADO</Titulo>
-        </Flip>
-        <Hr />
-        <Container>
-          <CardPets 
-          title='EEOOOOOOOOOOOOOOO'
-          imageUrl='https://hips.hearstapps.com/hmg-prod/images/gettyimages-695480884-64f8446a4e85d.jpg?crop=1xw:0.84375xh;center,top&resize=1200:*'
-          descr='AGUANTE EL S23 GRANDE SAMSUNG'
-          />
-        </Container>
-      </Lamina>
-    </Medio>
-  </>
-);
-  }
-  else{
+              </Grid>
+            ))}
+          </Zoom>
+        </Grid>
+      </>
+    );
+  } else {
     return (<h1>Error 404</h1>);
   }
 }
@@ -94,15 +72,9 @@ const Principio = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  text-align:center;
 `;
 
-const Medio = styled.div`
-  width: 100%;
-  height: 35vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`;
 
 
 const Lamina = styled.div`
@@ -128,29 +100,3 @@ const Hr = styled.hr`
   width: 75%;
   border-top: 3px solid black;
 `;
-
-const Grid = styled.div`
-  display: grid;
-  weight: 100%;
-  height: 70vh;
-  grid-template-columns: repeat(auto-fill, 1fr);
-  gap: 20px;
-  text-align: center;
-  justify-items: center;
-
-  @media (max-width: 768px) {
-    grid-template-columns: repeat(auto-fill, minmax(100%, 1fr));
-    width: 100%;
-
-  }
-`;
-
-const Container = styled.div`
-  width: 100%;
-  transition: transform 0.2s ease-in-out;
-
-  &:hover {
-    transform: scale(0.97);
-  }
-`;
-
