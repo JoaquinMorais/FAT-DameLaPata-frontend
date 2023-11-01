@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'; 
+import React, { useEffect, useState } from 'react';
 import Cards from '../components/Dogs/Cards/Cards';
 import { styled } from 'styled-components';
 import Phrase from '../components/Dogs/Phrase/Phrase';
@@ -9,34 +9,40 @@ import Zoom from 'react-reveal/Zoom';
 import NavBar from '../components/NavBar/NavBar';
 import Filters from '../components/Dogs/Filters/Filters';
 import { GetPets } from '../my_methods/dogs_methods';
+
 const Dogs = () => {
-  const [responseData, setResponseData] = useState([]); // Agrega el estado para la respuesta de axios
-  const [responseStatus, setResponseStatus] = useState(''); // Agrega el estado para la respuesta de axios
-  const [responseMessage, setResponseMessage] = useState(''); // Agrega el estado para la respuesta de axios
+  // Estados para manejar los datos
+  const [responseData, setResponseData] = useState([]);
+  const [responseStatus, setResponseStatus] = useState('');
+  const [responseMessage, setResponseMessage] = useState('');
   const [isLoading, setIsLoading] = useState(true);
   const [favoritePets, setFavoritePets] = useState([]);
 
+  // Función para cargar los datos de las mascotas
   async function fetchData() {
     try {
-      await GetPets().then(checking => {
+      await GetPets().then((checking) => {
         setResponseData(checking.data);
         setResponseStatus(checking.response_status);
         setResponseMessage(checking.response_message);
-        setIsLoading(false)
+        setIsLoading(false);
       });
     } catch (error) {
       console.error('Error al realizar la solicitud:', error.message);
     }
+  }
 
-  }
+  // Efecto que se ejecuta cuando se carga el componente
   useEffect(() => {
-  if (localStorage.getItem('type') !== 'adopter'){
-    window.location.href = "/profile";
-  }
-   
-  fetchData(); // Llama a la función fetchData para obtener los datos
+    // Verificar el tipo de usuario
+    if (localStorage.getItem('type') !== 'adopter') {
+      window.location.href = '/profile';
+    }
+
+    fetchData(); // Llama a la función fetchData para obtener los datos
   }, []);
 
+  // Función para agregar o quitar una mascota a favoritos
   const toggleFavorite = (id_pet) => {
     if (favoritePets.includes(id_pet)) {
       setFavoritePets(favoritePets.filter((id) => id !== id_pet));
@@ -45,7 +51,8 @@ const Dogs = () => {
     }
   };
 
-  while (isLoading){
+  // Renderiza un spinner mientras se cargan los datos
+  if (isLoading) {
     return (
       <>
         <NavBar />
@@ -55,76 +62,78 @@ const Dogs = () => {
               <Titulo>DESCUBRÍ A TU MEJOR AMIGO</Titulo>
             </Flip>
             <Fade>
-              <Subtitulo><Phrase /></Subtitulo>
+              <Subtitulo>
+                <Phrase />
+              </Subtitulo>
             </Fade>
           </Lamina>
-  
+
           <Slide bottom>
             <Imagenes>
-              <Imagen src="https://static.wixstatic.com/media/d33ee0_31664be5fc3541a8bb6405ff1f3e28c8~mv2.png/v1/fill/w_560,h_190,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/perritos%20asomados%202.png" alt="" />
+              <Imagen
+                src="https://static.wixstatic.com/media/d33ee0_31664be5fc3541a8bb6405ff1f3e28c8~mv2.png/v1/fill/w_560,h_190,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/perritos%20asomados%202.png"
+                alt=""
+              />
             </Imagenes>
           </Slide>
-  
-          {/* <slide bottom>
-            <Filters>
-            </Filters>
-          </slide> */}
         </Principio>
-        <Grid style={{textAlign:'center'}}>
-          
+        <Grid style={{ textAlign: 'center' }}>
           No hay perros que cumplan tus requisitos
-          
         </Grid>
-        
       </>
     );
   }
-    return (
-      <>
-        <NavBar />
-        <Principio>
-          <Lamina>
-            <Flip top>
-              <Titulo>DESCUBRÍ A TU MEJOR AMIGO</Titulo>
-            </Flip>
-            <Fade>
-              <Subtitulo><Phrase /></Subtitulo>
-            </Fade>
-          </Lamina>
-  
-          <Slide bottom>
-            <Imagenes>
-              <Imagen src="https://static.wixstatic.com/media/d33ee0_31664be5fc3541a8bb6405ff1f3e28c8~mv2.png/v1/fill/w_560,h_190,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/perritos%20asomados%202.png" alt="" />
-            </Imagenes>
-          </Slide>
-  
-          <slide bottom>
-            <Filters>
-            </Filters>
-          </slide>
-        </Principio>
-  
-        
-        <Grid>
-          
-          {responseData?.map((item) => ( // elemento a lodear
-            <Container key={item.id}>
-              <Zoom>
-                <Cards
-                  id_pet={`${item.id_pet}`}
-                  foto={`${item.image_path}`}
-                  nombre={`${item.name}`}
-                  titulo={`${item.name} es un perro muy feliz :D`}
-                  descripcion={`${item.name} nació el ${item.birth_date}.`}
-                />
-              </Zoom>
-            </Container>
-          ))}
-        </Grid>
-      </>
-    );
-  
-  
+
+  // Renderiza los datos de las mascotas una vez cargados
+  return (
+    <>
+      <NavBar />
+      <Principio>
+        <Lamina>
+          <Flip top>
+            <Titulo>DESCUBRÍ A TU MEJOR AMIGO</Titulo>
+          </Flip>
+          <Fade>
+            <Subtitulo>
+              <Phrase />
+            </Subtitulo>
+          </Fade>
+        </Lamina>
+
+        <Slide bottom>
+          <Imagenes>
+            <Imagen
+              src="https://static.wixstatic.com/media/d33ee0_31664be5fc3541a8bb6405ff1f3e28c8~mv2.png/v1/fill/w_560,h_190,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/perritos%20asomados%202.png"
+              alt=""
+            />
+          </Imagenes>
+        </Slide>
+
+        <Slide bottom>
+          <Filters>{/* Aquí puedes agregar los componentes de filtros */}</Filters>
+        </Slide>
+      </Principio>
+
+      <Grid>
+        {responseData?.map((item) => (
+          <Container key={item.id}>
+            <Zoom>
+              <Cards
+                id_pet={item.id_pet}
+                foto={item.image_path}
+                nombre={item.name}
+                titulo={`${item.name} es un perro muy feliz :D`}
+                descripcion={`${item.name} nació el ${item.birth_date}.`}
+                onFavoriteToggle={() => toggleFavorite(item.id_pet)}
+                isFavorite={favoritePets.includes(item.id_pet)}
+              />
+            </Zoom>
+          </Container>
+        ))}
+      </Grid>
+    </>
+  );
+};
 
     // return (
   //   <div>
@@ -137,8 +146,6 @@ const Dogs = () => {
       
   //   </div>
   // );
-
-}
 
 export default Dogs
 
