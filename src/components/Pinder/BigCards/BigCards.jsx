@@ -15,7 +15,7 @@ const Details = () => {
   useEffect(() => {
     async function fetchData() {
       try {
-        const response = await axios.get('https://hwamqnsad7.us-east-2.awsapprunner.com/pets/all');
+        const response = await axios.get('http://localhost:5000/pets/all');
         setResponseData(response.data);
       } catch (error) {
         console.error('Error al realizar la solicitud:', error.message);
@@ -35,7 +35,7 @@ useEffect(() => {
     id_status: '',
   };
 
-  axios.put('https://hwamqnsad7.us-east-2.awsapprunner.com/adopter/match', estado)
+  axios.put('https://localhost:5000/adopter/match', estado)
     .then(response => {
       console.log('Respuesta del servidor:', response.data);
       console.log('Estado actualizado con éxito.');
@@ -54,7 +54,7 @@ useEffect(() => {
     useEffect(() => {
         async function fetchData() {
         try {
-            const response = await axios.get(`https://hwamqnsad7.us-east-2.awsapprunner.com/pet/${id}`);
+            const response = await axios.get(`http://localhost:5000/pet/${id}`);
             setResponseData(response.data);
         } catch (error) {
             console.error('Error al realizar la solicitud:', error.message);
@@ -72,7 +72,7 @@ useEffect(() => {
     useEffect(() => {
     async function fetchData() {
       try {
-        const response = await axios.get('https://hwamqnsad7.us-east-2.awsapprunner.com/pets/info/colors'); 
+        const response = await axios.get('http://localhost:5000/pets/info/colors'); 
         setresponseDataColors(response.data);
       } catch (error) {
         console.error('Error al realizar la solicitud:', error.message);
