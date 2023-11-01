@@ -78,34 +78,30 @@ const StyledHr = styled.hr`
 function AdopterProfile() {
   const [isConfirmationOpen, setIsConfirmationOpen] = useState(false);
   const [isAccountDeleted, setIsAccountDeleted] = useState(false);
-  const [isEditing, setIsEditing] = useState(false); // Agregamos un estado para controlar la edición
+  const [isEditing, setIsEditing] = useState(false);
 
   const openConfirmation = () => {
     setIsConfirmationOpen(true);
+  };
 
-};
-
-const closeConfirmation = () => {
+  const closeConfirmation = () => {
     setIsConfirmationOpen(false);
-};  
-const handleDeleteAccount = async () => {
-  // inicio de flag
-  // iniciar loder
-  try {
+  };
+
+  const handleDeleteAccount = async () => {
+    try {
       // Hacer una solicitud POST al servidor Flask para cerrar la cuenta
-      await axios.post(`/closeaccount/1`); 
+      await axios.post(`/closeaccount/1`);
       setIsAccountDeleted(true);
       closeConfirmation();
-  } catch (error) {
+    } catch (error) {
       console.error(error);
-  }
-  // flag down
-  // cerrar loder
-};
-const closeSuccessDialog = () => {
-  setIsAccountDeleted(false);
-};
+    }
+  };
 
+  const closeSuccessDialog = () => {
+    setIsAccountDeleted(false);
+  };
 
   const inputStyles = {
     width: '100%',
@@ -113,9 +109,8 @@ const closeSuccessDialog = () => {
       width: '100%',
     },
     '& .MuiInputBase-input': {
-      fontSize: '16px', // Tamaño de fuente
-      padding: '10px', // Espaciado interno
-      // Agrega otros estilos según tu preferencia
+      fontSize: '16px',
+      padding: '10px',
     },
   };
 
@@ -137,11 +132,10 @@ const closeSuccessDialog = () => {
     const fetchData = async () => {
       try {
         const response = await GetProfile();
-        if (response.data['status'] !== 200){
+        if (response.data['status'] !== 200) {
           window.location.href = "/login";
         }
-        
-        // Update the user state with the fetched data
+
         setUser({
           name: response.data.response['name'],
           username: response.data.response['username'],
@@ -210,7 +204,7 @@ const closeSuccessDialog = () => {
                       ),
                     }}
                     value={user.username}
-                    disabled={!isEditing} // Habilita o deshabilita según el estado de edición
+                    disabled={!isEditing}
                     sx={inputStyles}
                   />
                 </FormControl>
@@ -229,7 +223,7 @@ const closeSuccessDialog = () => {
                       ),
                     }}
                     value={user.Type_document}
-                    disabled={!isEditing} // Habilita o deshabilita según el estado de edición
+                    disabled={!isEditing}
                     sx={inputStyles}
                   />
                 </FormControl>
@@ -248,7 +242,7 @@ const closeSuccessDialog = () => {
                       ),
                     }}
                     value={user.street}
-                    disabled={!isEditing} // Habilita o deshabilita según el estado de edición
+                    disabled={!isEditing}
                     sx={inputStyles}
                   />
                 </FormControl>
@@ -319,22 +313,20 @@ const closeSuccessDialog = () => {
             </Grid>
 
             <div style={{ marginTop: '40px' }}>
-              {isEditing ? ( // Mostrar botones de guardar o editar según el estado de edición
-                <>
-                  <Button
-                    variant="contained"
-                    onClick={() => {
-                      setIsEditing(false); // Guardar cambios y deshabilitar la edición
-                    }}
-                  >
-                    Guardar
-                  </Button>
-                </>
+              {isEditing ? (
+                <Button
+                  variant="contained"
+                  onClick={() => {
+                    setIsEditing(false);
+                  }}
+                >
+                  Guardar
+                </Button>
               ) : (
                 <Button
                   variant="contained"
                   onClick={() => {
-                    setIsEditing(true); // Habilita la edición al hacer clic
+                    setIsEditing(true);
                   }}
                 >
                   Editar perfil
