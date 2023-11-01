@@ -78,44 +78,47 @@ const StyledHr = styled.hr`
 function AdopterProfile() {
   const [isConfirmationOpen, setIsConfirmationOpen] = useState(false);
   const [isAccountDeleted, setIsAccountDeleted] = useState(false);
-  const [isEditing, setIsEditing] = useState(false); // Estado para habilitar la edición
+  const [isEditing, setIsEditing] = useState(false); // Agregamos un estado para controlar la edición
 
-  // Función para cerrar el cuadro de confirmación
-  const closeConfirmation = () => {
+  const openConfirmation = () => {
+    setIsConfirmationOpen(true);
+
+};
+
+const closeConfirmation = () => {
     setIsConfirmationOpen(false);
-  };
-
-  // Función para eliminar la cuenta
-  const handleDeleteAccount = async () => {
-    // Puedes implementar lógica para eliminar la cuenta aquí
-    // Asegúrate de manejar errores y resultados adecuadamente
-    try {
-      await axios.post(`/closeaccount/1`);
+};  
+const handleDeleteAccount = async () => {
+  // inicio de flag
+  // iniciar loder
+  try {
+      // Hacer una solicitud POST al servidor Flask para cerrar la cuenta
+      await axios.post(`/closeaccount/1`); 
       setIsAccountDeleted(true);
       closeConfirmation();
   } catch (error) {
       console.error(error);
-    }
-  };
+  }
+  // flag down
+  // cerrar loder
+};
+const closeSuccessDialog = () => {
+  setIsAccountDeleted(false);
+};
 
-  // Función para cerrar el diálogo de éxito
-  const closeSuccessDialog = () => {
-    setIsAccountDeleted(false);
-  };
 
-  // Estilos para los campos de entrada de datos
   const inputStyles = {
     width: '100%',
     '& .MuiInputBase-root': {
       width: '100%',
     },
     '& .MuiInputBase-input': {
-      fontSize: '16px',
-      padding: '10px',
+      fontSize: '16px', // Tamaño de fuente
+      padding: '10px', // Espaciado interno
+      // Agrega otros estilos según tu preferencia
     },
   };
 
-  // Estado para almacenar los datos del usuario
   const [user, setUser] = useState({
     name: '',
     username: '',
@@ -130,7 +133,6 @@ function AdopterProfile() {
     Edad: '',
   });
 
-  // Función para obtener y cargar los datos del usuario
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -139,7 +141,7 @@ function AdopterProfile() {
           window.location.href = "/login";
         }
         
-        // Actualiza el estado del usuario con los datos obtenidos
+        // Update the user state with the fetched data
         setUser({
           name: response.data.response['name'],
           username: response.data.response['username'],
@@ -151,20 +153,13 @@ function AdopterProfile() {
           birthdate: response.data.response['birth_date'],
           phone_number: response.data.response['phone_number'],
         });
+        console.log(response);
       } catch (error) {
         console.error(error);
       }
     };
     fetchData();
   }, []);
-
-  // Función para guardar los cambios en el perfil
-  const handleSaveProfile = async () => {
-    // Puedes enviar los datos editados al servidor aquí y manejar la lógica correspondiente
-
-    // Después de guardar, deshabilita la edición
-    setIsEditing(false);
-  };
 
   return (
     <>
@@ -215,10 +210,7 @@ function AdopterProfile() {
                       ),
                     }}
                     value={user.username}
-                    disabled={!isEditing}
-                    onChange={(e) => {
-                      setUser({ ...user, username: e.target.value });
-                    }}
+                    disabled={!isEditing} // Habilita o deshabilita según el estado de edición
                     sx={inputStyles}
                   />
                 </FormControl>
@@ -237,10 +229,7 @@ function AdopterProfile() {
                       ),
                     }}
                     value={user.Type_document}
-                    disabled={!isEditing}
-                    onChange={(e) => {
-                      setUser({ ...user, Type_document: e.target.value });
-                    }}
+                    disabled={!isEditing} // Habilita o deshabilita según el estado de edición
                     sx={inputStyles}
                   />
                 </FormControl>
@@ -259,10 +248,7 @@ function AdopterProfile() {
                       ),
                     }}
                     value={user.street}
-                    disabled={!isEditing}
-                    onChange={(e) => {
-                      setUser({ ...user, street: e.target.value });
-                    }}
+                    disabled={!isEditing} // Habilita o deshabilita según el estado de edición
                     sx={inputStyles}
                   />
                 </FormControl>
@@ -282,9 +268,6 @@ function AdopterProfile() {
                     }}
                     value={user.province}
                     disabled={!isEditing}
-                    onChange={(e) => {
-                      setUser({ ...user, province: e.target.value });
-                    }}
                     sx={inputStyles}
                   />
                 </FormControl>
@@ -310,9 +293,6 @@ function AdopterProfile() {
                     }}
                     value={user.phone_number}
                     disabled={!isEditing}
-                    onChange={(e) => {
-                      setUser({ ...user, phone_number: e.target.value });
-                    }}
                     sx={inputStyles}
                   />
                 </FormControl>
@@ -359,8 +339,6 @@ function AdopterProfile() {
                 >
                   Editar perfil
                 </Button>
-              ) : (
-                <Button onClick={handleSaveProfile}>Guardar</Button>
               )}
             </div>
           </Grid>
