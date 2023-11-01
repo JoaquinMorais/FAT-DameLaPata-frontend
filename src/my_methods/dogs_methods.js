@@ -57,3 +57,17 @@ export async function GetSinglePet(id) {
   console.log(response);
   return response;
 }
+
+// Función para cambiar el estado de una mascota a 8 (o el estado que represente "adoptado" o "encontró un hogar").
+export async function ChangePetStatusToAdopted(idPet) {
+  try {
+    const response = await axios.put(`pet/${idPet}/status`, { newStatus: 8 }); // Cambiar "8" al estado deseado
+    if (response.status === 200) {
+      return response_react(response.status, 'Estado de la mascota actualizado con éxito');
+    } else {
+      return response_react(response.status, 'Error al actualizar el estado de la mascota');
+    }
+  } catch (error) {
+    return response_react(null, 'Ocurrió un error al actualizar el estado de la mascota', error);
+  }
+}

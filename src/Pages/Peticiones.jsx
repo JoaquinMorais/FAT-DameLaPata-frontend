@@ -29,7 +29,7 @@ const Peticiones = () => {
 
   const filterByState = (stateId) => {
     if (responseData && responseData.response && Array.isArray(responseData.response)) {
-      return responseData.response.filter((item) => item.id_state === stateId);
+      return responseData.response.filter((item) => item.id_state === 8);
     } else {
       return [];
     }

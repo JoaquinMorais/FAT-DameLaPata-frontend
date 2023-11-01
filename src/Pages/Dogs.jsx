@@ -8,7 +8,7 @@ import Slide from 'react-reveal/Slide';
 import Zoom from 'react-reveal/Zoom';
 import NavBar from '../components/NavBar/NavBar';
 import Filters from '../components/Dogs/Filters/Filters';
-import { GetPets } from '../my_methods/dogs_methods';
+import { GetPets, ChangePetStatusToAdopted } from '../my_methods/dogs_methods';
 
 const Dogs = () => {
   // Estados para manejar los datos
@@ -17,6 +17,7 @@ const Dogs = () => {
   const [responseMessage, setResponseMessage] = useState('');
   const [isLoading, setIsLoading] = useState(true);
   const [favoritePets, setFavoritePets] = useState([]);
+  const [updatedPets, setUpdatedPets] = useState([]);
 
   // Función para cargar los datos de las mascotas
   async function fetchData() {
@@ -49,7 +50,18 @@ const Dogs = () => {
     } else {
       setFavoritePets([...favoritePets, id_pet]);
     }
-  };
+  
+    // Cambiar el estado de la mascota al número 8 (o el estado deseado)
+    ChangePetStatusToAdopted(id_pet)
+      .then((response) => {
+        // Manejar la respuesta, mostrar un mensaje de éxito o error si es necesario
+        console.log(response.response_message);
+      })
+      .catch((error) => {
+        // Manejar errores si los hay
+        console.error('Error al cambiar el estado de la mascota:', error);
+      });
+  };  
 
   // Renderiza un spinner mientras se cargan los datos
   if (isLoading) {
@@ -135,19 +147,8 @@ const Dogs = () => {
   );
 };
 
-    // return (
-  //   <div>
-  //     {loading ? (SPINNER) : (
+export default Dogs;
 
-  //         {responseData.length > 0  responseData?.map((item) => (
-  //           item
-  //         ))}
-  //               )  }
-      
-  //   </div>
-  // );
-
-export default Dogs
 
 const Principio = styled.div`
   background-image: url('https://s3.amazonaws.com/arc-wordpress-client-uploads/infobae-wp/wp-content/uploads/2018/09/11124552/GettyImages-544673512.jpg');
