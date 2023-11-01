@@ -1,124 +1,144 @@
-import React, { useEffect, useState } from 'react'; 
-import CardsPets from '../components/Dogs/Cards/CardsPets';
+import React, { useEffect, useState } from 'react';
 import { styled } from 'styled-components';
 import Flip from 'react-reveal/Flip';
-import Fade from 'react-reveal/Fade';
-import Slide from 'react-reveal/Slide';
 import Zoom from 'react-reveal/Zoom';
 import NavBar from '../components/NavBar/NavBar';
+import CardsPets from '../components/Dogs/Cards/CardsPets';
 import { getUserDogs } from '../my_methods/salo_methods';
 
 const Peticiones = () => {
   const [responseData, setResponseData] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
+  const [favoritePets, setFavoritePets] = useState([]);
 
   useEffect(() => {
-    getUserDogs().then(response => {
-      setResponseData(response.data.response);
-      setIsLoading(false);      
-    })
-    .catch(error => {
-      console.error(error);
-    });
+    getUserDogs()
+      .then((response) => {
+        setResponseData(response.data.response);
+        setIsLoading(false);
+  
+        // Filtra perros favoritos y actualiza el estado
+        const favoriteDogs = filterByState(8); // 8 es el estado para favoritos
+        setFavoritePets(favoriteDogs);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
   }, []);
-
   
 
   const filterByState = (stateId) => {
     if (responseData && responseData.response && Array.isArray(responseData.response)) {
-      return responseData.response.filter(item => item.id_state === stateId);
+      return responseData.response.filter((item) => item.id_state === stateId);
     } else {
       return [];
     }
-  }    
+  };
 
   // if (responseData?.status === 200)
-    console.log(responseData)
+  console.log(responseData);
 
-    return (
-      <>
-        <NavBar />
-        <Principio>
-          <Lamina>
-            <Flip top>
-              <Titulo>CON ¡MATCH!</Titulo>
-            </Flip>
-            <Hr />
-          </Lamina>
-        </Principio>
-        <Grid>
-          {filterByState(2).map((item) => (
-            <Container key={item.pet.id_pet}>
-              <Zoom>
-                <CardsPets
-                  id_pet={`${item.id_pet}`}
-                  foto={`${item.pet.image_path}`}
-                  nombre={`${item.pet.name}`}
-                  titulo={`${item.pet.name} es un perro muy feliz :D`}
-                  descripcion={`${item.pet.name} nació el ${item.pet.birth_date}.`}
-                />
-              </Zoom>
-            </Container>
-          ))}
-        </Grid>
-        <Principio>
-          <Lamina>
-            <Flip top>
-              <Titulo>SOLICITADOS</Titulo>
-            </Flip>
-            <Hr />
-          </Lamina>
-        </Principio>
-        <Grid>
-          {filterByState(3).map((item) => (
-            <Container key={item.pet.id_pet}>
-              <Zoom>
-                <CardsPets
-                  id_pet={`${item.pet.id_pet}`}
-                  foto={`${item.pet.image_path}`}
-                  nombre={`${item.pet.name}`}
-                  titulo={`${item.pet.name} es un perro muy feliz :D`}
-                  descripcion={`${item.pet.name} nació el ${item.pet.birth_date}.`}
-                />
-              </Zoom>
-            </Container>
-          ))}
-        </Grid>
-        <Principio>
-          <Lamina>
-            <Flip top>
-              <Titulo>ADOPTADOS</Titulo>
-            </Flip>
-            <Hr />
-          </Lamina>
-        </Principio>
-        <Grid>
-          {filterByState(1).map((item) => (
-            <Container key={item.id}>
-              <Zoom>
-                <CardsPets
-                  id_pet={`${item.id_pet}`}
-                  foto={`${item.pet.image_path}`}
-                  nombre={`${item.pet.name}`}
-                  titulo={`${item.pet.name} es un perro muy feliz :D`}
-                  descripcion={`${item.pet.name} nació el ${item.pet.birth_date}.`}
-                />
-              </Zoom>
-            </Container>
-          ))}
-        </Grid>
+  return (
+    <>
+      <NavBar />
+      <Section>
+        <Container>
+          <Flip top>
+            <Title>CON ¡MATCH!</Title>
+          </Flip>
+          <Hr />
+        </Container>
+      </Section>
+      <Grid>
+        {filterByState(2).map((item) => (
+          <CardContainer key={item.pet.id_pet}>
+            <Zoom>
+              <CardsPets
+                id_pet={`${item.id_pet}`}
+                foto={`${item.pet.image_path}`}
+                nombre={`${item.pet.name}`}
+                titulo={`${item.pet.name} es un perro muy feliz :D`}
+                descripcion={`${item.pet.name} nació el ${item.pet.birth_date}.`}
+              />
+            </Zoom>
+          </CardContainer>
+        ))}
+      </Grid>
 
-        <Principio>
+      <Section>
+        <Container>
+          <Flip top>
+            <Title>SOLICITADOS</Title>
+          </Flip>
+          <Hr />
+        </Container>
+      </Section>
+      <Grid>
+        {filterByState(3).map((item) => (
+          <CardContainer key={item.pet.id_pet}>
+            <Zoom>
+              <CardsPets
+                id_pet={`${item.id_pet}`}
+                foto={`${item.pet.image_path}`}
+                nombre={`${item.pet.name}`}
+                titulo={`${item.pet.name} es un perro muy feliz :D`}
+                descripcion={`${item.pet.name} nació el ${item.pet.birth_date}.`}
+              />
+            </Zoom>
+          </CardContainer>
+        ))}
+      </Grid>
 
-        <Lamina>
-            <Flip top>
-              <Titulo>FAVORITOS</Titulo>
-            </Flip>
-            <Hr />
-          </Lamina>
-        </Principio>
-      </>
-    );
+      <Section>
+        <Container>
+          <Flip top>
+            <Title>ADOPTADOS</Title>
+          </Flip>
+          <Hr />
+        </Container>
+      </Section>
+      <Grid>
+        {filterByState(1).map((item) => (
+          <CardContainer key={item.id}>
+            <Zoom>
+              <CardsPets
+                id_pet={`${item.id_pet}`}
+                foto={`${item.pet.image_path}`}
+                nombre={`${item.pet.name}`}
+                titulo={`${item.pet.name} es un perro muy feliz :D`}
+                descripcion={`${item.pet.name} nació el ${item.pet.birth_date}.`}
+              />
+            </Zoom>
+          </CardContainer>
+        ))}
+
+
+      </Grid>
+      <Section>
+        <Container>
+          <Flip top>
+            <Title>FAVORITOS</Title>
+          </Flip>
+          <Hr />
+        </Container>
+      </Section>
+      <Grid>
+        {favoritePets.map((item) => (
+          <CardContainer key={item.pet.id_pet}>
+            <Zoom>
+              <CardsPets
+                id_pet={`${item.id_pet}`}
+                foto={`${item.pet.image_path}`}
+                nombre={`${item.pet.name}`}
+                titulo={`${item.pet.name} es un perro muy feliz :D`}
+                descripcion={`${item.pet.name} nació el ${item.pet.birth_date}.`}
+              />
+            </Zoom>
+          </CardContainer>
+        ))}
+      </Grid>
+    </>
+  );
   // } else {
   //   return (
   //     <>
@@ -141,12 +161,12 @@ const Peticiones = () => {
 
 export default Peticiones;
 
-const Principio = styled.div`
+const Section = styled.div`
   width: 100%;
   height: 40vh;
   background-position: top center;
 `;
-const Lamina = styled.div`
+const Container = styled.div`
   width: 100%;
   height: 100%;
   display: flex;
@@ -154,7 +174,7 @@ const Lamina = styled.div`
   justify-content: center;
   align-items: center;
 `;
-const Titulo = styled.h1`
+const Title = styled.h1`
   color: black;
   font-size: 40px;
   font-weight: bold;
@@ -168,35 +188,6 @@ const Hr = styled.hr`
   width: 75%;
   border-top: 3px solid black;
 `;
-const Imagenes = styled.div`
-  width: 100%;
-  margin-top: -128px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  @media (max-width: 425px) {
-    height: auto;
-    width: 290px;
-  }
-`;
-const Imagen = styled.img`
-  @media (max-width: 570px) {
-    width: 500px;
-    margin-top: 13px;
-  }
-  @media (max-width: 500px) {
-    width: 400px;
-    margin-top: 36px;
-  }
-  @media (max-width: 400px) {
-    width: 300px;
-    margin-top: 59px;
-  }
-  @media (max-width: 300px) {
-    width: 200px;
-    margin-top: 82px;
-  }
-`;
 const Grid = styled.div`
   width: 80%;
   margin: -50px auto 150px auto;
@@ -204,7 +195,7 @@ const Grid = styled.div`
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   gap: 20px;
 `;
-const Container = styled.div`
+const CardContainer = styled.div`
   width: 100%;
   transition: transform 0.2s ease-in-out;
   &:hover {
