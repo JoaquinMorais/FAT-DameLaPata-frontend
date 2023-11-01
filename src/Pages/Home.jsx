@@ -22,7 +22,7 @@ function Home() {
         // Render the content once loading is complete
         <>
           <Section />
-          <Section_2 />
+          {/* <Section_2 /> */}
           <Section_3 />
           <Sponsor />
         </>

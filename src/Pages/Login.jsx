@@ -7,7 +7,6 @@ import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
 import styled from 'styled-components';
-import NavBar from '../components/NavBar/NavBar';
 import LoaderComp from '../components/Loader/Loader';
 import { SendLogin, LogOut } from '../my_methods/session_methods';
 import { Alert } from '@mui/material';

@@ -80,28 +80,33 @@ function AdopterProfile() {
   const [isAccountDeleted, setIsAccountDeleted] = useState(false);
   const [isEditing, setIsEditing] = useState(false); // Agregamos un estado para controlar la edición
 
-  const closeConfirmation = () => {
-    setIsConfirmationOpen(false);
-  };
+  const openConfirmation = () => {
+    setIsConfirmationOpen(true);
 
-  const handleDeleteAccount = async () => {
-    // Inicio de flag
-    // Iniciar loader
-    try {
+};
+
+const closeConfirmation = () => {
+    setIsConfirmationOpen(false);
+};  
+const handleDeleteAccount = async () => {
+  // inicio de flag
+  // iniciar loder
+  try {
       // Hacer una solicitud POST al servidor Flask para cerrar la cuenta
-      await axios.post(`/closeaccount/1`);
+      await axios.post(`/closeaccount/1`); 
       setIsAccountDeleted(true);
       closeConfirmation();
-    } catch (error) {
+  } catch (error) {
       console.error(error);
-    }
-    // Flag down
-    // Cerrar loader
-  };
+  }
+  // flag down
+  // cerrar loder
+};
+const closeSuccessDialog = () => {
+  setIsAccountDeleted(false);
+};
 
-  const closeSuccessDialog = () => {
-    setIsAccountDeleted(false);
-  };
+
   const inputStyles = {
     width: '100%',
     '& .MuiInputBase-root': {
@@ -132,41 +137,29 @@ function AdopterProfile() {
     const fetchData = async () => {
       try {
         const response = await GetProfile();
-
-        if (response.data['status'] !== 200) {
-          window.location.href = '/login';
+        if (response.data['status'] !== 200){
+          window.location.href = "/login";
         }
-        if (response.data.response['type'] !== 'user') {
-          window.location.href = '/profile';
-        }
+        
         // Update the user state with the fetched data
         setUser({
           name: response.data.response['name'],
           username: response.data.response['username'],
           surname: response.data.response['surname'],
           email: response.data.response['email'],
-          city: response.data.response.address['district'],
+          location: response.data.response.address['district'],
           street: response.data.response.address['street'],
-          province: response.data.response.address['location'],
+          district: response.data.response.address['location'],
           birthdate: response.data.response['birth_date'],
           phone_number: response.data.response['phone_number'],
         });
-        console.log(response.data.response['address']);
+        console.log(response);
       } catch (error) {
         console.error(error);
       }
     };
     fetchData();
   }, []);
-
-  // Función para guardar los cambios en el perfil
-  const handleSaveProfile = async () => {
-    // Aquí puedes enviar los datos editados al servidor, por ejemplo, a través de una solicitud POST
-    // Asegúrate de validar y procesar los datos antes de enviarlos al servidor
-
-    // Después de guardar, deshabilita la edición
-    setIsEditing(false);
-  };
 
   return (
     <>
@@ -218,9 +211,6 @@ function AdopterProfile() {
                     }}
                     value={user.username}
                     disabled={!isEditing} // Habilita o deshabilita según el estado de edición
-                    onChange={(e) => {
-                      setUser({ ...user, username: e.target.value });
-                    }}
                     sx={inputStyles}
                   />
                 </FormControl>
@@ -240,9 +230,6 @@ function AdopterProfile() {
                     }}
                     value={user.Type_document}
                     disabled={!isEditing} // Habilita o deshabilita según el estado de edición
-                    onChange={(e) => {
-                      setUser({ ...user, Type_document: e.target.value });
-                    }}
                     sx={inputStyles}
                   />
                 </FormControl>
@@ -262,9 +249,6 @@ function AdopterProfile() {
                     }}
                     value={user.street}
                     disabled={!isEditing} // Habilita o deshabilita según el estado de edición
-                    onChange={(e) => {
-                      setUser({ ...user, street: e.target.value });
-                    }}
                     sx={inputStyles}
                   />
                 </FormControl>
@@ -282,11 +266,8 @@ function AdopterProfile() {
                         </InputAdornment>
                       ),
                     }}
-                    value={user.province} 
-                    disabled={!isEditing} 
-                    onChange={(e) => {
-                      setUser({ ...user, province: e.target.value }); 
-                    }}
+                    value={user.province}
+                    disabled={!isEditing}
                     sx={inputStyles}
                   />
                 </FormControl>
@@ -310,10 +291,8 @@ function AdopterProfile() {
                         </InputAdornment>
                       ),
                     }}
-                    value={user.phone_number}// Habilita o deshabilita según el estado de edición
-                    onChange={(e) => {
-                      setUser({ ...user, phone_number: e.target.value });
-                    }}
+                    value={user.phone_number}
+                    disabled={!isEditing}
                     sx={inputStyles}
                   />
                 </FormControl>
@@ -340,15 +319,27 @@ function AdopterProfile() {
             </Grid>
 
             <div style={{ marginTop: '40px' }}>
-              <Button
-                variant="contained"
-                onClick={() => {
-                  setIsEditing(true); // Habilita la edición al hacer clic
-                }}
-              >
-                Editar perfil
-              </Button>
-              <Button onClick={handleSaveProfile}>Guardar</Button>
+              {isEditing ? ( // Mostrar botones de guardar o editar según el estado de edición
+                <>
+                  <Button
+                    variant="contained"
+                    onClick={() => {
+                      setIsEditing(false); // Guardar cambios y deshabilitar la edición
+                    }}
+                  >
+                    Guardar
+                  </Button>
+                </>
+              ) : (
+                <Button
+                  variant="contained"
+                  onClick={() => {
+                    setIsEditing(true); // Habilita la edición al hacer clic
+                  }}
+                >
+                  Editar perfil
+                </Button>
+              )}
             </div>
           </Grid>
         </CenteredContainer>
