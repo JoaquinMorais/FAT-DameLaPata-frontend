@@ -23,7 +23,6 @@ function Mismascotas_Sh() {
           setResponseMessage(checking.response_message);
           setIsLoading(false);
         });
-        console.log('response Data:' + responseData);
       } catch (error) {
         console.error('Error al realizar la solicitud:', error.message);
       }
@@ -45,18 +44,31 @@ function Mismascotas_Sh() {
           </Lamina>
         </Principio>
         <Grid container spacing={2}>
-          <Zoom>
-            {responseData.map((item) => (
-              <Grid item xs={12} key={item.id}>
-                <CardPets
-                  imageUrl={`${item.image_path}`}
-                  title={`${item.name}`}
-                  descr={`${item.name} nació el ${item.birth_date}.`}
-                />
-              </Grid>
-            ))}
-          </Zoom>
+          {responseData.map((item) => (
+            <Grid item xs={12} sm={6} md={4} key={item.id}>
+              <CardPets
+                imageUrl={`${item.image_path}`}
+                title={`${item.name}`}
+                descr={`${item.name} nació el ${item.birth_date}.`}
+              />
+            </Grid>
+          ))}
         </Grid>
+        <Lamina>
+          <Flip top>
+            <Titulo>MATCHEADO</Titulo>
+          </Flip>
+          <Hr />
+          <Grid container spacing={2}>
+            <Grid item xs={12} sm={6} md={4}>
+              <CardPets
+                title='EEOOOOOOOOOOOOOOO'
+                imageUrl='https://hips.hearstapps.com/hmg-prod/images/gettyimages-695480884-64f8446a4e85d.jpg?crop=1xw:0.84375xh;center,top&resize=1200:*'
+                descr='AGUANTE EL S23 GRANDE SAMSUNG'
+              />
+            </Grid>
+          </Grid>
+        </Lamina>
       </>
     );
   } else {
@@ -65,6 +77,7 @@ function Mismascotas_Sh() {
 }
 
 export default Mismascotas_Sh;
+
 
 const Principio = styled.div`
   width: 100%;

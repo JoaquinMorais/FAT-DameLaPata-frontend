@@ -4,6 +4,7 @@ import Button from '../Button';
 import { Fade } from 'react-reveal';
 import { Slide } from 'react-reveal';
 import videofondo from '../../../../images/videos/videofondo.mp4';
+import { Link } from 'react-router-dom';
 
 function Section() {
   return (
@@ -22,8 +23,12 @@ function Section() {
             <Container>
               <Slide bottom>
                 <ButtonContainer>
-                  <ButtonAdop src='/Images/pataa.jpg' />
-                  <ButtonText><a style={{color: 'white' }} href='/dogs'>ADOPTA</a></ButtonText>
+                  <Link to="/register" style={{ textDecoration: 'none' }}>
+                    <ButtonContainer>
+                      <ButtonAdop src='/Images/pataa.jpg' />
+                      <ButtonText style={{ color: 'white', fontWeight: 'bold' }}>INICIAR</ButtonText>
+                    </ButtonContainer>
+                  </Link>
                 </ButtonContainer>
               </Slide>
             </Container>
