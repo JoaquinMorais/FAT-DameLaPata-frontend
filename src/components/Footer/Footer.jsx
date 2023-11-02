@@ -2,6 +2,7 @@ import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
+import Grid from '@material-ui/core/Grid';
 import { FaFacebook, FaTwitter, FaInstagram } from 'react-icons/fa'; // Importa los íconos de redes sociales
 
 const useStyles = makeStyles((theme) => ({
@@ -10,26 +11,32 @@ const useStyles = makeStyles((theme) => ({
   },
   toolbar: {
     display: 'flex',
-    flexDirection: 'column', // Cambia la dirección de la columna en pantallas más pequeñas
-    alignItems: 'center', // Centra verticalmente el contenido
-    padding: '20px 0', // Aumenta el espacio vertical para una mayor altura en pantallas más pequeñas
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between', // Mover el contenido hacia los lados
+    padding: '20px 0',
+    marginLeft: '60px', // Agregar margen alrededor del contenido
+    marginRight: '60px',
   },
   messageContainer: {
-    display: 'flex', // Alinea los mensajes uno al lado del otro en pantallas grandes
-    flexWrap: 'wrap', // Salto de línea automático en pantallas pequeñas
-    justifyContent: 'center', // Centra horizontalmente los mensajes
+    display: 'flex',
+    alignItems: 'center',
+    marginBottom: '10px',
   },
   message: {
     color: 'white',
-    fontSize: '16px',
+    marginTop: '10px',
+    fontSize: '17px',
     fontFamily: 'cursive',
+    marginRight: '10px', // Separar el texto del contenido del icono
+  },
+  iconContainer: {
     display: 'flex',
     alignItems: 'center',
-    marginBottom: '10px', // Agrega margen inferior entre líneas de texto
   },
   icon: {
     fontSize: '24px',
-    margin: '0 25px', // Aumenta el margen derecho en pantallas más pequeñas
+    margin: '0 15px', // Separar más los iconos entre sí
     cursor: 'pointer',
   },
 }));
@@ -55,19 +62,13 @@ const Footer = () => {
       <Toolbar className={classes.toolbar}>
         <div className={classes.messageContainer}>
           <div className={classes.message}>
-            © 2023 Fundación Ruare. 
+            © 2023 Fundación Ruare. Todos los derechos reservados. Aporta tu granito de arena al mundo.
           </div>
-          <div className={classes.message}>
-            Todos los derechos reservados.
-          </div>
-          <div className={classes.message}>
-            Aporta tu granito de arena al mundo.
-          </div>
-          <div>
-            <FaFacebook className={classes.icon} onClick={redirectToFacebook} />
-            <FaTwitter className={classes.icon} onClick={redirectToTwitter} /> 
-            <FaInstagram className={classes.icon} onClick={redirectToInstagram} /> 
-          </div>
+        </div>
+        <div className={classes.iconContainer}>
+          <FaFacebook className={classes.icon} onClick={redirectToFacebook} />
+          <FaTwitter className={classes.icon} onClick={redirectToTwitter} />
+          <FaInstagram className={classes.icon} onClick={redirectToInstagram} />
         </div>
       </Toolbar>
     </AppBar>
