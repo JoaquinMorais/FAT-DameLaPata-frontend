@@ -16,6 +16,7 @@ function setDefaultNavigationArrays() {
 // Función para obtener elementos de la barra de navegación.
 export async function FetchNavbarItems() {
   try {
+    setDefaultNavigationArrays();
     if (localStorage.getItem('id') !== null) {
       if (localStorage.getItem('type') === 'adopter') {
         pages_array = ['Inicio', 'Quienes Somos', 'Adoptar', 'Peticiones'];
@@ -24,8 +25,6 @@ export async function FetchNavbarItems() {
         pages_array = ['Inicio', 'Quienes Somos', 'Publicar'];
         setting_array = ['Perfil del Refugio', 'Cerrar Sesion'];
       }
-    } else {
-      setDefaultNavigationArrays();
     }
   } catch {
     setDefaultNavigationArrays();
