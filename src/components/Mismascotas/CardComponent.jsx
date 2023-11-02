@@ -9,9 +9,8 @@ import GroupIcon from '@mui/icons-material/Group';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import Collapse from '@mui/material/Collapse';
 import { Link } from 'react-router-dom';
-import axios from 'axios';
 
-export default function CardPets({title, imageUrl, descr }) {
+export default function CardPets({id_pet, title, imageUrl, descr, num }) {
   const [expanded, setExpanded] = useState(false);
 
   const handleExpandClick = () => {
@@ -26,12 +25,11 @@ export default function CardPets({title, imageUrl, descr }) {
           height="240px"
           image={imageUrl}
           alt="Perro"
-          
         />
         <CardContent>
           <Typography color="text.primary" sx={{ fontSize: '20px' }}>
-            {title}
-          </Typography>
+          {title} - <span style={{ color: 'red' }}>{num} requests</span>
+            </Typography>
           <Typography variant="body2" color="text.secondary">
             Ver Detalles / Caracteristicas abajo
           </Typography>
@@ -45,7 +43,7 @@ export default function CardPets({title, imageUrl, descr }) {
             <ExpandMoreIcon sx={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-end' }} />
           </IconButton>
           <IconButton aria-label="delete" size="large">
-            <Link to="/solicitud">
+            <Link to={`/solicitud/${id_pet}`}>
               <GroupIcon />
             </Link>
           </IconButton>

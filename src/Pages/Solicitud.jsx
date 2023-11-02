@@ -3,31 +3,28 @@ import { styled } from 'styled-components';
 import Flip from 'react-reveal/Flip';
 import Zoom from 'react-reveal/Zoom';
 import NavBar from '../components/NavBar/NavBar';
-import axios from 'axios';
 import CardPerson from '../components/Mismascotas/CardPersona';
+import { GetRequests } from '../my_methods/dogs_methods';
+
 
 const Solicitud = () => {
   const [responseData, setResponseData] = useState(null);
-  const [requests, setRequests] = useState([]);
-  const [rejectedCards, setRejectedCards] = useState([]); // Nuevo estado
+  const [responseStatus, setResponseStatus] = useState('');
+  const [responseMessage, setResponseMessage] = useState('');
+  const [isLoading, setIsLoading] = useState(true);
 
-  async function fetchData() {
-    try {
-      const response = await axios.get('http://localhost:5000/user/requests');
-      setRequests(response.data.response);
-      console.log('response Data:', responseData);
-    } catch (error) {
-      console.error('Error al realizar la solicitud:', error.message);
-    }
-  }
+  const [requests, setRequests] = useState([]);
 
   useEffect(() => {
     async function fetchData() {
       try {
-        const response = await axios.get('http://localhost:5000/user/requests');
-        setResponseData(response.data);
-        console.log('response Data:' + responseData)
-      } catch (error) {
+        await GetRequests().then(checking => {
+          setResponseData(checking.data);
+          setResponseStatus(checking.response_status);
+          setResponseMessage(checking.response_message);
+        });
+      }
+      catch (error) {
         console.error('Error al realizar la solicitud:', error.message);
       }
     }
@@ -35,12 +32,8 @@ const Solicitud = () => {
     fetchData(); 
   }, []);  
 
-  const handleRejectCard = (cardId) => {
-    // Agrega el ID de la tarjeta rechazada al estado rejectedCards
-    setRejectedCards([...rejectedCards, cardId]);
-  };
-
-  if(responseData?.status === 200){
+  
+  if(responseData && responseData.length > 0){
     return (
       <>
         <NavBar />
@@ -50,29 +43,22 @@ const Solicitud = () => {
               <Titulo>GENTE QUE QUIERE EL PERRO</Titulo>
             </Flip>
             <Hr />
-            {responseData.response.map((item) => (
-              <h1>EL PERRO TIENE <span style={{color:'orange', fontWeight:'bold'}}>{`${item.requests.length}`} </span>REQUESTS</h1>
-            ))}
+
+
           </Lamina>
         </Principio>
   
         <Grid>
           <Zoom>
+          {responseData.map((item) => (
+
             <Container>
-              {responseData.response.map((item) => (
-                // Renderiza la tarjeta solo si su ID no está en rejectedCards
-                !rejectedCards.includes(item.id) && (
                   <CardPerson
-                    key={item.id} // Asegúrate de agregar una clave única
-                    nombre={`${item.name}`}
-                    district={`${item.id_address}`}
-                    phone={`${item.phone_number}`}
-                    id={`${item.id}`} 
-                    onReject={() => handleRejectCard(item.id)} // Pasa la función de rechazo
+                  
                   />
-                )
-              ))}
             </Container>
+          ))}
+
           </Zoom>
         </Grid>
       </>
