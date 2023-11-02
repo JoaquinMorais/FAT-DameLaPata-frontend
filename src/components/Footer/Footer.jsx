@@ -31,8 +31,10 @@ const useStyles = makeStyles((theme) => ({
     marginRight: '10px', // Separar el texto del contenido del icono
   },
   iconContainer: {
+    marginLeft: '350px',
     display: 'flex',
     alignItems: 'center',
+    textAlign: 'left',
   },
   icon: {
     fontSize: '24px',
