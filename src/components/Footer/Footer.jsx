@@ -36,8 +36,22 @@ const useStyles = makeStyles((theme) => ({
   },
   icon: {
     fontSize: '24px',
-    margin: '0 15px', // Separar más los iconos entre sí
+    margin: '0 15px',
     cursor: 'pointer',
+  },
+  '@media (max-width: 600px)': {
+    messageContainer: {
+      flexDirection: 'column',
+      textAlign: 'center',
+    },
+    iconContainer: {
+      textAlign: 'center',
+      marginTop: '15px',
+    },
+    icon: {
+      margin: '5px',
+      cursor: 'pointer',
+    },
   },
 }));
 
@@ -60,15 +74,15 @@ const Footer = () => {
   return (
     <AppBar position="static" className={classes.root}>
       <Toolbar className={classes.toolbar}>
-        <div className={classes.messageContainer}>
+      <div className={classes.messageContainer}>
           <div className={classes.message}>
             © 2023 Fundación Ruare. Todos los derechos reservados. Aporta tu granito de arena al mundo.
           </div>
-        </div>
-        <div className={classes.iconContainer}>
-          <FaFacebook className={classes.icon} onClick={redirectToFacebook} />
-          <FaTwitter className={classes.icon} onClick={redirectToTwitter} />
-          <FaInstagram className={classes.icon} onClick={redirectToInstagram} />
+          <div className={classes.iconContainer}>
+            <FaFacebook className={classes.icon} onClick={redirectToFacebook} />
+            <FaTwitter className={classes.icon} onClick={redirectToTwitter} />
+            <FaInstagram className={classes.icon} onClick={redirectToInstagram} />
+          </div>
         </div>
       </Toolbar>
     </AppBar>
