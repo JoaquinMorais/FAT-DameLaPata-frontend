@@ -9,8 +9,11 @@
     "@emotion/styled": "^11.11.0",
     "@headlessui/react": "^1.7.16",
     "@mantine/carousel": "^6.0.18",
+<<<<<<< HEAD
     "@material-ui/core": "^4.12.4",
     "@material-ui/icons": "^4.11.3",
+=======
+>>>>>>> correcciones_frattin
     "@mui/icons-material": "^5.14.16",
     "@mui/lab": "^5.0.0-alpha.143",
     "@mui/material": "^5.14.16",
