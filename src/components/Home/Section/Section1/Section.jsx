@@ -3,8 +3,10 @@ import { styled } from 'styled-components';
 import Button from '../Button';
 import { Fade } from 'react-reveal';
 import { Slide } from 'react-reveal';
+import Jump from 'react-reveal/Jump';
 import videofondo from '../../../../images/videos/videofondo.mp4';
 import { Link } from 'react-router-dom';
+import KeyboardDoubleArrowDownIcon from '@mui/icons-material/KeyboardDoubleArrowDown';
 
 function Section() {
   return (
@@ -21,7 +23,7 @@ function Section() {
               <Slogan>"Rescatar, proteger y encontrar hogares amorosos para perros necesitados."</Slogan>
             </Fade>
             <Container>
-              <Slide bottom>
+              <Fade bottom>
                 <ButtonContainer>
                   <Link to="/register" style={{ textDecoration: 'none' }}>
                     <ButtonContainer>
@@ -30,9 +32,14 @@ function Section() {
                     </ButtonContainer>
                   </Link>
                 </ButtonContainer>
-              </Slide>
+              </Fade>
             </Container>
           </CenterContent>
+          <Jump>
+            <Arrow>
+              <KeyboardDoubleArrowDownIcon sx={{ color: 'white', fontSize: 40, marginBottom: 3 }}></KeyboardDoubleArrowDownIcon>
+            </Arrow>
+          </Jump> 
         </Content>
       </Wrap>
     </>
@@ -55,7 +62,6 @@ const Title = styled.h1`
 const Slogan = styled.h4`
   font-size: 27px;
   letter-spacing: 3px;
-  color: #89FF33;
   text-align: center;
   font-style: italic;
   font-family: 'Patrick Hand', cursive;
@@ -119,6 +125,10 @@ const CenterContent = styled.div`
 
 const Container = styled.div`
   width: 26%;
+  display: flex;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
 
   @media (max-width: 425px) {
     margin: 0 auto;
@@ -142,13 +152,21 @@ const ButtonContainer = styled.div`
 const ButtonText = styled.h3`
   color: white;
   position: relative;
-  margin-top: -50px;
-  font-size: 14px;
+  margin-top: -55px;
+  font-size: 18px;
 `;
 
 const ButtonAdop = styled.img`
   filter: drop-shadow(0px 5px 15px rgba(255, 255, 255, 0.8));
   margin-top: 50px;
-  width: 130px;
+  width: 150px;
   height: auto;
 `;
+
+const Arrow = styled.div`
+  display: flex;
+  width: 50px;
+  height: 50px;
+  justify-content: center;
+  align-items: center;
+  `

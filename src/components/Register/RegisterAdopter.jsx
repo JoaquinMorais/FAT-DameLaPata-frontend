@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import TextField from '@mui/material/TextField';
@@ -11,6 +11,12 @@ import { Alert } from '@mui/material';
 import Container from '@mui/material/Container';
 import styled from 'styled-components';
 import { SendRegister } from '../../my_methods/session_methods';
+import IconButton from '@mui/material/IconButton';
+import InputAdornment from '@mui/material/InputAdornment';
+import Visibility from '@mui/icons-material/Visibility';
+import VisibilityOff from '@mui/icons-material/VisibilityOff';
+import MenuItem from '@mui/material/MenuItem';
+
 
 const validationSchema = Yup.object({
   username: Yup.string().required('Campo requerido'),
@@ -86,6 +92,23 @@ function AdopterRegister() {
   });
 
 
+  const [showPassword, setShowPassword] = React.useState(false);
+
+  const handleClickShowPassword = () => setShowPassword((show) => !show);
+
+  const handleMouseDownPassword = (event) => {
+    event.preventDefault();
+  };
+
+  const [data, setData] = useState([]);
+  const [selectedProvince, setSelectedProvince] = useState('');
+
+  useEffect(() => {
+    fetch("https://infra.datos.gob.ar/catalog/modernizacion/dataset/7/distribution/7.2/download/provincias.json")
+    .then((response) => response.json())
+    .then((data) => setData(data));
+  }, [])
+
   return (
     <form onSubmit={formik.handleSubmit} >
       <CenteredContainer >
@@ -136,7 +159,7 @@ function AdopterRegister() {
           />
         </Grid>
         <Grid item xs={12} sm={6}>
-          <TextField
+        <TextField
             fullWidth
             id="password"
             name="password"
@@ -147,6 +170,20 @@ function AdopterRegister() {
             onBlur={formik.handleBlur}
             error={formik.touched.password && Boolean(formik.errors.password)}
             helperText={formik.touched.password && formik.errors.password}
+            InputProps={{
+              endAdornment: (
+                <InputAdornment position="end">
+                  <IconButton
+                    aria-label="toggle password visibility"
+                    onClick={handleClickShowPassword}
+                    onMouseDown={handleMouseDownPassword}
+                    edge="end"
+                  >
+                    {showPassword ? <VisibilityOff /> : <Visibility />}
+                  </IconButton>
+                </InputAdornment>
+              ),
+            }}
           />
         </Grid>
         <Grid item xs={12} sm={6}>
@@ -161,12 +198,27 @@ function AdopterRegister() {
             onBlur={formik.handleBlur}
             error={formik.touched.repeatPassword && Boolean(formik.errors.repeatPassword)}
             helperText={formik.touched.repeatPassword && formik.errors.repeatPassword}
+            InputProps={{
+              endAdornment: (
+                <InputAdornment position="end">
+                  <IconButton
+                    aria-label="toggle password visibility"
+                    onClick={handleClickShowPassword}
+                    onMouseDown={handleMouseDownPassword}
+                    edge="end"
+                  >
+                    {showPassword ? <VisibilityOff /> : <Visibility />}
+                  </IconButton>
+                </InputAdornment>
+              ),
+            }}
           />
         </Grid>
         <Grid item xs={12} sm={6}>
           <TextField
             fullWidth
             id="province"
+            select
             name="province"
             label="Provincia"
             value={formik.values.province}
@@ -174,7 +226,13 @@ function AdopterRegister() {
             onBlur={formik.handleBlur}
             error={formik.touched.province && Boolean(formik.errors.province)}
             helperText={formik.touched.province && formik.errors.province}
-          />
+          >
+            {data.map((province) => (
+            <MenuItem key={province.nombre} value={province.id}>
+              {province.nombre}
+            </MenuItem>
+          ))}
+          </TextField>
         </Grid>
         <Grid item xs={12} sm={6}>
           <TextField
@@ -239,10 +297,15 @@ function AdopterRegister() {
             name="phone_number"
             label="Número de teléfono"
             value={formik.values.phone_number}
-            onChange={formik.handleChange}
+            onChange={(e) => {
+              const inputValue = e.target.value;
+              if (/^[0-9]*$/.test(inputValue)) {
+                formik.handleChange(e);
+              }
+            }}
             onBlur={formik.handleBlur}
             error={formik.touched.phone_number && Boolean(formik.errors.phone_number)}
-            helperText={formik.touched.phone_number && formik.errors.phone_number}
+            helperText={formik.touched.phone_number && formik.errors.phone_number}                 
           />
         </Grid>
         <Grid item xs={12} sm={6}>

@@ -8,6 +8,10 @@ import { SendRegister } from '../../my_methods/session_methods';
 import { Alert } from '@mui/material';
 import Container from '@mui/material/Container';
 import styled from 'styled-components';
+import IconButton from '@mui/material/IconButton';
+import InputAdornment from '@mui/material/InputAdornment';
+import Visibility from '@mui/icons-material/Visibility';
+import VisibilityOff from '@mui/icons-material/VisibilityOff';
 
 const validationSchema = Yup.object({
   username: Yup.string().required('Campo requerido'),
@@ -74,6 +78,13 @@ function ShelterRegister() {
     },
   });
 
+  const [showPassword, setShowPassword] = React.useState(false);
+
+  const handleClickShowPassword = () => setShowPassword((show) => !show);
+
+  const handleMouseDownPassword = (event) => {
+    event.preventDefault();
+  };
 
   return (
     <form onSubmit={formik.handleSubmit} >
@@ -121,6 +132,20 @@ function ShelterRegister() {
             onBlur={formik.handleBlur}
             error={formik.touched.password && Boolean(formik.errors.password)}
             helperText={formik.touched.password && formik.errors.password}
+            InputProps={{
+              endAdornment: (
+                <InputAdornment position="end">
+                  <IconButton
+                    aria-label="toggle password visibility"
+                    onClick={handleClickShowPassword}
+                    onMouseDown={handleMouseDownPassword}
+                    edge="end"
+                  >
+                    {showPassword ? <VisibilityOff /> : <Visibility />}
+                  </IconButton>
+                </InputAdornment>
+              ),
+            }}
           />
         </Grid>
         <Grid item xs={12} sm={6}>
@@ -135,6 +160,20 @@ function ShelterRegister() {
             onBlur={formik.handleBlur}
             error={formik.touched.repeatPassword && Boolean(formik.errors.repeatPassword)}
             helperText={formik.touched.repeatPassword && formik.errors.repeatPassword}
+            InputProps={{
+              endAdornment: (
+                <InputAdornment position="end">
+                  <IconButton
+                    aria-label="toggle password visibility"
+                    onClick={handleClickShowPassword}
+                    onMouseDown={handleMouseDownPassword}
+                    edge="end"
+                  >
+                    {showPassword ? <VisibilityOff /> : <Visibility />}
+                  </IconButton>
+                </InputAdornment>
+              ),
+            }}
           />
         </Grid>
         <Grid item xs={12} sm={6}>
@@ -181,7 +220,7 @@ function ShelterRegister() {
             fullWidth
             id="district"
             name="district"
-            label="Distrito"
+            label="Barrio"
             value={formik.values.district}
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
@@ -196,7 +235,12 @@ function ShelterRegister() {
             name="phone_number"
             label="Número de teléfono"
             value={formik.values.phone_number}
-            onChange={formik.handleChange}
+            onChange={(e) => {
+              const inputValue = e.target.value;
+              if (/^[0-9]*$/.test(inputValue)) {
+                formik.handleChange(e);
+              }
+            }}
             onBlur={formik.handleBlur}
             error={formik.touched.phone_number && Boolean(formik.errors.phone_number)}
             helperText={formik.touched.phone_number && formik.errors.phone_number}
