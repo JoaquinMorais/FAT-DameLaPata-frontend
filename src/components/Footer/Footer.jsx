@@ -55,13 +55,13 @@ const Footer = () => {
       <Toolbar className={classes.toolbar}>
         <div className={classes.messageContainer}>
           <div className={classes.message}>
-            © 2023 Fundación Ruare.
+            © 2023 Fundación Ruare. 
           </div>
           <div className={classes.message}>
-            Todos los derechos reservados
+            Todos los derechos reservados.
           </div>
           <div className={classes.message}>
-            Aporta tu granito de arena al mundo
+            Aporta tu granito de arena al mundo.
           </div>
           <div>
             <FaFacebook className={classes.icon} onClick={redirectToFacebook} />
