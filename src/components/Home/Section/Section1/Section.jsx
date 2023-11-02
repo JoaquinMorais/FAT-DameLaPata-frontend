@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react'; 
+import axios from 'axios';
 import { styled } from 'styled-components';
 import Button from '../Button';
 import { Fade } from 'react-reveal';
@@ -9,41 +10,86 @@ import { Link } from 'react-router-dom';
 import KeyboardDoubleArrowDownIcon from '@mui/icons-material/KeyboardDoubleArrowDown';
 
 function Section() {
-  return (
-    <>
-      <Wrap>
-        <BackgroundVideo autoPlay loop muted>
-          <source src={videofondo} type="video/mp4" />
-        </BackgroundVideo>
-        <Overlay />
-        <Content>
-          <CenterContent>
-            <Fade top>
-              <Title>Dame La Pata</Title>
-              <Slogan>"Rescatar, proteger y encontrar hogares amorosos para perros necesitados."</Slogan>
-            </Fade>
-            <Container>
-              <Fade bottom>
-                <ButtonContainer>
-                  <Link to="/register" style={{ textDecoration: 'none' }}>
-                    <ButtonContainer>
-                      <ButtonAdop src='/Images/pataa.jpg' />
-                      <ButtonText style={{ color: 'white', fontWeight: 'bold' }}>INICIAR</ButtonText>
-                    </ButtonContainer>
-                  </Link>
-                </ButtonContainer>
+  const [responseData, setResponseData] = useState(null);
+
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const response = await axios.get('http://localhost:5000/user/requests');
+        setResponseData(response.data);
+        console.log('response Data:' + responseData)
+      } catch (error) {
+        console.error('Error al realizar la solicitud:', error.message);
+      }
+    }
+    
+    fetchData(); 
+  }, []);  
+
+  if(responseData?.status === 200){
+    return (
+      <>
+        <Wrap>
+          <BackgroundVideo autoPlay loop muted>
+            <source src={videofondo} type="video/mp4" />
+          </BackgroundVideo>
+          <Overlay />
+          <Content>
+            <CenterContent>
+              <Fade top>
+                <Title>Dame La Pata</Title>
+                <Slogan>"Rescatar, proteger y encontrar hogares amorosos para perros necesitados."</Slogan>
+              </Fade>             
+            </CenterContent>
+            <Jump>
+              <Arrow>
+                <ArrowText>Más info.</ArrowText>
+                <KeyboardDoubleArrowDownIcon sx={{ color: 'white', fontSize: 40, marginBottom: 5 }}></KeyboardDoubleArrowDownIcon>
+              </Arrow>
+            </Jump> 
+          </Content>
+        </Wrap>
+      </>
+    );
+  } else {
+    return (
+      <>
+        <Wrap>
+          <BackgroundVideo autoPlay loop muted>
+            <source src={videofondo} type="video/mp4" />
+          </BackgroundVideo>
+          <Overlay />
+          <Content>
+            <CenterContent>
+              <Fade top>
+                <Title>Dame La Pata</Title>
+                <Slogan>"Rescatar, proteger y encontrar hogares amorosos para perros necesitados."</Slogan>
               </Fade>
-            </Container>
-          </CenterContent>
-          <Jump>
-            <Arrow>
-              <KeyboardDoubleArrowDownIcon sx={{ color: 'white', fontSize: 40, marginBottom: 3 }}></KeyboardDoubleArrowDownIcon>
-            </Arrow>
-          </Jump> 
-        </Content>
-      </Wrap>
-    </>
-  );
+                <Container>
+                <Fade bottom>
+                  <ButtonContainer>
+                    <Link to="/register" style={{ textDecoration: 'none' }}>
+                      <ButtonContainer>
+                        <ButtonAdop src='/Images/pataa.jpg' />
+                        <ButtonText style={{ color: 'white', fontWeight: 'bold' }}>INICIAR</ButtonText>
+                      </ButtonContainer>
+                    </Link>
+                  </ButtonContainer>
+                </Fade>
+              </Container>
+              
+            </CenterContent>
+            <Jump>
+              <Arrow>
+                <ArrowText>Más info.</ArrowText>
+                <KeyboardDoubleArrowDownIcon sx={{ color: 'white', fontSize: 40, marginBottom: 5 }}></KeyboardDoubleArrowDownIcon>
+              </Arrow>
+            </Jump> 
+          </Content>
+        </Wrap>
+      </>
+    );
+  }
 }
 
 export default Section;
@@ -165,8 +211,14 @@ const ButtonAdop = styled.img`
 
 const Arrow = styled.div`
   display: flex;
-  width: 50px;
+  flex-direction: column;
+  width: 100px;
   height: 50px;
   justify-content: center;
   align-items: center;
   `
+
+const ArrowText = styled.p`
+  color: white;
+  margin-bottom: 0;
+`

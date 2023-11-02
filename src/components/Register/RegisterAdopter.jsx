@@ -17,6 +17,9 @@ import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import MenuItem from '@mui/material/MenuItem';
 
+import data from '../../provincias.json';
+
+
 
 const validationSchema = Yup.object({
   username: Yup.string().required('Campo requerido'),
@@ -100,14 +103,29 @@ function AdopterRegister() {
     event.preventDefault();
   };
 
-  const [data, setData] = useState([]);
-  const [selectedProvince, setSelectedProvince] = useState('');
+  // const [data, setData] = useState([]);
+  // const [selectedProvince, setSelectedProvince] = useState('');
 
-  useEffect(() => {
-    fetch("https://infra.datos.gob.ar/catalog/modernizacion/dataset/7/distribution/7.2/download/provincias.json")
-    .then((response) => response.json())
-    .then((data) => setData(data));
-  }, [])
+  // useEffect(() => {
+  //   fetch("../src/provincias.json")
+  //     .then((response) => response.json())
+  //     .then((data) => {
+  //       setData(data);
+  //     })
+  //     .catch((error) => {
+  //       console.error("Error al cargar datos de la API:", error);
+  //     });
+  // }, []);
+
+
+  const provincias = data.provincias;
+
+  const provinceOptions = data.provincias.map((provincia) => ({
+    value: provincia.id,
+    label: provincia.nombre,
+  }));
+  
+ 
 
   return (
     <form onSubmit={formik.handleSubmit} >
@@ -227,12 +245,15 @@ function AdopterRegister() {
             error={formik.touched.province && Boolean(formik.errors.province)}
             helperText={formik.touched.province && formik.errors.province}
           >
-            {data.map((province) => (
-            <MenuItem key={province.nombre} value={province.id}>
-              {province.nombre}
-            </MenuItem>
-          ))}
+            {provinceOptions.map((option) => (
+              <MenuItem key={option.value} value={option.value}>
+                {option.label}
+              </MenuItem>
+            ))}
           </TextField>
+
+
+
         </Grid>
         <Grid item xs={12} sm={6}>
           <TextField
@@ -252,7 +273,7 @@ function AdopterRegister() {
             fullWidth
             id="district"
             name="district"
-            label="Distrito"
+            label="Barrio"
             value={formik.values.district}
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}

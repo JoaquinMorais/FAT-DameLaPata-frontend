@@ -12,6 +12,10 @@ import IconButton from '@mui/material/IconButton';
 import InputAdornment from '@mui/material/InputAdornment';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
+import MenuItem from '@mui/material/MenuItem';
+
+
+import data from '../../provincias.json';
 
 const validationSchema = Yup.object({
   username: Yup.string().required('Campo requerido'),
@@ -85,6 +89,16 @@ function ShelterRegister() {
   const handleMouseDownPassword = (event) => {
     event.preventDefault();
   };
+
+
+
+  const provincias = data.provincias;
+
+  const provinceOptions = data.provincias.map((provincia) => ({
+    value: provincia.id,
+    label: provincia.nombre,
+  }));
+
 
   return (
     <form onSubmit={formik.handleSubmit} >
@@ -193,6 +207,7 @@ function ShelterRegister() {
           <TextField
             fullWidth
             id="province"
+            select
             name="province"
             label="Provincia"
             value={formik.values.province}
@@ -200,7 +215,13 @@ function ShelterRegister() {
             onBlur={formik.handleBlur}
             error={formik.touched.province && Boolean(formik.errors.province)}
             helperText={formik.touched.province && formik.errors.province}
-          />
+          >
+            {provinceOptions.map((option) => (
+              <MenuItem key={option.value} value={option.value}>
+                {option.label}
+              </MenuItem>
+            ))}
+          </TextField>
         </Grid>
         <Grid item xs={12} sm={6}>
           <TextField

@@ -7,15 +7,12 @@ function Sponsor() {
     <>
     <Container>
       <Fade bottom>
-        <WhyTitle>AGRADECIMIENTOS</WhyTitle>
-        <SponsorContaint>
-            <SponsorText>
-              <TextSponsor>Queremos dar un agradecimiento a: Fundacion Garra</TextSponsor>
-              <Description>"Garra" es una fundación de perros, es probable que se dedique a rescatar, proteger y promover el bienestar de los perros, brindándoles cuidado, atención médica, adopciones responsables y educación sobre tenencia responsable de mascotas. Su labor puede tener un impacto significativo en la vida de los perros que necesitan ayuda y en la comunidad en general, al fomentar el amor y la responsabilidad hacia los animales.</Description>  
-            </SponsorText>
-            <ImageSponsor src="/Images/garra.jpg"/> 
-
-        </SponsorContaint>
+        <WhyTitle>¡MUCHAS GRACIAS!</WhyTitle>
+        <ImagesContainer>
+          <ImageSponsor src="/Images/garra.jpg"/> 
+          <ImageSponsor src="/Images/ross.png"/> 
+          <ImageSponsor src="/Images/Lussary.png"/> 
+        </ImagesContainer>
       </Fade>
     </Container>
     
@@ -26,70 +23,57 @@ function Sponsor() {
 
 export default Sponsor
 
-
-
-const SponsorText = styled.div`
-top: 0;
-right:0;
-left: 0;
-`
 const Container = styled.div`
-  margin-top: 45px;
+  margin-top: 70px;
   text-align: center;
 `;
 
 const WhyTitle = styled.h1`
-  font-size: 80px;
-  font-family: 'Grape Nuts', cursive;  
-  @media (max-width: 425px) {
-    font-size: 40px;
-  }
+  font-size: 60px;
+  font-weight: bold;
 
   @media (max-width: 320px) {
-    font-size: 30px;
+    font-size: 50px;
   }
 `
 
-const SponsorContaint = styled.div`
-  margin-top: 50px;
-  display:flex;
-
-  @media (max-width: 768px) {
-    flex-direction: column;
-  }
-
-`;
-
-const TextSponsor = styled.h3`
-  font-size: 30px;
-  @media (max-width: 425px) {
-    font-size: 23px
-  }
-`;
-
-const Description = styled.p`
-    font-size: 20px;
-    text-align: justify;
-    width: 80%;
-    justify-content: center;
-    transform: translateX(10%);
-    margin-top: 40px; 
-    `
-
 const ImageSponsor = styled.img`
   width: auto;
-  height: 400px;
+  height: 175px;
   text-align: center;
+  padding: 0 25px;
 
-  @media (max-width: 768px) {
-    width: 400px;
-    height: auto;
-    margin: 0 auto;
+  @media (max-width: 665px) {
+    height: 300px;
+    padding: 25px 0;
   }
 
-  @media (max-width: 425px) {
-    width: 200px;
+  @media (max-width: 500px) {
+    height: 225px;
+    padding: 10px 0;
+  }
+`
+
+
+const ImagesContainer = styled.div`
+  width: 100%;
+  height: 200px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  margin-top: 50px;
+  margin-bottom: 50px;
+
+  @media (max-width: 665px) {
+    flex-direction: column;
+    margin-top: 350px;
+    margin-bottom: 350px;
   }
 
-
-`;
+  @media (max-width: 500px) {
+    flex-direction: column;
+    margin-top: 250px;
+    margin-bottom: 250px;
+  }
+`
