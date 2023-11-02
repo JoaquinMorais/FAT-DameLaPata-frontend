@@ -9,7 +9,7 @@ import {
   TextField,
 } from '@mui/material';
 
-
+import Footer from '../components/Footer/Footer';
 import NavBar from '../components/NavBar/NavBar';
 
 const options = [
@@ -234,7 +234,9 @@ const Formulario = () => {
       </Container>
       </div>
     </div>
-
+    
+    <Footer/>
+    
     </>
   );
 };

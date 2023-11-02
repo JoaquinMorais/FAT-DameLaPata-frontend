@@ -10,6 +10,7 @@ import styled from 'styled-components';
 import LoaderComp from '../components/Loader/Loader';
 import { SendLogin, LogOut } from '../my_methods/session_methods';
 import { Alert } from '@mui/material';
+import Footer from '../components/Footer/Footer';
 
 // Enlace de la imagen de fondo
 
@@ -105,6 +106,8 @@ function Login() {
           </Paper>
         </CenteredContainer>
       </BackgroundImage>
+
+      <Footer/>
     </>
   )}
   </>

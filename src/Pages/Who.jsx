@@ -7,6 +7,7 @@ import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
 import CardTeam from '../components/Who/CardTeam';
 import NavBar from '../components/NavBar/NavBar';
+import Footer from '../components/Footer/Footer';
 
 function Who() {
   return (
@@ -75,6 +76,8 @@ function Who() {
         </Grid>
       </Wrap>
       <CardTeam />
+
+      <Footer/> 
     </>
   );
 }
