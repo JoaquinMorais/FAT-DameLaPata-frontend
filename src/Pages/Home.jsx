@@ -5,6 +5,8 @@ import Section_3 from '../components/Home/Section/Section3/Section_3';
 import Sponsor from '../components/Home/Section/Section4/Sponsor';
 import NavBar from '../components/NavBar/NavBar';
 import LoaderComp from '../components/Loader/Loader';
+import Footer from '../components/Footer/Footer';
+
 function Home() {
   const [isLoading, setIsLoading] = useState(false);
 
@@ -13,11 +15,11 @@ function Home() {
   }, []);
 
   return (
-    <>
-      <NavBar/>
+    <div>
+      <NavBar />
 
       {isLoading ? (
-        <LoaderComp/>
+        <LoaderComp />
       ) : (
         // Render the content once loading is complete
         <>
@@ -27,9 +29,10 @@ function Home() {
           <Sponsor />
         </>
       )}
-    </>
+
+      <Footer/>
+    </div>
   );
 }
 
 export default Home;
-

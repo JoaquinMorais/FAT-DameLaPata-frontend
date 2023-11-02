@@ -9,6 +9,7 @@
   import Navbar from "../components/NavBar/NavBar";
   import { useEffect } from 'react';
   import { LogOut } from '../my_methods/session_methods';
+  import Footer from '../components/Footer/Footer';
 
   function Register() {
     useEffect(() => {
@@ -50,6 +51,8 @@
             </TabContext>
           </Box>
         </div>
+
+        <Footer/>
       </>
     );
   }

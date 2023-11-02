@@ -9,6 +9,7 @@ import Zoom from 'react-reveal/Zoom';
 import NavBar from '../components/NavBar/NavBar';
 import Filters from '../components/Dogs/Filters/Filters';
 import { GetPets, ChangePetStatusToAdopted } from '../my_methods/dogs_methods';
+import Footer from '../components/Footer/Footer';
 
 const Dogs = () => {
   // Estados para manejar los datos
@@ -143,6 +144,8 @@ const Dogs = () => {
           </Container>
         ))}
       </Grid>
+
+      <Footer/>
     </>
   );
 };

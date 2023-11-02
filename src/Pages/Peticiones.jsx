@@ -5,6 +5,7 @@ import Zoom from 'react-reveal/Zoom';
 import NavBar from '../components/NavBar/NavBar';
 import CardsPets from '../components/Dogs/Cards/CardsPets';
 import { getUserDogs } from '../my_methods/salo_methods';
+import Footer from '../components/Footer/Footer';
 
 const Peticiones = () => {
   const [responseData, setResponseData] = useState(null);
@@ -137,6 +138,8 @@ const Peticiones = () => {
           </CardContainer>
         ))}
       </Grid>
+
+      <Footer/>
     </>
   );
   // } else {
