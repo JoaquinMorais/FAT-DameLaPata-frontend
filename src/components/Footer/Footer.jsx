@@ -14,6 +14,11 @@ const useStyles = makeStyles((theme) => ({
     alignItems: 'center', // Centra verticalmente el contenido
     padding: '20px 0', // Aumenta el espacio vertical para una mayor altura en pantallas más pequeñas
   },
+  messageContainer: {
+    display: 'flex', // Alinea los mensajes uno al lado del otro en pantallas grandes
+    flexWrap: 'wrap', // Salto de línea automático en pantallas pequeñas
+    justifyContent: 'center', // Centra horizontalmente los mensajes
+  },
   message: {
     color: 'white',
     fontSize: '16px',
@@ -48,19 +53,21 @@ const Footer = () => {
   return (
     <AppBar position="static" className={classes.root}>
       <Toolbar className={classes.toolbar}>
-        <div className={classes.message}>
-          © 2023 Fundación Ruare.
-        </div>
-        <div className={classes.message}>
-          Todos los derechos reservados
-        </div>
-        <div className={classes.message}>
-          Aporta tu granito de arena al mundo
-        </div>
-        <div>
-          <FaFacebook className={classes.icon} onClick={redirectToFacebook} />
-          <FaTwitter className={classes.icon} onClick={redirectToTwitter} /> 
-          <FaInstagram className={classes.icon} onClick={redirectToInstagram} /> 
+        <div className={classes.messageContainer}>
+          <div className={classes.message}>
+            © 2023 Fundación Ruare.
+          </div>
+          <div className={classes.message}>
+            Todos los derechos reservados
+          </div>
+          <div className={classes.message}>
+            Aporta tu granito de arena al mundo
+          </div>
+          <div>
+            <FaFacebook className={classes.icon} onClick={redirectToFacebook} />
+            <FaTwitter className={classes.icon} onClick={redirectToTwitter} /> 
+            <FaInstagram className={classes.icon} onClick={redirectToInstagram} /> 
+          </div>
         </div>
       </Toolbar>
     </AppBar>
