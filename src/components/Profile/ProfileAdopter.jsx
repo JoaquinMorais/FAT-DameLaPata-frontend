@@ -19,78 +19,28 @@ import SignpostIcon from '@mui/icons-material/Signpost';
 import LocationCityIcon from '@mui/icons-material/LocationCity';
 import TextField from '@mui/material/TextField';
 import CorporateFareIcon from '@mui/icons-material/CorporateFare';
-
-const BackgroundImage = styled.div`
-  background-color: #303030;
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-attachment: fixed;
-  width: 100%;
-  height: 100vh;
-  position: absolute;
-  top: 0;
-  left: 0;
-`;
-
-const CenteredContainer = styled(Container)`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  max-height: 100vh;
-  background-color: rgba(255, 255, 255, 0.9);
-  padding: 80px;
-  border-radius: 10px;
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
-
-  @media (max-width: 768px) {
-    padding: 40px;
-    min-height: 120vh;
-  }
-`;
-
-const UserProfileAvatarContainer = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: relative;
-  margin-bottom: 25px;
-
-  @media (max-width: 768px) {
-    margin-top: 25px;
-  }
-`;
-
-const UserProfileAvatar = styled(Avatar)`
-  width: 240px !important;
-  height: 240px !important;
-  margin-left: 25px;
-`;
-
-const StyledHr = styled.hr`
-  width: 100%;
-  border: none;
-  height: 2px;
-  background-color: #007bff;
-  margin: 20px 0;
-`;
-
 function AdopterProfile() {
+  // Estados para el cuadro de confirmación y cuenta eliminada
   const [isConfirmationOpen, setIsConfirmationOpen] = useState(false);
   const [isAccountDeleted, setIsAccountDeleted] = useState(false);
+
+  // Estado para habilitar o deshabilitar la edición de campos
   const [isEditing, setIsEditing] = useState(false);
 
+  // Función para abrir el cuadro de confirmación
   const openConfirmation = () => {
     setIsConfirmationOpen(true);
   };
 
+  // Función para cerrar el cuadro de confirmación
   const closeConfirmation = () => {
     setIsConfirmationOpen(false);
   };
 
+  // Función para eliminar la cuenta
   const handleDeleteAccount = async () => {
     try {
-      // Hacer una solicitud POST al servidor Flask para cerrar la cuenta
+      // Realizar una solicitud POST al servidor para cerrar la cuenta
       await axios.post(`/closeaccount/1`);
       setIsAccountDeleted(true);
       closeConfirmation();
@@ -99,10 +49,12 @@ function AdopterProfile() {
     }
   };
 
+  // Función para cerrar el diálogo de éxito
   const closeSuccessDialog = () => {
     setIsAccountDeleted(false);
   };
 
+  // Estilos para los campos de entrada de datos
   const inputStyles = {
     width: '100%',
     '& .MuiInputBase-root': {
@@ -114,6 +66,7 @@ function AdopterProfile() {
     },
   };
 
+  // Estado para almacenar los datos del adoptante
   const [user, setUser] = useState({
     name: '',
     username: '',
@@ -128,6 +81,7 @@ function AdopterProfile() {
     Edad: '',
   });
 
+  // Función para obtener y cargar los datos del adoptante
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -136,6 +90,7 @@ function AdopterProfile() {
           window.location.href = "/login";
         }
 
+        // Actualiza el estado del adoptante con los datos obtenidos
         setUser({
           name: response.data.response['name'],
           username: response.data.response['username'],
@@ -147,7 +102,6 @@ function AdopterProfile() {
           birthdate: response.data.response['birth_date'],
           phone_number: response.data.response['phone_number'],
         });
-        console.log(response);
       } catch (error) {
         console.error(error);
       }
@@ -313,25 +267,14 @@ function AdopterProfile() {
             </Grid>
 
             <div style={{ marginTop: '40px' }}>
-              {isEditing ? (
-                <Button
-                  variant="contained"
-                  onClick={() => {
-                    setIsEditing(false);
-                  }}
-                >
-                  Guardar
-                </Button>
-              ) : (
-                <Button
-                  variant="contained"
-                  onClick={() => {
-                    setIsEditing(true);
-                  }}
-                >
-                  Editar perfil
-                </Button>
-              )}
+              <Button
+                variant="contained"
+                onClick={() => {
+                  setIsEditing(!isEditing);
+                }}
+              >
+                {isEditing ? 'Guardar' : 'Editar perfil'}
+              </Button>
             </div>
           </Grid>
         </CenteredContainer>
@@ -341,3 +284,58 @@ function AdopterProfile() {
 }
 
 export default AdopterProfile;
+
+const BackgroundImage = styled.div`
+  background-color: #303030;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  width: 100%;
+  height: 100vh;
+  position: absolute;
+  top: 0;
+  left: 0;
+`;
+
+const CenteredContainer = styled(Container)`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  max-height: 100vh;
+  background-color: rgba(255, 255, 255, 0.9);
+  padding: 80px;
+  border-radius: 10px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+
+  @media (max-width: 768px) {
+    padding: 40px;
+    min-height: 120vh;
+  }
+`;
+
+const UserProfileAvatarContainer = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  margin-bottom: 25px;
+
+  @media (max-width: 768px) {
+    margin-top: 25px;
+  }
+`;
+
+const UserProfileAvatar = styled(Avatar)`
+  width: 240px !important;
+  height: 240px !important;
+  margin-left: 25px;
+`;
+
+const StyledHr = styled.hr`
+  width: 100%;
+  border: none;
+  height: 2px;
+  background-color: #007bff;
+  margin: 20px 0;
+`;

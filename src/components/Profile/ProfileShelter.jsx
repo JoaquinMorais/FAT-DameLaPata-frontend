@@ -20,61 +20,6 @@ import SignpostIcon from '@mui/icons-material/Signpost';
 import LocationCityIcon from '@mui/icons-material/LocationCity';
 import TextField from '@mui/material/TextField';
 
-const BackgroundImage = styled.div`
-  background-color: #452900;
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-attachment: fixed;
-  width: 100%;
-  height: 100vh;
-  position: absolute;
-  top: 0;
-  left: 0;
-`;
-
-const CenteredContainer = styled(Container)`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  max-height: 100vh;
-  background-color: rgba(255, 255, 255, 0.9);
-  padding: 80px;
-  border-radius: 10px;
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
-
-  @media (max-width: 768px) {
-    padding: 40px;
-    min-height: 120vh;
-  }
-`;
-
-const UserProfileAvatarContainer = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: relative;
-  margin-bottom: 25px;
-
-  @media (max-width: 768px) {
-    margin-top: 25px;
-  }
-`;
-
-const UserProfileAvatar = styled(Avatar)`
-  width: 240px !important;
-  height: 240px !important;
-  margin-left: 25px;
-`;
-
-const StyledHr = styled.hr`
-  width: 100%;
-  border: none;
-  height: 2px;
-  background-color: #007bff;
-  margin: 20px 0;
-`;
-
 function ShelterProfile() {
   const [isConfirmationOpen, setIsConfirmationOpen] = useState(false);
   const [isAccountDeleted, setIsAccountDeleted] = useState(false);
@@ -354,3 +299,58 @@ function ShelterProfile() {
 }
 
 export default ShelterProfile;
+
+const BackgroundImage = styled.div`
+  background-color: #452900;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  width: 100%;
+  height: 100vh;
+  position: absolute;
+  top: 0;
+  left: 0;
+`;
+
+const CenteredContainer = styled(Container)`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  max-height: 100vh;
+  background-color: rgba(255, 255, 255, 0.9);
+  padding: 80px;
+  border-radius: 10px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+
+  @media (max-width: 768px) {
+    padding: 40px;
+    min-height: 120vh;
+  }
+`;
+
+const UserProfileAvatarContainer = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  margin-bottom: 25px;
+
+  @media (max-width: 768px) {
+    margin-top: 25px;
+  }
+`;
+
+const UserProfileAvatar = styled(Avatar)`
+  width: 240px !important;
+  height: 240px !important;
+  margin-left: 25px;
+`;
+
+const StyledHr = styled.hr`
+  width: 100%;
+  border: none;
+  height: 2px;
+  background-color: #007bff;
+  margin: 20px 0;
+`;
