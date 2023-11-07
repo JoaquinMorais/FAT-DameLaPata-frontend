@@ -93,8 +93,20 @@ function AdopterProfile() {
     birthdate: '',
     phone_number: '',
     document: '',
+    age: '',
   });
 
+  function calculateAge(birthdate) {
+  // Convierte la fecha de nacimiento en un objeto Date
+  const birthDate = new Date(birthdate);
+  const currentDate = new Date();
+
+  const timeDiff = currentDate - birthDate;
+  
+  // Convierte la diferencia en años
+  const age = Math.floor(timeDiff / (1000 * 60 * 60 * 24 * 365.25));
+    return age;
+  }
 
   // Función para abrir el cuadro de confirmación
   const openConfirmation = () => {
@@ -142,6 +154,7 @@ function AdopterProfile() {
         window.location.href = '/login';
       }
 
+      const birthdate = response.data.response['birth_date'];
       setUser({
         name: response.data.response['name'],
         username: response.data.response['username'],
@@ -153,6 +166,7 @@ function AdopterProfile() {
         birthdate: response.data.response['birth_date'],
         phone_number: response.data.response['phone_number'],
         document: response.data.response['document'],
+        age: calculateAge(birthdate),
       });
     } catch (error) {
       console.error(error);
@@ -168,24 +182,36 @@ function AdopterProfile() {
     <>
       <BackgroundImage>
         <CenteredContainer maxWidth="lg">
-          <Grid item xs={12} md={4}>
-            <Typography variant="h4" sx={{ textAlign: 'center', marginTop: '30px', marginBottom: '30px' }}>
-              Bienvenido <strong>{user.name}</strong>
-            </Typography>
+          <Grid container spacing={2}>
+            {/* Columna izquierda (foto de perfil) */}
+            <Grid item xs={12} md={4} sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+              <UserProfileAvatarContainer>
+                <UserProfileAvatar
+                  alt="User Profile"
+                  src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png"
+                />
+              </UserProfileAvatarContainer>
+              <Button
+                variant="contained"
+                onClick={() => {
+                  setIsEditing(!isEditing);
+                }}
+              >
+                {isEditing ? 'Guardar' : 'Editar perfil'}
+              </Button>
+            </Grid>
 
-            <UserProfileAvatarContainer>
-              <UserProfileAvatar
-                alt="User Profile"
-                src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png"
-              />
-            </UserProfileAvatarContainer>
-          </Grid>
-          <Grid item xs={12} md={8} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-            <StyledHr />
-            <Typography variant="h4" sx={{ textAlign: 'center' }}>
-              DATOS DE USUARIO
-            </Typography>
-            <StyledHr />
+            {/* Columna derecha (datos del usuario) */}
+            <Grid item xs={12} md={8} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+              <Typography variant="h4" sx={{ textAlign: 'center', marginTop: '30px', marginBottom: '30px' }}>
+                Bienvenido <strong>{user.name}</strong>
+              </Typography>
+
+              <StyledHr />
+              <Typography variant="h4" sx={{ textAlign: 'center' }}>
+                DATOS DE USUARIO
+              </Typography>
+              <StyledHr />
             <Grid container spacing={2}>
             <Grid item xs={12} md={6} sx={{ display: 'flex', justifyContent: 'center' }}>
                 <FormControl variant="standard">
@@ -357,17 +383,7 @@ function AdopterProfile() {
               </Grid>
             </Grid>
             <StyledHr />
-
-            <div style={{ marginTop: '40px' }}>
-              <Button
-                variant="contained"
-                onClick={() => {
-                  setIsEditing(!isEditing);
-                }}
-              >
-                {isEditing ? 'Guardar' : 'Editar perfil'}
-              </Button>
-            </div>
+            </Grid>
           </Grid>
         </CenteredContainer>
       </BackgroundImage>
