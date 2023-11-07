@@ -5,7 +5,7 @@ import Zoom from 'react-reveal/Zoom';
 import NavBar from '../components/NavBar/NavBar';
 import axios from 'axios';
 import CardPets from '../components/Mismascotas/CardComponent';
-import { GetPets } from '../my_methods/dogs_methods';
+import { GetRequests } from '../my_methods/dogs_methods';
 import { Grid } from '@mui/material';
 
 function Mismascotas_Sh() {
@@ -17,7 +17,7 @@ function Mismascotas_Sh() {
   useEffect(() => {
     async function fetchData() {
       try {
-        await GetPets().then(checking => {
+        await GetRequests().then(checking => {
           setResponseData(checking.data);
           setResponseStatus(checking.response_status);
           setResponseMessage(checking.response_message);
@@ -47,9 +47,11 @@ function Mismascotas_Sh() {
           {responseData.map((item) => (
             <Grid item xs={12} sm={6} md={4} key={item.id}>
               <CardPets
-                imageUrl={`${item.image_path}`}
-                title={`${item.name}`}
-                descr={`${item.name} nació el ${item.birth_date}.`}
+                id_pet = {item.pet.id_pet}
+                imageUrl={item.pet.image_path}
+                title={item.pet.name}
+                num={item.requests.length}
+                descr={`${item.pet.name} nació el ${item.pet.birth_date}.`}
               />
             </Grid>
           ))}
@@ -61,11 +63,7 @@ function Mismascotas_Sh() {
           <Hr />
           <Grid container spacing={2}>
             <Grid item xs={12} sm={6} md={4}>
-              <CardPets
-                title='EEOOOOOOOOOOOOOOO'
-                imageUrl='https://hips.hearstapps.com/hmg-prod/images/gettyimages-695480884-64f8446a4e85d.jpg?crop=1xw:0.84375xh;center,top&resize=1200:*'
-                descr='AGUANTE EL S23 GRANDE SAMSUNG'
-              />
+
             </Grid>
           </Grid>
         </Lamina>
@@ -113,3 +111,5 @@ const Hr = styled.hr`
   width: 75%;
   border-top: 3px solid black;
 `;
+
+

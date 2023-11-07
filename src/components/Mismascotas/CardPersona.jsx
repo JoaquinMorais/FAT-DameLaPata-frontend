@@ -48,59 +48,47 @@ const StyledButton = styled(Button)`
   align-items: center;
   height: 100%;
 `;
+function CardPerson({ full_name, district, telefono }) {
+  const [status, setStatus] = useState('Pendiente'); // Estado inicial
 
-function CardPerson(props) {
-  const [responseData, setResponseData] = useState(null);
-
-  const handleReject = async () => {
-    try {
-      await axios.post('http://localhost:5000/shelter/match', {
-        id_pet: props.id_pet, 
-        id_state: 4, 
-      });
-
-      console.log('La petición fue rechazada.');
-    } catch (error) {
-      console.error('Error al rechazar la solicitud:', error.message);
-    }
+  const handleAccept = () => {
+    // Realiza alguna acción para aceptar la solicitud, por ejemplo, una solicitud HTTP
+    // Luego, actualiza el estado
+    setStatus('Aceptada');
   };
 
-  useEffect(() => {
-    async function fetchData() {
-      try {
-        const response = await axios.get('http://localhost:5000/shelter/match');
-        setResponseData(response.data);
-        console.log('response Data:', responseData);
-      } catch (error) {
-        console.error('Error al realizar la solicitud:', error.message);
-      }
-    }
-
-    fetchData();
-  }, []);
+  const handleReject = () => {
+    // Realiza alguna acción para rechazar la solicitud
+    // Luego, actualiza el estado
+    setStatus('Rechazada');
+  };
 
   return (
     <Content>
       <StyledCard>
+        <StyledCardMedia />
         <StyledCardContent>
           <Typography gutterBottom variant="h5" component="div" sx={{ borderBottom: 1 }}>
-            {props.nombre}
+            Nombre: {full_name}
           </Typography>
           <Typography variant="body2" color="text.secondary">
-            Barrio: {props.district}
+            Barrio: {district}
           </Typography>
           <Typography variant="body2" color="text.secondary">
-            Telefono: {props.phone}
+            Teléfono: {telefono}
           </Typography>
         </StyledCardContent>
         <StyledCardActions>
-          <Button variant='outlined' color="success">
+          <Button variant="outlined" color="success" onClick={handleAccept}>
             Aceptar
           </Button>
-          <Button variant='outlined' color="error" onClick={handleReject}>
+          <Button variant="outlined" color="error" onClick={handleReject}>
             Rechazar
           </Button>
         </StyledCardActions>
+        <Typography variant="body2" color="text.secondary">
+          Estado: {status}
+        </Typography>
       </StyledCard>
     </Content>
   );

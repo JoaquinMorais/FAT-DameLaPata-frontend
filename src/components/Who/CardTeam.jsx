@@ -35,7 +35,7 @@ export default function CardTeam() {
           el: '.swiper-scrollbar',
         },
         autoplay: {
-          delay: 2500,
+          delay: 1000,
         },
       });
 

@@ -72,7 +72,7 @@ const App = () => {
           <Route path="/preferences" element={<Preferences />} />
           <Route path="*" element={<Error />} />
           <Route path="/mis-mascotas-shelter" element={<Mismascotas_Sh />} />
-          <Route path="/solicitud" element={<Solicitud />} />
+          <Route path="/solicitud/:id_pet" element={<Solicitud />} />
           <Route path="/peticiones" element={<Peticiones />} />
 
         </Routes>
