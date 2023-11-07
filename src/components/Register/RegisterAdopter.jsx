@@ -52,6 +52,7 @@ const initialValues = {
   province: '',
   city: '',
   district: '',
+  street: '',
   email: '',
   birthdate: null,
   phone_number: '',
@@ -284,6 +285,19 @@ function AdopterRegister() {
             onBlur={formik.handleBlur}
             error={formik.touched.district && Boolean(formik.errors.district)}
             helperText={formik.touched.district && formik.errors.district}
+          />
+        </Grid>
+        <Grid item xs={12} sm={6}>
+          <TextField
+            fullWidth
+            id="street"
+            name="street"
+            label="Calle"
+            value={formik.values.street} // Agrega este campo
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+            error={formik.touched.street && Boolean(formik.errors.street)} // Agrega este campo
+            helperText={formik.touched.street && formik.errors.street} // Agrega este campo
           />
         </Grid>
         <Grid item xs={12} sm={6}>
