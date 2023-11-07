@@ -55,6 +55,21 @@ export async function GetRequests() {
 }
 
 
+export async function GetRequestsEach(id_pet) {
+  try {
+    const response = await axios.get(`shelter/requests?id_pet=${id_pet}`);
+    let response_message = 'Error al traer las solicitudes de mascotas, intente de nuevo más tarde';
+    if (response.status === 200) {
+      response_message = '';
+    }
+    return response_react(response.status, response_message, response.data.response);
+  } catch (error) {
+    console.log(response)
+    let response_message = 'Ocurrió un error';
+    return response_react(500, response_message, null);
+  }
+}
+
 // Función para crear una solicitud de adopción.
 export async function CreateRequest(dog, state) {
   try {

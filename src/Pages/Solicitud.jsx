@@ -4,7 +4,7 @@ import Flip from 'react-reveal/Flip';
 import Zoom from 'react-reveal/Zoom';
 import NavBar from '../components/NavBar/NavBar';
 import CardPerson from '../components/Mismascotas/CardPersona';
-import { GetRequests } from '../my_methods/dogs_methods';
+import { GetRequestsEach } from '../my_methods/dogs_methods';
 
 
 const Solicitud = () => {
@@ -18,10 +18,13 @@ const Solicitud = () => {
   useEffect(() => {
     async function fetchData() {
       try {
-        await GetRequests().then(checking => {
+        await GetRequestsEach().then(checking => {
           setResponseData(checking.data);
           setResponseStatus(checking.response_status);
           setResponseMessage(checking.response_message);
+          console.log(checking.data)
+          console.log(checking.response_message)
+
         });
       }
       catch (error) {
@@ -50,7 +53,7 @@ const Solicitud = () => {
   
         <Grid>
           <Zoom>
-          {responseData.map((item) => (
+          {responseData.map((id_pet) => (
 
             <Container>
                   <CardPerson

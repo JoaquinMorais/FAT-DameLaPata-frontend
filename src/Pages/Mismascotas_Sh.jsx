@@ -50,7 +50,7 @@ function Mismascotas_Sh() {
                 id_pet = {item.pet.id_pet}
                 imageUrl={item.pet.image_path}
                 title={item.pet.name}
-                num={item.requests.length} // Use item.requests.length to get the number of requests
+                num={item.requests.length}
                 descr={`${item.pet.name} nació el ${item.pet.birth_date}.`}
               />
             </Grid>
