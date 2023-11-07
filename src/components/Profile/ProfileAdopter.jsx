@@ -19,13 +19,82 @@ import SignpostIcon from '@mui/icons-material/Signpost';
 import LocationCityIcon from '@mui/icons-material/LocationCity';
 import TextField from '@mui/material/TextField';
 import CorporateFareIcon from '@mui/icons-material/CorporateFare';
+
+// Styled component for the background
+const BackgroundImage = styled('div')({
+  backgroundColor: '#303030',
+  backgroundSize: 'cover',
+  backgroundRepeat: 'no-repeat',
+  backgroundAttachment: 'fixed',
+  width: '100%',
+  height: '100vh',
+  position: 'absolute',
+  top: 0,
+  left: 0,
+});
+
+// Styled component for the centered container
+const CenteredContainer = styled(Container)({
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'center',
+  justifyContent: 'center',
+  maxHeight: '100vh',
+  backgroundColor: 'rgba(255, 255, 255, 0.9)',
+  padding: '80px',
+  borderRadius: '10px',
+  boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.5)',
+  '@media (max-width: 768px)': {
+    padding: '40px',
+    minHeight: '120vh',
+  },
+});
+
+// Styled component for the user profile avatar container
+const UserProfileAvatarContainer = styled('div')({
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+  position: 'relative',
+  marginBottom: '25px',
+  '@media (max-width: 768px)': {
+    marginTop: '25px',
+  },
+});
+
+// Styled component for the user profile avatar
+const UserProfileAvatar = styled(Avatar)({
+  width: '240px !important',
+  height: '240px !important',
+  marginLeft: '25px',
+});
+
+// Styled component for the horizontal rule
+const StyledHr = styled('hr')({
+  width: '100%',
+  border: 'none',
+  height: '2px',
+  backgroundColor: '#007bff',
+  margin: '20px 0',
+});
+
 function AdopterProfile() {
-  // Estados para el cuadro de confirmación y cuenta eliminada
   const [isConfirmationOpen, setIsConfirmationOpen] = useState(false);
   const [isAccountDeleted, setIsAccountDeleted] = useState(false);
-
-  // Estado para habilitar o deshabilitar la edición de campos
   const [isEditing, setIsEditing] = useState(false);
+  const [user, setUser] = useState({
+    name: '',
+    username: '',
+    surname: '',
+    email: '',
+    location: '',
+    street: '',
+    district: '',
+    birthdate: '',
+    phone_number: '',
+    document: '',
+  });
+
 
   // Función para abrir el cuadro de confirmación
   const openConfirmation = () => {
@@ -66,52 +135,37 @@ function AdopterProfile() {
     },
   };
 
-  // Estado para almacenar los datos del adoptante
-  const [user, setUser] = useState({
-    name: '',
-    username: '',
-    surname: '',
-    email: '',
-    city: '',
-    province: '',
-    district: '',
-    birthdate: '',
-    phone_number: '',
-    Type_document: '',
-    Edad: '',
-  });
-
-  // Función para obtener y cargar los datos del adoptante
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await GetProfile();
-        if (response.data['status'] !== 200) {
-          window.location.href = "/login";
-        }
-
-        // Actualiza el estado del adoptante con los datos obtenidos
-        setUser({
-          name: response.data.response['name'],
-          username: response.data.response['username'],
-          surname: response.data.response['surname'],
-          email: response.data.response['email'],
-          location: response.data.response.address['district'],
-          street: response.data.response.address['street'],
-          district: response.data.response.address['location'],
-          birthdate: response.data.response['birth_date'],
-          phone_number: response.data.response['phone_number'],
-        });
-      } catch (error) {
-        console.error(error);
+  const fetchData = async () => {
+    try {
+      const response = await GetProfile();
+      if (response.data['status'] !== 200) {
+        window.location.href = '/login';
       }
-    };
+
+      setUser({
+        name: response.data.response['name'],
+        username: response.data.response['username'],
+        surname: response.data.response['surname'],
+        email: response.data.response['email'],
+        location: response.data.response.address['location'],
+        street: response.data.response.address['street'],
+        district: response.data.response.address['district'],
+        birthdate: response.data.response['birth_date'],
+        phone_number: response.data.response['phone_number'],
+        document: response.data.response['document'],
+      });
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  useEffect(() => {
     fetchData();
   }, []);
 
+
   return (
     <>
-      <Navbar />
       <BackgroundImage>
         <CenteredContainer maxWidth="lg">
           <Grid item xs={12} md={4}>
@@ -125,17 +179,6 @@ function AdopterProfile() {
                 src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png"
               />
             </UserProfileAvatarContainer>
-
-            {isConfirmationOpen && !isAccountDeleted && (
-              <ConfirmDialog
-                isOpen={isConfirmationOpen}
-                onClose={closeConfirmation}
-                onConfirm={handleDeleteAccount}
-              />
-            )}
-            {isAccountDeleted && (
-              <SuccessDialog isOpen={isAccountDeleted} onClose={closeSuccessDialog} />
-            )}
           </Grid>
           <Grid item xs={12} md={8} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
             <StyledHr />
@@ -144,6 +187,57 @@ function AdopterProfile() {
             </Typography>
             <StyledHr />
             <Grid container spacing={2}>
+            <Grid item xs={12} md={6} sx={{ display: 'flex', justifyContent: 'center' }}>
+                <FormControl variant="standard">
+                  <TextField
+                    id="input-name"
+                    label="Nombre"
+                    variant="standard"
+                    InputProps={{
+                      startAdornment: (
+                        <InputAdornment position="start">
+                          <AccountCircleIcon />
+                        </InputAdornment>
+                      ),
+                    }}
+                    value={user.name}
+                    disabled={!isEditing}
+                    sx={inputStyles}
+                  />
+                </FormControl>
+              </Grid>
+              <Grid item xs={12} md={6} sx={{ display: 'flex', justifyContent: 'center' }}>
+                <FormControl variant="standard">
+                  <TextField
+                    id="input-surname"
+                    label="Apellido"
+                    variant="standard"
+                    InputProps={{
+                      startAdornment: (
+                        <InputAdornment position="start">
+                          <AccountCircleIcon />
+                        </InputAdornment>
+                      ),
+                    }}
+                    value={user.surname}
+                    disabled={!isEditing}
+                    sx={inputStyles}
+                  />
+                </FormControl>
+              </Grid>
+              <Grid item xs={12} md={6} sx={{ display: 'flex', justifyContent: 'center' }}>
+                <FormControl variant="standard">
+                  <TextField
+                    id="input-age"
+                    label="Edad"
+                    type="number"
+                    variant="standard"
+                    value={user.age}
+                    disabled={!isEditing}
+                    sx={inputStyles}
+                  />
+                </FormControl>
+              </Grid>
               <Grid item xs={12} md={6} sx={{ display: 'flex', justifyContent: 'center' }}>
                 <FormControl variant="standard">
                   <TextField
@@ -176,7 +270,7 @@ function AdopterProfile() {
                         </InputAdornment>
                       ),
                     }}
-                    value={user.Type_document}
+                    value={user.document}
                     disabled={!isEditing}
                     sx={inputStyles}
                   />
@@ -214,16 +308,13 @@ function AdopterProfile() {
                         </InputAdornment>
                       ),
                     }}
-                    value={user.province}
+                    value={user.district}
                     disabled={!isEditing}
                     sx={inputStyles}
                   />
                 </FormControl>
               </Grid>
             </Grid>
-
-            <StyledHr />
-
             <Grid container spacing={2}>
               <Grid item xs={12} md={6} sx={{ display: 'flex', justifyContent: 'center' }}>
                 <FormControl variant="standard">
@@ -265,6 +356,7 @@ function AdopterProfile() {
                 </FormControl>
               </Grid>
             </Grid>
+            <StyledHr />
 
             <div style={{ marginTop: '40px' }}>
               <Button
@@ -284,58 +376,3 @@ function AdopterProfile() {
 }
 
 export default AdopterProfile;
-
-const BackgroundImage = styled.div`
-  background-color: #303030;
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-attachment: fixed;
-  width: 100%;
-  height: 100vh;
-  position: absolute;
-  top: 0;
-  left: 0;
-`;
-
-const CenteredContainer = styled(Container)`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  max-height: 100vh;
-  background-color: rgba(255, 255, 255, 0.9);
-  padding: 80px;
-  border-radius: 10px;
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
-
-  @media (max-width: 768px) {
-    padding: 40px;
-    min-height: 120vh;
-  }
-`;
-
-const UserProfileAvatarContainer = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: relative;
-  margin-bottom: 25px;
-
-  @media (max-width: 768px) {
-    margin-top: 25px;
-  }
-`;
-
-const UserProfileAvatar = styled(Avatar)`
-  width: 240px !important;
-  height: 240px !important;
-  margin-left: 25px;
-`;
-
-const StyledHr = styled.hr`
-  width: 100%;
-  border: none;
-  height: 2px;
-  background-color: #007bff;
-  margin: 20px 0;
-`;
