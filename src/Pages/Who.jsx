@@ -94,14 +94,16 @@ const Wrap = styled.div`
 
 const StyledTitle = styled(Typography)`
   /* Anular el margin predeterminado de Material UI */
-  margin: 40px 0 !important; /* Agregar margen arriba y abajo */
+  font-family: 'Raleway', sans-serif !important;
+  margin: 20px 0 !important; /* Agregar margen arriba y abajo */
   font-size: 54px !important; /* Ajusta el tamaño de la fuente para títulos */
   font-weight: bold !important; /* Hacer que los títulos estén en negrita */
   text-align: center; /* Centrar el texto */
 `;
 
 const StyledText = styled(Typography)`
-  font-size: 24px !important; /* Ajusta el tamaño de la fuente para el texto */
+  font-family: 'Raleway', sans-serif !important;
+  font-size: 23px !important; /* Ajusta el tamaño de la fuente para el texto */
   text-align: center; /* Centra el texto en pantallas pequeñas */
 `;
 

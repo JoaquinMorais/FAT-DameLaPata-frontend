@@ -3,8 +3,8 @@ import Swiper from 'swiper';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
-import Card from '@mui/material/Card'; // Importa el componente Card de Material-UI
-import CardContent from '@mui/material/CardContent'; // Importa el componente CardContent de Material-UI
+import Card from '@mui/material/Card';
+import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
 import styled from 'styled-components';
 import CartaInd from './CartaInd';
@@ -15,9 +15,9 @@ const StyledCard = styled(Card)`
 
 const StyledTitle = styled(Typography)`
   margin: 40px 0 !important;
-  font-size: 32px !important; /* Ajusta el tamaño de la fuente para el título */
-  font-weight: bold !important; /* Hace que el título esté en negrita */
-  text-align: center; /* Centra el texto */
+  font-size: 32px !important;
+  font-weight: bold !important;
+  text-align: center;
 `;
 
 export default function CardTeam() {
@@ -27,6 +27,8 @@ export default function CardTeam() {
   useEffect(() => {
     if (!swiperInitialized) {
       swiper = new Swiper('.swiper-container', {
+        slidesPerView: 4, // Mostrar 4 cartas por slide
+        spaceBetween: 20, // Espacio entre las cartas
         pagination: {
           el: '.swiper-pagination',
           clickable: true,
@@ -49,7 +51,7 @@ export default function CardTeam() {
         <StyledTitle variant="h2">ESTE GRUPO ESTÁ COMPUESTO POR:</StyledTitle>
         <div className="swiper-container" >
           <div className="swiper-wrapper" >
-            <CartaInd name={'Yaco Babiachuck'} img={'https://i.postimg.cc/bvhQJWs5/yaco.jpg'}/>
+            <CartaInd name={'Yaco Babiachuk'} img={'https://i.postimg.cc/bvhQJWs5/yaco.jpg'}/>
             <CartaInd name={'Maximo Tomas Blazquez'} img={'https://i.postimg.cc/PJ9DkFg2/facha.jpg'} />
             <CartaInd name={'Alejo Diaz Broilo'} img={'https://i.postimg.cc/MTZV0B0b/alejo.jpg'} />
             <CartaInd name={'Mateo Emanuel Fernandez'} img={'https://i.postimg.cc/Kz9L0YJX/fercho.jpg'} />

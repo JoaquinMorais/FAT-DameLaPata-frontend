@@ -39,7 +39,9 @@ export default function CartaInd({ name, img, swiperInstance }) {
       paddingBottom: '20px',
       width: '100%',
     }}>
+      <StyledCard>
       <StyledImage src={img} alt={name} />
+      </StyledCard>
       <div className="name">{name}</div>
     </div>
   );
