@@ -7,18 +7,21 @@ import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import styled from 'styled-components';
 import MailIcon from '@mui/icons-material/Mail';
-import Navbar from '../NavBar/NavBar';
 import ConfirmDialog from '../CloseAccount/ConfirmDialog';
 import SuccessDialog from '../CloseAccount/SuccessDialog';
 import { GetProfile } from '../../my_methods/session_methods';
 import InputAdornment from '@mui/material/InputAdornment';
+import AssignmentIndIcon from '@mui/icons-material/AssignmentInd';
 import FormControl from '@mui/material/FormControl';
+import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 import LocalPhoneIcon from '@mui/icons-material/LocalPhone';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import SignpostIcon from '@mui/icons-material/Signpost';
 import LocationCityIcon from '@mui/icons-material/LocationCity';
 import TextField from '@mui/material/TextField';
 import CorporateFareIcon from '@mui/icons-material/CorporateFare';
+import NavBar from '../NavBar/NavBar';
+import Footer from '../Footer/Footer';
 
 // Styled component for the background
 const BackgroundImage = styled('div')({
@@ -38,6 +41,7 @@ const CenteredContainer = styled(Container)({
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'center',
+  margin: '20px',
   justifyContent: 'center',
   maxHeight: '100vh',
   backgroundColor: 'rgba(255, 255, 255, 0.9)',
@@ -75,7 +79,7 @@ const StyledHr = styled('hr')({
   border: 'none',
   height: '2px',
   backgroundColor: '#007bff',
-  margin: '20px 0',
+  margin: '25px 0',
 });
 
 function AdopterProfile() {
@@ -97,75 +101,45 @@ function AdopterProfile() {
   });
 
   function calculateAge(birthdate) {
-  // Convierte la fecha de nacimiento en un objeto Date
-  const birthDate = new Date(birthdate);
-  const currentDate = new Date();
-
-  const timeDiff = currentDate - birthDate;
-  
-  // Convierte la diferencia en años
-  const age = Math.floor(timeDiff / (1000 * 60 * 60 * 24 * 365.25));
+    const birthDate = new Date(birthdate);
+    const currentDate = new Date();
+    const timeDiff = currentDate - birthDate;
+    const age = Math.floor(timeDiff / (1000 * 60 * 60 * 24 * 365.25));
     return age;
   }
 
-  // Función para abrir el cuadro de confirmación
   const openConfirmation = () => {
     setIsConfirmationOpen(true);
   };
 
-  // Función para cerrar el cuadro de confirmación
   const closeConfirmation = () => {
     setIsConfirmationOpen(false);
   };
 
-  // Función para eliminar la cuenta
-  const handleDeleteAccount = async () => {
-    try {
-      // Realizar una solicitud POST al servidor para cerrar la cuenta
-      await axios.post(`/closeaccount/1`);
-      setIsAccountDeleted(true);
-      closeConfirmation();
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
-  // Función para cerrar el diálogo de éxito
   const closeSuccessDialog = () => {
     setIsAccountDeleted(false);
-  };
-
-  // Estilos para los campos de entrada de datos
-  const inputStyles = {
-    width: '100%',
-    '& .MuiInputBase-root': {
-      width: '100%',
-    },
-    '& .MuiInputBase-input': {
-      fontSize: '16px',
-      padding: '10px',
-    },
   };
 
   const fetchData = async () => {
     try {
       const response = await GetProfile();
-      if (response.data['status'] !== 200) {
+      if (response.data.status !== 200) {
         window.location.href = '/login';
+        return;
       }
 
-      const birthdate = response.data.response['birth_date'];
+      const birthdate = response.data.response.birth_date;
       setUser({
-        name: response.data.response['name'],
-        username: response.data.response['username'],
-        surname: response.data.response['surname'],
-        email: response.data.response['email'],
-        location: response.data.response.address['location'],
-        street: response.data.response.address['street'],
-        district: response.data.response.address['district'],
-        birthdate: response.data.response['birth_date'],
-        phone_number: response.data.response['phone_number'],
-        document: response.data.response['document'],
+        name: response.data.response.name,
+        username: response.data.response.username,
+        surname: response.data.response.surname,
+        email: response.data.response.email,
+        location: response.data.response.address.location,
+        street: response.data.response.address.street,
+        district: response.data.response.address.district,
+        birthdate: response.data.response.birth_date,
+        phone_number: response.data.response.phone_number,
+        document: response.data.response.document,
         age: calculateAge(birthdate),
       });
     } catch (error) {
@@ -177,43 +151,55 @@ function AdopterProfile() {
     fetchData();
   }, []);
 
+  const inputStyles = {
+    width: '100%',
+    '& .MuiInputBase-root': {
+      width: '100%',
+    },
+    '& .MuiInputBase-input': {
+      fontSize: '16px',
+      padding: '10px',
+    },
+  };
 
   return (
-    <>
-      <BackgroundImage>
-        <CenteredContainer maxWidth="lg">
-          <Grid container spacing={2}>
-            {/* Columna izquierda (foto de perfil) */}
-            <Grid item xs={12} md={4} sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-              <UserProfileAvatarContainer>
-                <UserProfileAvatar
-                  alt="User Profile"
-                  src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png"
-                />
-              </UserProfileAvatarContainer>
-              <Button
-                variant="contained"
-                onClick={() => {
-                  setIsEditing(!isEditing);
-                }}
-              >
-                {isEditing ? 'Guardar' : 'Editar perfil'}
-              </Button>
-            </Grid>
+    <BackgroundImage>
+      <NavBar />
+      <CenteredContainer maxWidth="lg">
+        <Typography variant="h3" sx={{ textAlign: 'center', marginBottom: '20px' }}>
+          <strong>"Bienvenido {user.name}"</strong>
+        </Typography> 
 
-            {/* Columna derecha (datos del usuario) */}
-            <Grid item xs={12} md={8} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-              <Typography variant="h4" sx={{ textAlign: 'center', marginTop: '30px', marginBottom: '30px' }}>
-                Bienvenido <strong>{user.name}</strong>
-              </Typography>
+        <StyledHr />
 
-              <StyledHr />
-              <Typography variant="h4" sx={{ textAlign: 'center' }}>
-                DATOS DE USUARIO
-              </Typography>
-              <StyledHr />
+        <Grid container spacing={2}>
+          {/* Columna izquierda (foto de perfil y botón) */}
+          <Grid item xs={12} md={4} sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+            <UserProfileAvatarContainer>
+              <UserProfileAvatar
+                alt="User Profile"
+                src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png"
+              />
+            </UserProfileAvatarContainer>
+            <Button
+              variant="contained"
+              onClick={() => {
+                setIsEditing(!isEditing);
+              }}
+            >
+              {isEditing ? 'Guardar' : 'Editar perfil'}
+            </Button>
+          </Grid>
+
+          {/* Columna derecha (datos del usuario) */}
+          <Grid item xs={12} md={8} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+            <Typography variant="h4" sx={{ textAlign: 'center' }}>
+              DATOS DE USUARIO
+            </Typography>
+            <StyledHr />
+
             <Grid container spacing={2}>
-            <Grid item xs={12} md={6} sx={{ display: 'flex', justifyContent: 'center' }}>
+              <Grid item xs={12} md={6} sx={{ display: 'flex', justifyContent: 'center' }}>
                 <FormControl variant="standard">
                   <TextField
                     id="input-name"
@@ -222,7 +208,7 @@ function AdopterProfile() {
                     InputProps={{
                       startAdornment: (
                         <InputAdornment position="start">
-                          <AccountCircleIcon />
+                          <AssignmentIndIcon />
                         </InputAdornment>
                       ),
                     }}
@@ -241,7 +227,7 @@ function AdopterProfile() {
                     InputProps={{
                       startAdornment: (
                         <InputAdornment position="start">
-                          <AccountCircleIcon />
+                          <AssignmentIndIcon />
                         </InputAdornment>
                       ),
                     }}
@@ -258,6 +244,13 @@ function AdopterProfile() {
                     label="Edad"
                     type="number"
                     variant="standard"
+                    InputProps={{
+                      startAdornment: (
+                        <InputAdornment position="start">
+                          <CalendarMonthIcon />
+                        </InputAdornment>
+                      ),
+                    }}
                     value={user.age}
                     disabled={!isEditing}
                     sx={inputStyles}
@@ -325,7 +318,26 @@ function AdopterProfile() {
                 <FormControl variant="standard">
                   <TextField
                     id="input-location"
-                    label="Provincia/Ciudad"
+                    label="Provincia"
+                    variant="standard"
+                    InputProps={{
+                      startAdornment: (
+                        <InputAdornment position="start">
+                          <LocationCityIcon />
+                        </InputAdornment>
+                      ),
+                    }}
+                    value={user.district}
+                    disabled={!isEditing}
+                    sx={inputStyles}
+                  />
+                </FormControl>
+              </Grid>
+              <Grid item xs={12} md={6} sx={{ display: 'flex', justifyContent: 'center' }}>
+                <FormControl variant="standard">
+                  <TextField
+                    id="input-location"
+                    label="Ciudad"
                     variant="standard"
                     InputProps={{
                       startAdornment: (
@@ -383,11 +395,11 @@ function AdopterProfile() {
               </Grid>
             </Grid>
             <StyledHr />
-            </Grid>
           </Grid>
-        </CenteredContainer>
-      </BackgroundImage>
-    </>
+        </Grid>
+      </CenteredContainer>
+      <Footer/>
+    </BackgroundImage>
   );
 }
 
