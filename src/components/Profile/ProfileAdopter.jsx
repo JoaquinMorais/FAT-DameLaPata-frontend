@@ -30,7 +30,7 @@ const BackgroundImage = styled('div')({
   backgroundRepeat: 'no-repeat',
   backgroundAttachment: 'fixed',
   width: '100%',
-  height: '100vh',
+  minHeight: '100vh',
   position: 'absolute',
   top: 0,
   left: 0,
@@ -43,7 +43,7 @@ const CenteredContainer = styled(Container)({
   alignItems: 'center',
   margin: '20px',
   justifyContent: 'center',
-  maxHeight: '100vh',
+  minHeight: '100vh',
   backgroundColor: 'rgba(255, 255, 255, 0.9)',
   padding: '80px',
   borderRadius: '10px',
@@ -280,7 +280,7 @@ function AdopterProfile() {
                 <FormControl variant="standard">
                   <TextField
                     id="input-org"
-                    label="Numero de documento"
+                    label="Documento"
                     variant="standard"
                     InputProps={{
                       startAdornment: (
@@ -352,49 +352,48 @@ function AdopterProfile() {
                   />
                 </FormControl>
               </Grid>
-            </Grid>
-            <Grid container spacing={2}>
-              <Grid item xs={12} md={6} sx={{ display: 'flex', justifyContent: 'center' }}>
-                <FormControl variant="standard">
-                  <TextField
-                    id="input-phonenumber"
-                    label="Numero de telefono"
-                    type="number"
-                    variant="standard"
-                    InputProps={{
-                      startAdornment: (
-                        <InputAdornment position="start">
-                          <LocalPhoneIcon />
-                        </InputAdornment>
-                      ),
-                    }}
-                    value={user.phone_number}
-                    disabled={!isEditing}
-                    sx={inputStyles}
-                  />
-                </FormControl>
+              <Grid container spacing={2}>
+                <Grid item xs={12} md={6} sx={{ display: 'flex', justifyContent: 'center' }}>
+                  <FormControl variant="standard">
+                    <TextField
+                      id="input-phonenumber"
+                      label="Telefono"
+                      type="number"
+                      variant="standard"
+                      InputProps={{
+                        startAdornment: (
+                          <InputAdornment position="start">
+                            <LocalPhoneIcon />
+                          </InputAdornment>
+                        ),
+                      }}
+                      value={user.phone_number}
+                      disabled={!isEditing}
+                      sx={inputStyles}
+                    />
+                  </FormControl>
+                </Grid>
+                <Grid item xs={12} md={6} sx={{ display: 'flex', justifyContent: 'center' }}>
+                  <FormControl variant="standard">
+                    <TextField
+                      id="input-email"
+                      label="Correo electronico"
+                      variant="standard"
+                      InputProps={{
+                        startAdornment: (
+                          <InputAdornment position="start">
+                            <MailIcon />
+                          </InputAdornment>
+                        ),
+                      }}
+                      value={user.email}
+                      disabled
+                      sx={inputStyles}
+                    />
+                  </FormControl>
+                </Grid>
               </Grid>
-              <Grid item xs={12} md={6} sx={{ display: 'flex', justifyContent: 'center' }}>
-                <FormControl variant="standard">
-                  <TextField
-                    id="input-email"
-                    label="Correo electronico"
-                    variant="standard"
-                    InputProps={{
-                      startAdornment: (
-                        <InputAdornment position="start">
-                          <MailIcon />
-                        </InputAdornment>
-                      ),
-                    }}
-                    value={user.email}
-                    disabled
-                    sx={inputStyles}
-                  />
-                </FormControl>
-              </Grid>
             </Grid>
-            <StyledHr />
           </Grid>
         </Grid>
       </CenteredContainer>
