@@ -83,92 +83,12 @@ function PetContent() {
 
 /* ------------------------------------ */
 
-const navigate = useNavigate();
-
-// const handlePerroSiClick = async () => {
-//   try {
-//     if (availablePetIds.length === 0) {
-//       // No hay más perros disponibles para mostrar
-//       console.log('availablePetIds:', availablePetIds);
-//       alert('No hay más perros disponibles.');
-//       return;
-//     }
-
-//     // Generar un número aleatorio basado en la lista de IDs disponibles
-//     const randomIndex = Math.floor(Math.random() * availablePetIds.length);
-//     const randomPetId = availablePetIds[randomIndex];
-
-//     const estado = {
-//       id_pet: randomPetId,
-//       id_status: 3,
-//     };
-
-//     const response = await axios.put('http://localhost:5000/adopter/match', estado);
-//     console.log('Respuesta del servidor:', response.data);
-
-//     // Redireccionar a la página de detalles del perro seleccionado aleatoriamente
-//     navigate(`/pet/details/${randomPetId}`);
-//   } catch (error) {
-//     console.error('Error al realizar la solicitud:', error.message);
-//   }
-// };
-
-/* ------------------------------------ */
 
 const estado = {
   id_pet: parseInt(id),
   id_status: 4,
 }
 console.log(estado);
-
-const handlePerroNoClick = async () => {
-  try{
-    const response = axios.put('http://localhost:5000/adopter/match', estado);
-  }
-  catch{
-    alert("no");
-  }
-}
-
-//   try {
-//     if (availablePetIds.length === 0) {
-//       // No hay más perros disponibles para mostrar
-//       console.log('availablePetIds:', availablePetIds);
-//       alert('No hay más perros disponibles.');
-//       return;
-//     }
-
-//     // Generar un número aleatorio basado en la lista de IDs disponibles
-//     const randomIndex = Math.floor(Math.random() * availablePetIds.length);
-//     const randomPetId = availablePetIds[randomIndex];
-
-//     const estado = {
-//       id_pet: randomPetId,
-//       id_status: 4,
-//     };
-
-//     const response = await axios.put('http://localhost:5000/adopter/match', estado);
-//     console.log('Respuesta del servidor:', response.data);
-
-//     // Redireccionar a la página de detalles del perro seleccionado aleatoriamente
-//     navigate(`/pet/details/${randomPetId}`);
-//   } catch (error) {
-//     console.error('Error al realizar la solicitud:', error.message);
-//   }
-// };
-
-/* ------------------------------------ */
-
-const [open, setOpen] = React.useState(false);
-
-const handleClickOpen = () => {
-  setOpen(true);
-};
-
-const handleClose = () => {
-  setOpen(false);
-};
-
 
   return (
     
@@ -258,7 +178,6 @@ const Div1 = styled.div`
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background-color: #ffc0ad;
 `;
 
 const Div2 = styled.div`
@@ -266,7 +185,6 @@ const Div2 = styled.div`
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background-color: #ffb199;
 `;
 
 const Div3 = styled.div`
@@ -274,7 +192,6 @@ const Div3 = styled.div`
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background-color: #ffa185;
 `;
 
 const Div4 = styled.div`
@@ -282,7 +199,6 @@ const Div4 = styled.div`
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background-color: #ff9270;
 `;
 
 const Div5 = styled.div`
@@ -290,7 +206,6 @@ const Div5 = styled.div`
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background-color: #ff825c;
 `;
 
 const Div6 = styled.div`
@@ -298,5 +213,4 @@ const Div6 = styled.div`
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background-color: #ff7247;
 `;

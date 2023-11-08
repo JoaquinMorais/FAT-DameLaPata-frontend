@@ -20,7 +20,7 @@ const StyledTabs = styled((props) => (
   '& .MuiTabs-indicatorSpan': {
     maxWidth: 40,
     width: '100%',
-    backgroundColor: '#fff',
+    backgroundColor: 'black',
   },
 });
 
@@ -32,10 +32,10 @@ const StyledTab = styled((props) => <Tab disableRipple {...props} />)(
     marginRight: theme.spacing(1),
     color: 'rgba(255, 255, 255, 0.7)',
     '&.Mui-selected': {
-      color: '#fff',
+      color: 'black',
     },
     '&.Mui-focusVisible': {
-      backgroundColor: 'rgba(100, 95, 228, 0.32)',
+      backgroundColor: 'rgba(255,255,255, 1)',
     },
   }),
 );
@@ -48,15 +48,15 @@ export default function CustomizedTabs() {
   };
 
   return (
-    <Box sx={{ width: '100%' }}>
-      <Box sx={{ bgcolor: '#ad5a39' }}>
+    <Box sx={{ width: '100%', height:'100%' }}>
+      <Box sx={{ bgcolor: '#fffff', marginTop: '50px', color:'black', width:'100%', display:'flex', justifyContent:'center' }}>
         <StyledTabs
           value={value}
           onChange={handleChange}
           aria-label="styled tabs example"
         >
-          <StyledTab label="MASCOTA" />
-          <StyledTab label="REFUGIO" />
+          <StyledTab sx={{color:'black'}} label="MASCOTA" />
+          <StyledTab sx={{color:'black'}} label="REFUGIO" />
         </StyledTabs>
         <Box sx={{ p: 3 }} />
       </Box>

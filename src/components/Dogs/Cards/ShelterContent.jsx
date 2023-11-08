@@ -26,27 +26,31 @@ function ShelterContent() {
                 <Caracteristicas>nose</Caracteristicas>
               </Div3>
             </Fade>
-            
-            <Fade>
-              <Div4>
-                <Titulo2>Color/es</Titulo2>
-                <Caracteristicas>nose</Caracteristicas>
-              </Div4>
-            </Fade>
 
             <Fade>
-              <Div5>
-                <Titulo2>Caracteristica/s</Titulo2>
+              <Div3>
+                <Titulo2>Numero de Contacto</Titulo2>
                 <Caracteristicas>nose</Caracteristicas>
-              </Div5>
+              </Div3>
             </Fade>
-              
+
+
             <Fade>
-              <Div6>
-                <Titulo2>Vacunas</Titulo2>
-                <Caracteristicas>Consultar</Caracteristicas>
-              </Div6>
-            </Fade>        
+              <Div3>
+                <Titulo2>Numero de Contacto</Titulo2>
+                <Caracteristicas>nose</Caracteristicas>
+              </Div3>
+            </Fade>
+
+
+            <Fade>
+              <Div3>
+                <Titulo2>Numero de Contacto</Titulo2>
+                <Caracteristicas>nose</Caracteristicas>
+              </Div3>
+            </Fade>
+
+   
     </Container>
   )
 }
@@ -82,7 +86,6 @@ const Div1 = styled.div`
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background-color: #ffc0ad;
 `;
 
 const Div2 = styled.div`
@@ -90,7 +93,6 @@ const Div2 = styled.div`
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background-color: #ffb199;
 `;
 
 const Div3 = styled.div`
@@ -98,29 +100,5 @@ const Div3 = styled.div`
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background-color: #ffa185;
 `;
 
-const Div4 = styled.div`
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    background-color: #ff9270;
-`;
-
-const Div5 = styled.div`
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    background-color: #ff825c;
-`;
-
-const Div6 = styled.div`
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    background-color: #ff7247;
-`;

@@ -99,33 +99,6 @@ const Details = () => {
 
 const navigate = useNavigate();
 
-// const handlePerroSiClick = async () => {
-//   try {
-//     if (availablePetIds.length === 0) {
-//       // No hay más perros disponibles para mostrar
-//       console.log('availablePetIds:', availablePetIds);
-//       alert('No hay más perros disponibles.');
-//       return;
-//     }
-
-//     // Generar un número aleatorio basado en la lista de IDs disponibles
-//     const randomIndex = Math.floor(Math.random() * availablePetIds.length);
-//     const randomPetId = availablePetIds[randomIndex];
-
-//     const estado = {
-//       id_pet: randomPetId,
-//       id_status: 3,
-//     };
-
-//     const response = await axios.put('http://localhost:5000/adopter/match', estado);
-//     console.log('Respuesta del servidor:', response.data);
-
-//     // Redireccionar a la página de detalles del perro seleccionado aleatoriamente
-//     navigate(`/pet/details/${randomPetId}`);
-//   } catch (error) {
-//     console.error('Error al realizar la solicitud:', error.message);
-//   }
-// };
 
 /* ------------------------------------ */
 
@@ -144,32 +117,7 @@ const handlePerroNoClick = async () => {
   }
 }
 
-//   try {
-//     if (availablePetIds.length === 0) {
-//       // No hay más perros disponibles para mostrar
-//       console.log('availablePetIds:', availablePetIds);
-//       alert('No hay más perros disponibles.');
-//       return;
-//     }
 
-//     // Generar un número aleatorio basado en la lista de IDs disponibles
-//     const randomIndex = Math.floor(Math.random() * availablePetIds.length);
-//     const randomPetId = availablePetIds[randomIndex];
-
-//     const estado = {
-//       id_pet: randomPetId,
-//       id_status: 4,
-//     };
-
-//     const response = await axios.put('http://localhost:5000/adopter/match', estado);
-//     console.log('Respuesta del servidor:', response.data);
-
-//     // Redireccionar a la página de detalles del perro seleccionado aleatoriamente
-//     navigate(`/pet/details/${randomPetId}`);
-//   } catch (error) {
-//     console.error('Error al realizar la solicitud:', error.message);
-//   }
-// };
 
 /* ------------------------------------ */
 
@@ -185,12 +133,6 @@ const handleClose = () => {
 
 /* ------------------------------------ */
 
-const shelterContact = {
-  name: 'Refugio zona sur',
-  whatsapp: '+54 9 351 123-1234',
-  mail: 'refugio1@gmail.com',
-};
-
 
   return (
     <>
@@ -198,16 +140,16 @@ const shelterContact = {
         <SwiperSlide key={responseData?.response.id_pet}>
           <Carta>
           <ImagenContainer>
-              <Imagen src={`${responseData?.response.image_path}`} alt="" />
-                <Arriba>
-                  <Texto>
-                    <Flip top><Titulo>{`${responseData?.response.name}`}</Titulo></Flip>
-                    <Zoom left><Subtitulo>{calcularEdad()}</Subtitulo></Zoom>
-                    <Zoom left><Subtitulo>{`${responseData?.response.gender}`}</Subtitulo></Zoom>
-                  </Texto>
-                </Arriba>
+              <Imagen src={`${responseData?.response.image_path}`} alt="" />          
                 <Abajo>
-                <Botones>
+                  <Texto>
+                      <Flip top>
+                        <Titulo>
+                          <span style={{fontWeight:'bold'}}>{`${responseData?.response.name}`}</span> - {calcularEdad()}
+                          </Titulo>
+                      </Flip>
+                    </Texto>
+                  <Botones>
                   <Zoom>
                     <No>
                       <PerroNo
@@ -258,74 +200,86 @@ export default Details
 
 const Carta = styled.div`
     width: 100%;
-    height: auto;
+    height: 100%;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     position: relative;
-`;
+    border-radius: 30px;
+    @media (max-width: 900px) {
+        flex-direction: column;
+    }
 
-const Hr = styled.hr`
-    margin-bottom: 10px;
-    width: 40%;
 `;
 
 const ImagenContainer = styled.div`
     position: relative;
+    display: flex;
+    justify-content:center;
+    align-items:center;
 `;
 
 const Imagen = styled.img`
-    width: 100%;
+  width: 500px;
+  height: 85%;
+  object-fit: cover;
+  margin-left: 100px;
+  border-radius: 30px;
+  margin-top: 70px;
+  
+  @media (max-width: 900px) {
     height: 100vh;
-    object-fit: cover;
+    width: 100%;
+
+  }
 `;
+
 
 const Abajo = styled.div`
-    position: absolute;
-    bottom: 8.5%;
-    width: 100%;
-    height: 150px;
-    display: flex;
-    flex-direction: row;
-`;
+  position: absolute;
+  bottom: 3.5%;
+  width: 83%;
+  height: 350px; 
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 5%;
+  margin-left: 100px;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.01));
+  border-radius: 0 0 30px 30px;
 
-const Arriba = styled.div`
-    position: absolute;
-    bottom: 70%;
+  @media (max-width: 900px) {
+    bottom: 0%;
+    padding-bottom: 5%;
     width: 100%;
-    height: 150px;
-    background: linear-gradient(to right, rgba(0,0,0,0.8), transparent 30%);
-    display: flex;
-    flex-direction: row;
+
+
+  }
 `;
 
 
 const Texto = styled.div`   
-    text-align: left;
+    position:relative;
+    text-align:left;
+    left:20px;
     width: 100%;
     height: 100%;
     color: white;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    margin: 0 0 0 10px;
 `;
 
 const Titulo = styled.h1`
     color: white;
     text-transform: uppercase;
     font-style: italic;
-    margin-top: 15px;
 `;
 
-const Subtitulo = styled.p`
-    color: white;
-    font-size: 20px;
-`;
 
 const Botones = styled.div`
     position: absolute;
     width: 100%;
     height: 100%;
+    bottom: -20%;
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -333,13 +287,12 @@ const Botones = styled.div`
 `;
 
 const No = styled.button`
-    width: 125px;
-    height: 125px;
-    border-radius: 16px;
-    border: 2px solid black;
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    border: 5px solid red;
     background: inherit;
-    backdrop-filter: blur(20px);
-    margin: 0 35px;
+    margin: 0 45px;
     cursor: pointer;
     transition: transform 0.3s ease;
 
@@ -348,13 +301,12 @@ const No = styled.button`
 `;
 
 const Si = styled.button`
-    width: 125px;
-    height: 125px;
-    border-radius: 16px;
-    border: 2px solid black;
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    border: 5px solid green;
     background: inherit;
-    backdrop-filter: blur(20px);
-    margin: 0 35px;
+    margin: 0 45px;
     cursor: pointer;
     transition: transform 0.3s ease;
 
@@ -380,28 +332,4 @@ const PerroSi = styled.img`
 
     &:hover {
       transform: scale(1.4) rotate(-10deg);
-`;
-
-const Container = styled.div`
-    width: 100%;
-    text-align: left;
-    color: white;
-    display: flex;
-    flex-direction: column;
-    text-align: center;
-`;
-
-const Titulo2 = styled.h2`
-    color: black;
-    text-transform: uppercase;
-    font-style: italic;
-    padding: 20px 15px 0 15px;
-    margin-bottom: 10px;
-`;
-
-const Caracteristicas = styled.p`
-    font-size: 18px;
-    color: black;
-    padding: 0px 15px 20px 15px;
-    word-wrap: break-word;
 `;
