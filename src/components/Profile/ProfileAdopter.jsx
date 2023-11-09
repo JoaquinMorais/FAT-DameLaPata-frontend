@@ -15,7 +15,7 @@ import FormControl from '@mui/material/FormControl';
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 import LocalPhoneIcon from '@mui/icons-material/LocalPhone';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
-import EditIcon from '@mui/icons-material/Edit'; // Icono de edición
+import EditIcon from '@mui/icons-material/Edit';
 import SignpostIcon from '@mui/icons-material/Signpost';
 import LocationCityIcon from '@mui/icons-material/LocationCity';
 import TextField from '@mui/material/TextField';
@@ -224,6 +224,9 @@ function AdopterProfile() {
                     }}
                     value={user.name}
                     disabled={!isEditing}
+                    onChange={(e) => {
+                      setUser({ ...user, name: e.target.value });
+                    }}
                     sx={inputStyles}
                   />
                 </FormControl>

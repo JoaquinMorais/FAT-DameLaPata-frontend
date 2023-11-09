@@ -171,141 +171,169 @@ const ShelterProfile = () => {
               </Button>
             </Grid>
 
-          <Grid container spacing={3}>
-            <Grid item xs={12} md={6}>
-              <FormControl variant="standard">
-                <TextField
-                  id="input-username"
-                  label="Nombre de usuario"
-                  variant="standard"
-                  InputProps={{
-                    startAdornment: (
-                      <InputAdornment position="start">
-                        <AccountCircleIcon />
-                      </InputAdornment>
-                    ),
-                  }}
-                  value={shelter.username}
-                  disabled={!isEditing}
-                  onChange={(e) => {
-                    setShelter({ ...shelter, username: e.target.value });
-                  }}
-                  sx={inputStyles}
-                />
-              </FormControl>
-            </Grid>
-            <Grid item xs={12} md={6}>
-              <FormControl variant="standard">
-                <TextField
-                  id="input-org"
-                  label="Nombre de la organización"
-                  variant="standard"
-                  InputProps={{
-                    startAdornment: (
-                      <InputAdornment position="start">
-                        <CorporateFareIcon />
-                      </InputAdornment>
-                    ),
-                  }}
-                  value={shelter.name}
-                  disabled={!isEditing}
-                  onChange={(e) => {
-                    setShelter({ ...shelter, name: e.target.value });
-                  }}
-                  sx={inputStyles}
-                />
-              </FormControl>
-            </Grid>
-          </Grid>
-          <Grid container spacing={3}>
-            <Grid item xs={12} md={6}>
-              <FormControl variant="standard">
-                <TextField
-                  id="input-street"
-                  label="Calle"
-                  variant="standard"
-                  InputProps={{
-                    startAdornment: (
-                      <InputAdornment position="start">
-                        <SignpostIcon />
-                      </InputAdornment>
-                    ),
-                  }}
-                  value={shelter.street}
-                  disabled={!isEditing}
-                  onChange={(e) => {
-                    setShelter({ ...shelter, street: e.target.value });
-                  }}
-                  sx={inputStyles}
-                />
-              </FormControl>
-            </Grid>
-            <Grid item xs={12} md={6}>
-              <FormControl variant="standard">
-                <TextField
-                  id="input-location"
-                  label="Provincia/Ciudad"
-                  variant="standard"
-                  InputProps={{
-                    startAdornment: (
-                      <InputAdornment position="start">
-                        <LocationCityIcon />
-                      </InputAdornment>
-                    ),
-                  }}
-                  value={shelter.location}
-                  disabled={!isEditing}
-                  onChange={(e) => {
-                    setShelter({ ...shelter, location: e.target.value });
-                  }}
-                  sx={inputStyles}
-                />
-              </FormControl>
-            </Grid>
-          </Grid>
-          <StyledHr />
-          <Grid container spacing={3}>
-            <Grid item xs={12} md={6}>
-              <FormControl variant="standard">
-                <TextField
-                  id="input-phonenumber"
-                  label="Número de teléfono"
-                  type="number"
-                  variant="standard"
-                  InputProps={{
-                    startAdornment: (
-                      <InputAdornment position="start">
-                        <LocalPhoneIcon />
-                      </InputAdornment>
-                    ),
-                  }}
-                  value={shelter.phone_number}
-                  disabled={!isEditing}
-                  onChange={(e) => {
-                    setShelter({ ...shelter, phone_number: e.target.value });
-                  }}
-                  sx={inputStyles}
-                />
-              </FormControl>
-            </Grid>
-            <Grid item xs={12} md={6}>
-              <FormControl variant="standard">
-                <TextField
-                  id="input-email"
-                  label="Correo electrónico"
-                  variant="standard"
-                  InputProps={{
-                    startAdornment: (
-                      <InputAdornment position="start">
-                        <MailIcon />
-                      </InputAdornment>
-                    ),
-                  }}
-                  value={shelter.email}
-                  disabled
-                  sx={inputStyles}
-                />
-              </FormControl>
+            {/* Columna derecha (datos del usuario) */}
+            <Grid item xs={12} md={8} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+              <Typography variant="h4" sx={{ textAlign: 'center' }}>
+                DATOS DE USUARIO
+              </Typography>
+              <StyledHr />
+
+              <Grid container spacing={2}>
+                <Grid item xs={12} md={6} sx={{ display: 'flex', justifyContent: 'center' }}>
+                  <FormControl variant="standard">
+                    <TextField
+                      id="input-username"
+                      label="Nombre de usuario"
+                      variant="standard"
+                      InputProps={{
+                        startAdornment: (
+                          <InputAdornment position="start">
+                            <AccountCircleIcon />
+                          </InputAdornment>
+                        ),
+                      }}
+                      value={shelter.username}
+                      disabled={!isEditing}
+                      onChange={(e) => {
+                        setShelter({ ...shelter, username: e.target.value });
+                      }}
+                      sx={inputStyles}
+                    />
+                  </FormControl>
+                </Grid>
+                <Grid item xs={12} md={6} sx={{ display: 'flex', justifyContent: 'center' }}>
+                  <FormControl variant="standard">
+                    <TextField
+                      id="input-org"
+                      label="Nombre de la organización"
+                      variant="standard"
+                      InputProps={{
+                        startAdornment: (
+                          <InputAdornment position="start">
+                            <CorporateFareIcon />
+                          </InputAdornment>
+                        ),
+                      }}
+                      value={shelter.name}
+                      disabled={!isEditing}
+                      onChange={(e) => {
+                        setShelter({ ...shelter, name: e.target.value });
+                      }}
+                      sx={inputStyles}
+                    />
+                  </FormControl>
+                </Grid>
+                <Grid item xs={12} md={6} sx={{ display: 'flex', justifyContent: 'center' }}>
+                  <FormControl variant="standard">
+                    <TextField
+                      id="input-location"
+                      label="Provincia"
+                      variant="standard"
+                      InputProps={{
+                        startAdornment: (
+                          <InputAdornment position="start">
+                            <LocationCityIcon />
+                          </InputAdornment>
+                        ),
+                      }}
+                      value={shelter.district}
+                      disabled={!isEditing}
+                      onChange={(e) => {
+                        setShelter({ ...shelter, name: e.target.value });
+                      }}
+                      sx={inputStyles}
+                    />
+                  </FormControl>
+                </Grid>
+                <Grid item xs={12} md={6} sx={{ display: 'flex', justifyContent: 'center' }}>
+                  <FormControl variant="standard">
+                    <TextField
+                      id="input-location"
+                      label="Ciudad"
+                      variant="standard"
+                      InputProps={{
+                        startAdornment: (
+                          <InputAdornment position="start">
+                            <LocationCityIcon />
+                          </InputAdornment>
+                        ),
+                      }}
+                      value={shelter.district}
+                      disabled={!isEditing}
+                      onChange={(e) => {
+                        setShelter({ ...shelter, name: e.target.value });
+                      }}
+                      sx={inputStyles}
+                    />
+                  </FormControl>
+                </Grid>
+                <Grid item xs={12} md={6} sx={{ display: 'flex', justifyContent: 'center' }}>
+                  <FormControl variant="standard">
+                    <TextField
+                      id="input-street"
+                      label="Calle"
+                      variant="standard"
+                      InputProps={{
+                        startAdornment: (
+                          <InputAdornment position="start">
+                            <SignpostIcon />
+                          </InputAdornment>
+                        ),
+                      }}
+                      value={shelter.street}
+                      disabled={!isEditing}
+                      onChange={(e) => {
+                        setShelter({ ...shelter, name: e.target.value });
+                      }}
+                      sx={inputStyles}
+                    />
+                  </FormControl>
+                </Grid>
+                  <Grid item xs={12} md={6} sx={{ display: 'flex', justifyContent: 'center' }}>
+                    <FormControl variant="standard">
+                      <TextField
+                        id="input-phonenumber"
+                        label="Número de teléfono"
+                        type="number"
+                        variant="standard"
+                        InputProps={{
+                          startAdornment: (
+                            <InputAdornment position="start">
+                              <LocalPhoneIcon />
+                            </InputAdornment>
+                          ),
+                        }}
+                        value={shelter.phone_number}
+                        disabled={!isEditing}
+                        onChange={(e) => {
+                          setShelter({ ...shelter, phone_number: e.target.value });
+                        }}
+                        sx={inputStyles}
+                      />
+                    </FormControl>
+                  </Grid>
+                  <Grid item xs={12} md={6} sx={{ display: 'flex', justifyContent: 'center' }}>
+                    <FormControl variant="standard">
+                      <TextField
+                        id="input-email"
+                        label="Correo electrónico"
+                        variant="standard"
+                        InputProps={{
+                          startAdornment: (
+                            <InputAdornment position="start">
+                              <MailIcon />
+                            </InputAdornment>
+                          ),
+                        }}
+                        value={shelter.email}
+                        disabled={!isEditing}
+                        onChange={(e) => {
+                          setShelter({ ...shelter, name: e.target.value });
+                        }}
+                        sx={inputStyles}
+                      />
+                    </FormControl>
+                  </Grid>
             </Grid>
           </Grid>
         </Grid>
