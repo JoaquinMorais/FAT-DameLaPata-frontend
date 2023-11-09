@@ -40,6 +40,7 @@ const initialValues = {
   province: '',
   city: '',
   district: '',
+  street: '',
   phone_number: '',
 };
 
@@ -48,6 +49,8 @@ function ShelterRegister() {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [dialog_message , setDialogMessage] = useState('error inesperado');
   const [dialog_state , setDialogState] = useState('error');
+  const [showPassword, setShowPassword] = React.useState(false);
+  const [showRepeatPassword, setShowRepeatPassword] = React.useState(false);
 
   async function SendShelter(values) {
     var response = await SendRegister(values, 'shelter');
@@ -81,8 +84,6 @@ function ShelterRegister() {
       SendShelter(values)
     },
   });
-
-  const [showPassword, setShowPassword] = React.useState(false);
 
   const handleClickShowPassword = () => setShowPassword((show) => !show);
 
@@ -135,60 +136,60 @@ function ShelterRegister() {
           />
         </Grid>
         <Grid item xs={12} sm={6}>
-          <TextField
-            fullWidth
-            id="password"
-            name="password"
-            type="password"
-            label="Contraseña"
-            value={formik.values.password}
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-            error={formik.touched.password && Boolean(formik.errors.password)}
-            helperText={formik.touched.password && formik.errors.password}
-            InputProps={{
-              endAdornment: (
-                <InputAdornment position="end">
-                  <IconButton
-                    aria-label="toggle password visibility"
-                    onClick={handleClickShowPassword}
-                    onMouseDown={handleMouseDownPassword}
-                    edge="end"
-                  >
-                    {showPassword ? <VisibilityOff /> : <Visibility />}
-                  </IconButton>
-                </InputAdornment>
-              ),
-            }}
-          />
+        <TextField
+          fullWidth
+          id="password"
+          name="password"
+          type={showPassword ? 'text' : 'password'} // Cambia el tipo de entrada según el estado showPassword
+          label="Contraseña"
+          value={formik.values.password}
+          onChange={formik.handleChange}
+          onBlur={formik.handleBlur}
+          error={formik.touched.password && Boolean(formik.errors.password)}
+          helperText={formik.touched.password && formik.errors.password}
+          InputProps={{
+            endAdornment: (
+              <InputAdornment position="end">
+                <IconButton
+                  aria-label="toggle password visibility"
+                  onClick={() => setShowPassword((show) => !show)}
+                  onMouseDown={handleMouseDownPassword}
+                  edge="end"
+                >
+                  {showPassword ? <VisibilityOff /> : <Visibility />}
+                </IconButton>
+              </InputAdornment>
+            ),
+          }}
+        />
         </Grid>
         <Grid item xs={12} sm={6}>
-          <TextField
-            fullWidth
-            id="repeatPassword"
-            name="repeatPassword"
-            type="password"
-            label="Repetir Contraseña"
-            value={formik.values.repeatPassword}
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-            error={formik.touched.repeatPassword && Boolean(formik.errors.repeatPassword)}
-            helperText={formik.touched.repeatPassword && formik.errors.repeatPassword}
-            InputProps={{
-              endAdornment: (
-                <InputAdornment position="end">
-                  <IconButton
-                    aria-label="toggle password visibility"
-                    onClick={handleClickShowPassword}
-                    onMouseDown={handleMouseDownPassword}
-                    edge="end"
-                  >
-                    {showPassword ? <VisibilityOff /> : <Visibility />}
-                  </IconButton>
-                </InputAdornment>
-              ),
-            }}
-          />
+        <TextField
+          fullWidth
+          id="repeatPassword"
+          name="repeatPassword"
+          type={showRepeatPassword ? 'text' : 'password'} // Cambia el tipo de entrada según el estado showRepeatPassword
+          label="Repetir Contraseña"
+          value={formik.values.repeatPassword}
+          onChange={formik.handleChange}
+          onBlur={formik.handleBlur}
+          error={formik.touched.repeatPassword && Boolean(formik.errors.repeatPassword)}
+          helperText={formik.touched.repeatPassword && formik.errors.repeatPassword}
+          InputProps={{
+            endAdornment: (
+              <InputAdornment position="end">
+                <IconButton
+                  aria-label="toggle repeat password visibility"
+                  onClick={() => setShowRepeatPassword((show) => !show)}
+                  onMouseDown={handleMouseDownPassword}
+                  edge="end"
+                >
+                  {showRepeatPassword ? <VisibilityOff /> : <Visibility />}
+                </IconButton>
+              </InputAdornment>
+            ),
+          }}
+        />
         </Grid>
         <Grid item xs={12} sm={6}>
           <TextField
@@ -249,7 +250,20 @@ function ShelterRegister() {
             helperText={formik.touched.district && formik.errors.district}
           />
         </Grid>
-        <Grid item xs={12}>
+        <Grid item xs={12} sm={6}>
+          <TextField
+            fullWidth
+            id="street"
+            name="street"
+            label="Calle"
+            value={formik.values.street} // Agrega este campo
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+            error={formik.touched.street && Boolean(formik.errors.street)} // Agrega este campo
+            helperText={formik.touched.street && formik.errors.street} // Agrega este campo
+          />
+        </Grid>
+        <Grid item xs={12} sm={6}>
           <TextField
             fullWidth
             id="phone_number"
