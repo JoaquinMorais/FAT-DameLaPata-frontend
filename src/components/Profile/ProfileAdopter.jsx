@@ -152,7 +152,7 @@ function AdopterProfile() {
   }, []);
 
   const inputStyles = {
-    width: '100%',
+    width: '100%', 
     '& .MuiInputBase-root': {
       width: '100%',
     },
@@ -161,6 +161,7 @@ function AdopterProfile() {
       padding: '10px',
     },
   };
+  
 
   return (
     <BackgroundImage>
@@ -361,8 +362,7 @@ function AdopterProfile() {
                   />
                 </FormControl>
               </Grid>
-              <Grid container spacing={2}>
-                <Grid item xs={12} md={6} sx={{ display: 'flex', justifyContent: 'center' }}>
+              <Grid item xs={12} md={6} sx={{ display: 'flex', justifyContent: 'center' }}>
                   <FormControl variant="standard">
                     <TextField
                       id="input-phonenumber"
@@ -401,7 +401,6 @@ function AdopterProfile() {
                     />
                   </FormControl>
                 </Grid>
-              </Grid>
             </Grid>
           </Grid>
         </Grid>
