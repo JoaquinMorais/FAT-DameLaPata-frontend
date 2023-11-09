@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import Container from '@mui/material/Container';
@@ -16,6 +15,7 @@ import FormControl from '@mui/material/FormControl';
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 import LocalPhoneIcon from '@mui/icons-material/LocalPhone';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import EditIcon from '@mui/icons-material/Edit'; // Icono de edición
 import SignpostIcon from '@mui/icons-material/Signpost';
 import LocationCityIcon from '@mui/icons-material/LocationCity';
 import TextField from '@mui/material/TextField';
@@ -174,7 +174,8 @@ function AdopterProfile() {
 
         <Grid container spacing={2}>
           {/* Columna izquierda (foto de perfil y botón) */}
-          <Grid item xs={12} md={4} sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+          <Grid item xs={12} md={4} 
+          sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
             <UserProfileAvatarContainer>
               <UserProfileAvatar
                 alt="User Profile"
@@ -183,11 +184,19 @@ function AdopterProfile() {
             </UserProfileAvatarContainer>
             <Button
               variant="contained"
+              color="primary"
+              sx={{ 
+                width: '50px',
+                height: '55px',
+                borderRadius: '100%',
+                marginLeft: '180px', 
+                marginTop: '-60px', 
+              }}
               onClick={() => {
                 setIsEditing(!isEditing);
               }}
             >
-              {isEditing ? 'Guardar' : 'Editar perfil'}
+              <EditIcon />
             </Button>
           </Grid>
 
