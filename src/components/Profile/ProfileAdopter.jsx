@@ -42,7 +42,6 @@ const CenteredContainer = styled(Container)({
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'center',
-  margin: '20px',
   justifyContent: 'center',
   minHeight: '100vh',
   backgroundColor: 'rgba(255, 255, 255, 0.9)',
@@ -54,6 +53,7 @@ const CenteredContainer = styled(Container)({
     minHeight: '120vh',
   },
 });
+
 
 // Styled component for the user profile avatar container
 const UserProfileAvatarContainer = styled('div')({
@@ -182,15 +182,14 @@ function AdopterProfile() {
       <NavBar />
       <CenteredContainer maxWidth="lg">
         <Typography variant="h3" sx={{ textAlign: 'center', marginBottom: '20px' }}>
-          <strong>"Bienvenido {user.name}"</strong>
+          <strong>Bienvenido {user.name}</strong>
         </Typography> 
 
         <StyledHr />
 
         <Grid container spacing={2}>
           {/* Columna izquierda (foto de perfil y botón) */}
-          <Grid item xs={12} md={4} 
-          sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+          <Grid item xs={12} md={8} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
             <UserProfileAvatarContainer>
               <UserProfileAvatar
                 alt="User Profile"
