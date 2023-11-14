@@ -54,7 +54,6 @@ const CenteredContainer = styled(Container)({
   },
 });
 
-
 // Styled component for the user profile avatar container
 const UserProfileAvatarContainer = styled('div')({
   display: 'flex',
@@ -187,8 +186,7 @@ function AdopterProfile() {
 
         <StyledHr />
 
-        <Grid container spacing={2}>
-          {/* Columna izquierda (foto de perfil y botón) */}
+        <Grid container spacing={2} justifyContent="center">
           <Grid item xs={12} md={8} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
             <UserProfileAvatarContainer>
               <UserProfileAvatar
@@ -212,7 +210,6 @@ function AdopterProfile() {
             </Button>
           </Grid>
 
-          {/* Columna derecha (datos del usuario) */}
           <Grid item xs={12} md={8} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
             <Typography variant="h4" sx={{ textAlign: 'center' }}>
               DATOS DE USUARIO
