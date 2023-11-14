@@ -1,52 +1,106 @@
-import React from 'react'
+import React, {useState, useEffect} from 'react'
 import { styled } from 'styled-components'
-
+import axios from 'axios';
 import Fade from 'react-reveal/Fade';
+import { useParams } from 'react-router';
 
 function ShelterContent() {
+    const { id } = useParams();
+    const [responseData, setResponseData] = useState(null); 
+
+
+    useEffect(() => {
+        async function fetchData() {
+        try {
+            const response = await axios.get(`http://localhost:5000/shelter/${id}`);
+            setResponseData(response.data);
+        } catch (error) {
+            console.error('Error al realizar la solicitud:', error.message);
+        }
+        }
+
+        fetchData();
+    }, []);
+
+  /* ------------------------------------ */
+
+    const [selectedColors, setSelectedColors] = useState([]);
+    const [responseDataColors, setresponseDataColors] = useState(null);
+
+    useEffect(() => {
+    async function fetchData() {
+      try {
+        const response = await axios.get('http://localhost:5000/shelter'); 
+        setresponseDataColors(response.data);
+      } catch (error) {
+        console.error('Error al realizar la solicitud:', error.message);
+      }
+    }
+
+    fetchData(); 
+    }, []);
+
+  /* ------------------------------------ */
+
+  const ifGuion = (mylist,element) => {
+    if(mylist[mylist.length - 1] === element){
+      return ''
+    }
+    return ' - '
+  }
+
+
+
+  const estado = {
+  id_pet: parseInt(id),
+  id_status: 4,
+  }
+  console.log(estado);
+
+
   return (
     <Container>
             <Fade>
               <Div1>
                 <Titulo2>Nombre</Titulo2>
-                <Caracteristicas>nose</Caracteristicas>
+                <Caracteristicas>{`${responseData?.response.username}`}</Caracteristicas>
               </Div1>
             </Fade>
               
             <Fade>
               <Div2>
                 <Titulo2>Localidad</Titulo2>
-                <Caracteristicas>nose</Caracteristicas>
+                <Caracteristicas>Provincia / Ciudad</Caracteristicas>
               </Div2>
             </Fade>
-
             <Fade>
               <Div3>
-                <Titulo2>Numero de Contacto</Titulo2>
-                <Caracteristicas>nose</Caracteristicas>
+                <Titulo2>Calle</Titulo2>
+                <Caracteristicas>Calle</Caracteristicas>
               </Div3>
             </Fade>
-
             <Fade>
               <Div3>
                 <Titulo2>Numero de Contacto</Titulo2>
-                <Caracteristicas>nose</Caracteristicas>
-              </Div3>
-            </Fade>
-
-
-            <Fade>
-              <Div3>
-                <Titulo2>Numero de Contacto</Titulo2>
-                <Caracteristicas>nose</Caracteristicas>
+                <Caracteristicas>tel</Caracteristicas>
               </Div3>
             </Fade>
 
 
+
+
             <Fade>
               <Div3>
-                <Titulo2>Numero de Contacto</Titulo2>
-                <Caracteristicas>nose</Caracteristicas>
+                <Titulo2>‎ </Titulo2>
+                <Caracteristicas>‎ </Caracteristicas>
+              </Div3>
+            </Fade>
+
+
+            <Fade>
+              <Div3>
+                <Titulo2>‎ </Titulo2>
+                <Caracteristicas>‎ </Caracteristicas>
               </Div3>
             </Fade>
 

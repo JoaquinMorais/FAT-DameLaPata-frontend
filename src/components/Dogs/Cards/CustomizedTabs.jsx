@@ -15,6 +15,7 @@ const StyledTabs = styled((props) => (
   '& .MuiTabs-indicator': {
     display: 'flex',
     justifyContent: 'center',
+    width: '100%',
     backgroundColor: 'transparent',
   },
   '& .MuiTabs-indicatorSpan': {
@@ -48,15 +49,15 @@ export default function CustomizedTabs() {
   };
 
   return (
-    <Box sx={{ width: '100%', height:'100%' }}>
+    <Box sx={{ width: '100%', height:'100%'}}>
       <Box sx={{ bgcolor: '#fffff', marginTop: '50px', color:'black', width:'100%', display:'flex', justifyContent:'center' }}>
         <StyledTabs
           value={value}
           onChange={handleChange}
           aria-label="styled tabs example"
         >
-          <StyledTab sx={{color:'black'}} label="MASCOTA" />
-          <StyledTab sx={{color:'black'}} label="REFUGIO" />
+          <StyledTab sx={{color:'black', fontSize:'25px', fontWeight:'bold'}} label="MASCOTA" />
+          <StyledTab sx={{color:'black', fontSize:'25px', fontWeight:'bold'}} label="REFUGIO" />
         </StyledTabs>
         <Box sx={{ p: 3 }} />
       </Box>

@@ -5,7 +5,6 @@ import axios from 'axios';
 import { useParams, useNavigate } from 'react-router-dom';
 /* ANIMACIONES */
 import Flip from 'react-reveal/Flip';
-import Fade from 'react-reveal/Fade';
 import Zoom from 'react-reveal/Zoom';
 
 import Button from '@mui/material/Button';
@@ -21,7 +20,8 @@ import CustomizedTabs from './CustomizedTabs';
 
 const Details = () => {
     const { id } = useParams();
-    const [responseData, setResponseData] = useState(null); // Agrega el estado para la respuesta de axios
+    const [responseData, setResponseData] = useState(null); 
+    const [imagenDesplazada, setImagenDesplazada] = useState(false);
 
 
     useEffect(() => {
@@ -39,8 +39,7 @@ const Details = () => {
 
   /* ------------------------------------ */
 
-    const [selectedColors, setSelectedColors] = useState([]);
-    const [responseDataColors, setresponseDataColors] = useState(null); // Agrega el estado para la respuesta de axios
+    const [responseDataColors, setresponseDataColors] = useState(null); 
 
     useEffect(() => {
     async function fetchData() {
@@ -109,6 +108,7 @@ const estado = {
 console.log(estado);
 
 const handlePerroNoClick = async () => {
+  setImagenDesplazada(true);
   try{
     const response = axios.put('http://localhost:5000/adopter/match', estado);
   }
@@ -118,12 +118,12 @@ const handlePerroNoClick = async () => {
 }
 
 
-
 /* ------------------------------------ */
 
 const [open, setOpen] = React.useState(false);
 
 const handleClickOpen = () => {
+  setImagenDesplazada(false);
   setOpen(true);
 };
 
@@ -133,14 +133,13 @@ const handleClose = () => {
 
 /* ------------------------------------ */
 
-
   return (
     <>
         {
         <SwiperSlide key={responseData?.response.id_pet}>
           <Carta>
           <ImagenContainer>
-              <Imagen src={`${responseData?.response.image_path}`} alt="" />          
+              <Imagen src={`${responseData?.response.image_path}`} alt="" imagenDesplazada={imagenDesplazada} />          
                 <Abajo>
                   <Texto>
                       <Flip top>
@@ -155,6 +154,7 @@ const handleClose = () => {
                       <PerroNo
                         src={'https://cdn-icons-png.flaticon.com/256/9804/9804047.png'}
                         onClick={handlePerroNoClick}
+                        
                       ></PerroNo>
                     </No>
                   </Zoom>
@@ -203,19 +203,12 @@ const Carta = styled.div`
     height: 100%;
     display: flex;
     flex-direction: row;
-    position: relative;
     border-radius: 30px;
     @media (max-width: 900px) {
         flex-direction: column;
+        padding: 0px;
+        width:100%;
     }
-
-`;
-
-const ImagenContainer = styled.div`
-    position: relative;
-    display: flex;
-    justify-content:center;
-    align-items:center;
 `;
 
 const Imagen = styled.img`
@@ -225,13 +218,25 @@ const Imagen = styled.img`
   margin-left: 100px;
   border-radius: 30px;
   margin-top: 70px;
+  transition: margin-left 0.3s ease;
   
   @media (max-width: 900px) {
     height: 100vh;
     width: 100%;
-
+    border-radius: 0;
+    margin:0px;
+    overflow-x:hidden;
   }
 `;
+
+const ImagenContainer = styled.div`
+    position: relative;
+    display: flex;
+    justify-content:center;
+    align-items:center;
+
+`;
+
 
 
 const Abajo = styled.div`
@@ -248,10 +253,9 @@ const Abajo = styled.div`
 
   @media (max-width: 900px) {
     bottom: 0%;
-    padding-bottom: 5%;
     width: 100%;
-
-
+    margin:0;
+    border-radius: 0;
   }
 `;
 

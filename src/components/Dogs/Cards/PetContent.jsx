@@ -54,20 +54,6 @@ function PetContent() {
 
   const [availablePetIds, setAvailablePetIds] = useState([]);
 
-  // Obtener lista de IDs disponibles (excluyendo el ID actual)
-  useEffect(() => {
-    async function fetchAvailablePetIds() {
-      try {
-        const response = await axios.get('http://localhost:5000/adopter/match');
-        const availableIds = response.data.filter((id_pet) => id_pet !== id);
-        setAvailablePetIds(availableIds);
-      } catch (error) {
-        console.error('Error al obtener los IDs disponibles:', error.message);
-      }
-    }
-    fetchAvailablePetIds();
-  }, [id]);
-
   /* ------------------------------------ */
 
   const calcularEdad = () => {
@@ -96,21 +82,21 @@ console.log(estado);
             <Fade>
               <Div1>
                 <Titulo2>Nombre</Titulo2>
-                <Caracteristicas>{`${responseData?.response.name}`}</Caracteristicas>
+                <Caracteristicas>Mi nombre es <span style={{color:'red'}}>{`${responseData?.response.name}`}</span></Caracteristicas>
               </Div1>
             </Fade>
               
             <Fade>
               <Div2>
                 <Titulo2>Nacimiento</Titulo2>
-                <Caracteristicas>{`${responseData?.response.birth_date}`}</Caracteristicas>
+                <Caracteristicas>Nacii el <span style={{color:'red'}}>{`${responseData?.response.birth_date}`}</span>, osea que tengo <span style={{color:'red'}}>{calcularEdad()}</span></Caracteristicas>
               </Div2>
             </Fade>
 
             <Fade>
               <Div3>
                 <Titulo2>Tamaño y peso</Titulo2>
-                <Caracteristicas>{`${responseData?.response.size}`} - {`${responseData?.response.weight}`}kg</Caracteristicas>
+                <Caracteristicas>Tengo un tamaño <span style={{color:'red'}}>{`${responseData?.response.size}`} </span>y peso <span style={{color:'red'}}> {`${responseData?.response.weight}`}kg</span></Caracteristicas>
               </Div3>
             </Fade>
             
@@ -118,10 +104,12 @@ console.log(estado);
               <Div4>
                 <Titulo2>Color/es</Titulo2>
                 <Caracteristicas>
-                  {responseData?.response.colors.map(color => (
-                    <span key={color.id_color}>{color.title} {ifGuion(responseData?.response.colors,color)}</span>
+                  Mi color/es: 
+                  <span style={{color:'red'}}> {responseData?.response.colors.map(color => (
+                  <span key={color.id_color}>{color.title} {ifGuion(responseData?.response.colors,color)}</span>
 
                   ))}
+                  </span>
                 </Caracteristicas>
               </Div4>
             </Fade>
@@ -130,8 +118,9 @@ console.log(estado);
               <Div5>
                 <Titulo2>Caracteristica/s</Titulo2>
                 <Caracteristicas>
+                  Algunas de mis caracteristicas son:
                   {responseData?.response.characteristics.map(carac => (
-                    <span key={carac.id_category}>{carac.title} {ifGuion(responseData?.response.characteristics,carac)} </span>
+                    <span key={carac.id_category}> <span style={{color:'red'}}>{carac.title} {ifGuion(responseData?.response.characteristics,carac)} </span></span>
                   ))}
                 </Caracteristicas>
               </Div5>
@@ -140,7 +129,7 @@ console.log(estado);
             <Fade>
               <Div6>
                 <Titulo2>Vacunas</Titulo2>
-                <Caracteristicas>Consultar</Caracteristicas>
+                <Caracteristicas><span style={{color:'green'}}>Consultar</span></Caracteristicas>
               </Div6>
             </Fade>        
     </Container>
