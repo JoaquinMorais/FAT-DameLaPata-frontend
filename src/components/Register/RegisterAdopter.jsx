@@ -16,6 +16,7 @@ import InputAdornment from '@mui/material/InputAdornment';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import MenuItem from '@mui/material/MenuItem';
+import { isBefore } from 'date-fns';
 
 import data from '../../provincias.json';
 
@@ -33,7 +34,10 @@ const validationSchema = Yup.object({
   city: Yup.string().required('Campo requerido'),
   district: Yup.string().required('Campo requerido'),
   email: Yup.string().email('Dirección de correo electrónico no válida').required('Campo requerido'),
-  birthdate: Yup.date().required('Campo requerido'),
+  birthdate: Yup.date()
+    .max(new Date(), 'La fecha de nacimiento no puede ser superior a la fecha actual')
+    .min(new Date(1920, 0, 1), 'La fecha de nacimiento debe ser posterior a 1920-01-01')
+    .required('Campo requerido'),
   phone_number: Yup.string().required('Campo requerido'),
   id_document_type: Yup.string().required('Campo requerido'),
   document: Yup.string().required('Campo requerido'),
@@ -48,6 +52,7 @@ const initialValues = {
   province: '',
   city: '',
   district: '',
+  street: '',
   email: '',
   birthdate: null,
   phone_number: '',
@@ -59,6 +64,9 @@ function AdopterRegister() {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [dialog_message , setDialogMessage] = useState('error inesperado');
   const [dialog_state , setDialogState] = useState('error');
+  const [showPassword, setShowPassword] = React.useState(false);
+  const [showRepeatPassword, setShowRepeatPassword] = React.useState(false);
+
 
   async function SendAdopter(values) {
     var response = await SendRegister(values, 'adopter');
@@ -93,9 +101,6 @@ function AdopterRegister() {
       SendAdopter(values)
     },
   });
-
-
-  const [showPassword, setShowPassword] = React.useState(false);
 
   const handleClickShowPassword = () => setShowPassword((show) => !show);
 
@@ -181,7 +186,7 @@ function AdopterRegister() {
             fullWidth
             id="password"
             name="password"
-            type="password"
+            type={showPassword ? 'text' : 'password'}
             label="Contraseña"
             value={formik.values.password}
             onChange={formik.handleChange}
@@ -193,7 +198,7 @@ function AdopterRegister() {
                 <InputAdornment position="end">
                   <IconButton
                     aria-label="toggle password visibility"
-                    onClick={handleClickShowPassword}
+                    onClick={() => setShowPassword((show) => !show)}
                     onMouseDown={handleMouseDownPassword}
                     edge="end"
                   >
@@ -203,34 +208,35 @@ function AdopterRegister() {
               ),
             }}
           />
+
         </Grid>
         <Grid item xs={12} sm={6}>
-          <TextField
-            fullWidth
-            id="repeatPassword"
-            name="repeatPassword"
-            type="password"
-            label="Repetir Contraseña"
-            value={formik.values.repeatPassword}
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-            error={formik.touched.repeatPassword && Boolean(formik.errors.repeatPassword)}
-            helperText={formik.touched.repeatPassword && formik.errors.repeatPassword}
-            InputProps={{
-              endAdornment: (
-                <InputAdornment position="end">
-                  <IconButton
-                    aria-label="toggle password visibility"
-                    onClick={handleClickShowPassword}
-                    onMouseDown={handleMouseDownPassword}
-                    edge="end"
-                  >
-                    {showPassword ? <VisibilityOff /> : <Visibility />}
-                  </IconButton>
-                </InputAdornment>
-              ),
-            }}
-          />
+        <TextField
+          fullWidth
+          id="repeatPassword"
+          name="repeatPassword"
+          type={showRepeatPassword ? 'text' : 'password'} // Cambia el tipo de entrada según el estado showRepeatPassword
+          label="Repetir Contraseña"
+          value={formik.values.repeatPassword}
+          onChange={formik.handleChange}
+          onBlur={formik.handleBlur}
+          error={formik.touched.repeatPassword && Boolean(formik.errors.repeatPassword)}
+          helperText={formik.touched.repeatPassword && formik.errors.repeatPassword}
+          InputProps={{
+            endAdornment: (
+              <InputAdornment position="end">
+                <IconButton
+                  aria-label="toggle repeat password visibility"
+                  onClick={() => setShowRepeatPassword((show) => !show)}
+                  onMouseDown={handleMouseDownPassword}
+                  edge="end"
+                >
+                  {showRepeatPassword ? <VisibilityOff /> : <Visibility />}
+                </IconButton>
+              </InputAdornment>
+            ),
+          }}
+        />
         </Grid>
         <Grid item xs={12} sm={6}>
           <TextField
@@ -279,6 +285,19 @@ function AdopterRegister() {
             onBlur={formik.handleBlur}
             error={formik.touched.district && Boolean(formik.errors.district)}
             helperText={formik.touched.district && formik.errors.district}
+          />
+        </Grid>
+        <Grid item xs={12} sm={6}>
+          <TextField
+            fullWidth
+            id="street"
+            name="street"
+            label="Calle"
+            value={formik.values.street} // Agrega este campo
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+            error={formik.touched.street && Boolean(formik.errors.street)} // Agrega este campo
+            helperText={formik.touched.street && formik.errors.street} // Agrega este campo
           />
         </Grid>
         <Grid item xs={12} sm={6}>
