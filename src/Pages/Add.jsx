@@ -232,6 +232,7 @@ function Add() {
                     <ErrorMessage name="name" component="div" style={{ color: 'red' }} />
                   </Grid>
                 </Grid>
+                
                 <Grid item xs={12}>
                   <Field name="image_path">
                     {({ field }) => (
@@ -248,6 +249,29 @@ function Add() {
                     <ErrorMessage name="name" component="div" style={{ color: 'red' }} />
                   </Grid>
                 </Grid>
+
+                {/* 
+                <Grid item xs={12}>
+                  <Field name="image_path">
+                    {({ field, form }) => (
+                      <div>
+                        <input
+                          type="file"
+                          accept="image/*"
+                          onChange={(event) => {
+                            form.setFieldValue('image_path', event.currentTarget.files[0]);
+                          }}
+                          onBlur={field.onBlur}
+                        />
+                        {form.errors.image_path && form.touched.image_path && (
+                          <div style={{ color: 'red' }}>{form.errors.image_path}</div>
+                        )}
+                      </div>
+                    )}
+                  </Field>
+                </Grid>
+                */}
+
                 <Grid item xs={12}>
                   <Typography variant="h4">Color de la mascota</Typography>
                   <FormGroup>

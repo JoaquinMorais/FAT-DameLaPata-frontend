@@ -18,6 +18,7 @@ import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import EditIcon from '@mui/icons-material/Edit';
 import SignpostIcon from '@mui/icons-material/Signpost';
 import LocationCityIcon from '@mui/icons-material/LocationCity';
+import SaveIcon from '@mui/icons-material/Save';
 import TextField from '@mui/material/TextField';
 import CorporateFareIcon from '@mui/icons-material/CorporateFare';
 import NavBar from '../NavBar/NavBar';
@@ -86,6 +87,7 @@ function AdopterProfile() {
   const [isConfirmationOpen, setIsConfirmationOpen] = useState(false);
   const [isAccountDeleted, setIsAccountDeleted] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
+  const [editIcon, setEditIcon] = useState(<EditIcon />); 
   const [user, setUser] = useState({
     name: '',
     username: '',
@@ -107,6 +109,18 @@ function AdopterProfile() {
     const age = Math.floor(timeDiff / (1000 * 60 * 60 * 24 * 365.25));
     return age;
   }
+
+  const toggleEditing = () => {
+    setIsEditing(!isEditing);
+
+    // Cambiar el icono según el estado de edición
+    if (isEditing) {
+      setEditIcon(<EditIcon />);
+    } else {
+      // Puedes cambiar este icono por el que desees cuando se guarde la edición
+      setEditIcon(<SaveIcon />);
+    }
+  };
 
   const openConfirmation = () => {
     setIsConfirmationOpen(true);
@@ -186,18 +200,16 @@ function AdopterProfile() {
             <Button
               variant="contained"
               color="primary"
-              sx={{ 
+              sx={{
                 width: '50px',
                 height: '55px',
                 borderRadius: '100%',
-                marginLeft: '180px', 
-                marginTop: '-60px', 
+                marginLeft: '180px',
+                marginTop: '-60px',
               }}
-              onClick={() => {
-                setIsEditing(!isEditing);
-              }}
+              onClick={toggleEditing}
             >
-              <EditIcon />
+              {editIcon}
             </Button>
           </Grid>
 
