@@ -194,20 +194,6 @@ function AdopterProfile() {
                 src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png"
               />
             </UserProfileAvatarContainer>
-            <Button
-              variant="contained"
-              color="primary"
-              sx={{
-                width: '50px',
-                height: '55px',
-                borderRadius: '100%',
-                marginLeft: '180px',
-                marginTop: '-60px',
-              }}
-              onClick={toggleEditing}
-            >
-              {editIcon}
-            </Button>
           </Grid>
 
           <Grid item xs={12} md={8} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
@@ -415,6 +401,19 @@ function AdopterProfile() {
             </Grid>
           </Grid>
         </Grid>
+        <Grid item sx={{ justifyContent: 'right' }}>
+                  <Button
+                    variant="contained"
+                    color="primary" 
+                    sx={{
+                      width: '50%',
+                      height: '100%',
+                    }}
+                    onClick={toggleEditing}
+                  >
+                    {editIcon} Editar Perfil 
+                  </Button>
+                </Grid>
       </CenteredContainer>
       <Footer/>
     </BackgroundImage>
