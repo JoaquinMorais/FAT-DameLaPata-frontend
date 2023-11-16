@@ -83,10 +83,19 @@ const StyledHr = styled('hr')({
 });
 
 function AdopterProfile() {
+  // Estado para el diálogo de confirmación
   const [isConfirmationOpen, setIsConfirmationOpen] = useState(false);
+
+  // Estado para indicar si la cuenta ha sido eliminada con éxito
   const [isAccountDeleted, setIsAccountDeleted] = useState(false);
+
+  // Estado para el modo de edición
   const [isEditing, setIsEditing] = useState(false);
-  const [editIcon, setEditIcon] = useState(<EditIcon />); 
+
+  // Estado para el ícono de edición/guardar
+  const [editIcon, setEditIcon] = useState(<EditIcon />);
+
+  // Estado para almacenar la información del usuario
   const [user, setUser] = useState({
     name: '',
     username: '',
@@ -101,6 +110,7 @@ function AdopterProfile() {
     age: '',
   });
 
+  // Función para calcular la edad a partir de la fecha de nacimiento
   function calculateAge(birthdate) {
     const birthDate = new Date(birthdate);
     const currentDate = new Date();
@@ -109,30 +119,35 @@ function AdopterProfile() {
     return age;
   }
 
+  // Función para alternar entre el modo de edición
   const toggleEditing = () => {
     setIsEditing(!isEditing);
 
-    // Cambiar el icono según el estado de edición
+    // Cambiar el ícono según el estado de edición
     if (isEditing) {
       setEditIcon(<EditIcon />);
     } else {
-      // Puedes cambiar este icono por el que desees cuando se guarde la edición
+      // Puedes cambiar este ícono por el que desees cuando se guarde la edición
       setEditIcon(<SaveIcon />);
     }
   };
 
+  // Función para abrir el diálogo de confirmación
   const openConfirmation = () => {
     setIsConfirmationOpen(true);
   };
 
+  // Función para cerrar el diálogo de confirmación
   const closeConfirmation = () => {
     setIsConfirmationOpen(false);
   };
 
+  // Función para cerrar el diálogo de éxito
   const closeSuccessDialog = () => {
     setIsAccountDeleted(false);
   };
 
+  // Función para obtener y actualizar la información del usuario
   const fetchData = async () => {
     try {
       const response = await GetProfile();
@@ -160,12 +175,14 @@ function AdopterProfile() {
     }
   };
 
+  // Efecto para cargar la información del usuario al montar el componente
   useEffect(() => {
     fetchData();
   }, []);
 
+  // Estilos comunes para los campos de entrada
   const inputStyles = {
-    width: '100%', 
+    width: '100%',
     '& .MuiInputBase-root': {
       width: '100%',
     },
@@ -174,19 +191,22 @@ function AdopterProfile() {
       padding: '10px',
     },
   };
-  
 
   return (
     <BackgroundImage>
       <NavBar />
       <CenteredContainer maxWidth="lg">
+        {/* Encabezado de bienvenida */}
         <Typography variant="h3" sx={{ textAlign: 'center', marginBottom: '20px' }}>
           <strong>Bienvenido {user.name}</strong>
-        </Typography> 
+        </Typography>
 
+        {/* Separador horizontal estilizado */}
         <StyledHr />
 
+        {/* Contenedor principal de la información del perfil */}
         <Grid container spacing={2} justifyContent="center">
+          {/* Avatar del usuario */}
           <Grid item xs={12} md={8} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
             <UserProfileAvatarContainer>
               <UserProfileAvatar
@@ -196,6 +216,7 @@ function AdopterProfile() {
             </UserProfileAvatarContainer>
           </Grid>
 
+          {/* Información del usuario */}
           <Grid item xs={12} md={8} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
             <Typography variant="h4" sx={{ textAlign: 'center' }}>
               DATOS DE USUARIO
@@ -398,22 +419,23 @@ function AdopterProfile() {
                     />
                   </FormControl>
                 </Grid>
-            </Grid>
-          </Grid>
-        </Grid>
-        <Grid item sx={{ justifyContent: 'right' }}>
+                <Grid item xs={24} md={12} sx={{ display: 'flex', justifyContent: 'flex-end', marginTop: '20px' }}>
                   <Button
                     variant="contained"
-                    color="primary" 
+                    color="primary"
                     sx={{
                       width: '50%',
                       height: '100%',
+                      marginRight: '20px', // Ajusta el margen derecho según sea necesario
                     }}
                     onClick={toggleEditing}
                   >
-                    {editIcon} Editar Perfil 
+                    {editIcon} Editar Perfil
                   </Button>
                 </Grid>
+            </Grid>
+          </Grid>
+        </Grid>
       </CenteredContainer>
       <Footer/>
     </BackgroundImage>
