@@ -152,38 +152,21 @@ const ShelterProfile = () => {
     <BackgroundImage>
       <NavBar />
       <CenteredContainer maxWidth="lg">
-          <Typography variant="h3" sx={{ textAlign: 'center', margin: '20px 0' }}>
+          <Typography variant="h3" sx={{ textAlign: 'center', margin: '20px' }}>
             <strong>Bienvenido {shelter.name}</strong>
           </Typography>
           <StyledHr />
 
-          <Grid container spacing={2}>
-            {/* Columna izquierda (foto de perfil y botón) */}
-            <Grid item xs={12} md={4} 
-            sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+          <Grid container spacing={2} justifyContent="center">
+            <Grid item xs={12} md={8} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
               <UserProfileAvatarContainer>
                 <UserProfileAvatar
                   alt="User Profile"
                   src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png"
                 />
               </UserProfileAvatarContainer>
-              <Button
-                variant="contained"
-                color="primary"
-                sx={{
-                  width: '50px',
-                  height: '55px',
-                  borderRadius: '100%',
-                  marginLeft: '180px',
-                  marginTop: '-60px',
-                }}
-                onClick={toggleEditing}
-              >
-                {editIcon}
-              </Button>
             </Grid>
 
-            {/* Columna derecha (datos del usuario) */}
             <Grid item xs={12} md={8} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
               <Typography variant="h4" sx={{ textAlign: 'center' }}>
                 DATOS DE USUARIO
@@ -346,6 +329,20 @@ const ShelterProfile = () => {
                       />
                     </FormControl>
                   </Grid>
+                  <Grid item xs={24} md={12} sx={{ display: 'flex', justifyContent: 'flex-end', marginTop: '20px' }}>
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    sx={{
+                      width: '50%',
+                      height: '100%',
+                      marginRight: '20px', // Ajusta el margen derecho según sea necesario
+                    }}
+                    onClick={toggleEditing}
+                  >
+                    {editIcon} Editar Perfil
+                  </Button>
+                </Grid>
             </Grid>
           </Grid>
         </Grid>
