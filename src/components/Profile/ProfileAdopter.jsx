@@ -42,7 +42,6 @@ const CenteredContainer = styled(Container)({
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'center',
-  margin: '20px',
   justifyContent: 'center',
   minHeight: '100vh',
   backgroundColor: 'rgba(255, 255, 255, 0.9)',
@@ -84,10 +83,19 @@ const StyledHr = styled('hr')({
 });
 
 function AdopterProfile() {
+  // Estado para el diálogo de confirmación
   const [isConfirmationOpen, setIsConfirmationOpen] = useState(false);
+
+  // Estado para indicar si la cuenta ha sido eliminada con éxito
   const [isAccountDeleted, setIsAccountDeleted] = useState(false);
+
+  // Estado para el modo de edición
   const [isEditing, setIsEditing] = useState(false);
-  const [editIcon, setEditIcon] = useState(<EditIcon />); 
+
+  // Estado para el ícono de edición/guardar
+  const [editIcon, setEditIcon] = useState(<EditIcon />);
+
+  // Estado para almacenar la información del usuario
   const [user, setUser] = useState({
     name: '',
     username: '',
@@ -102,6 +110,7 @@ function AdopterProfile() {
     age: '',
   });
 
+  // Función para calcular la edad a partir de la fecha de nacimiento
   function calculateAge(birthdate) {
     const birthDate = new Date(birthdate);
     const currentDate = new Date();
@@ -110,30 +119,35 @@ function AdopterProfile() {
     return age;
   }
 
+  // Función para alternar entre el modo de edición
   const toggleEditing = () => {
     setIsEditing(!isEditing);
 
-    // Cambiar el icono según el estado de edición
+    // Cambiar el ícono según el estado de edición
     if (isEditing) {
       setEditIcon(<EditIcon />);
     } else {
-      // Puedes cambiar este icono por el que desees cuando se guarde la edición
+      // Puedes cambiar este ícono por el que desees cuando se guarde la edición
       setEditIcon(<SaveIcon />);
     }
   };
 
+  // Función para abrir el diálogo de confirmación
   const openConfirmation = () => {
     setIsConfirmationOpen(true);
   };
 
+  // Función para cerrar el diálogo de confirmación
   const closeConfirmation = () => {
     setIsConfirmationOpen(false);
   };
 
+  // Función para cerrar el diálogo de éxito
   const closeSuccessDialog = () => {
     setIsAccountDeleted(false);
   };
 
+  // Función para obtener y actualizar la información del usuario
   const fetchData = async () => {
     try {
       const response = await GetProfile();
@@ -161,12 +175,14 @@ function AdopterProfile() {
     }
   };
 
+  // Efecto para cargar la información del usuario al montar el componente
   useEffect(() => {
     fetchData();
   }, []);
 
+  // Estilos comunes para los campos de entrada
   const inputStyles = {
-    width: '100%', 
+    width: '100%',
     '& .MuiInputBase-root': {
       width: '100%',
     },
@@ -175,45 +191,32 @@ function AdopterProfile() {
       padding: '10px',
     },
   };
-  
 
   return (
     <BackgroundImage>
       <NavBar />
       <CenteredContainer maxWidth="lg">
+        {/* Encabezado de bienvenida */}
         <Typography variant="h3" sx={{ textAlign: 'center', marginBottom: '20px' }}>
-          <strong>"Bienvenido {user.name}"</strong>
-        </Typography> 
+          <strong>Bienvenido {user.name}</strong>
+        </Typography>
 
+        {/* Separador horizontal estilizado */}
         <StyledHr />
 
-        <Grid container spacing={2}>
-          {/* Columna izquierda (foto de perfil y botón) */}
-          <Grid item xs={12} md={4} 
-          sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+        {/* Contenedor principal de la información del perfil */}
+        <Grid container spacing={2} justifyContent="center">
+          {/* Avatar del usuario */}
+          <Grid item xs={12} md={8} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
             <UserProfileAvatarContainer>
               <UserProfileAvatar
                 alt="User Profile"
                 src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png"
               />
             </UserProfileAvatarContainer>
-            <Button
-              variant="contained"
-              color="primary"
-              sx={{
-                width: '50px',
-                height: '55px',
-                borderRadius: '100%',
-                marginLeft: '180px',
-                marginTop: '-60px',
-              }}
-              onClick={toggleEditing}
-            >
-              {editIcon}
-            </Button>
           </Grid>
 
-          {/* Columna derecha (datos del usuario) */}
+          {/* Información del usuario */}
           <Grid item xs={12} md={8} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
             <Typography variant="h4" sx={{ textAlign: 'center' }}>
               DATOS DE USUARIO
@@ -415,6 +418,20 @@ function AdopterProfile() {
                       sx={inputStyles}
                     />
                   </FormControl>
+                </Grid>
+                <Grid item xs={24} md={12} sx={{ display: 'flex', justifyContent: 'flex-end', marginTop: '20px' }}>
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    sx={{
+                      width: '50%',
+                      height: '100%',
+                      marginRight: '20px', // Ajusta el margen derecho según sea necesario
+                    }}
+                    onClick={toggleEditing}
+                  >
+                    {editIcon} Editar Perfil
+                  </Button>
                 </Grid>
             </Grid>
           </Grid>
