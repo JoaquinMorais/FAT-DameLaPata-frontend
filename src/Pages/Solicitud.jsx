@@ -5,9 +5,10 @@ import Zoom from 'react-reveal/Zoom';
 import NavBar from '../components/NavBar/NavBar';
 import CardPerson from '../components/Mismascotas/CardPersona';
 import { GetRequestsEach } from '../my_methods/dogs_methods';
-
+import { useParams } from 'react-router-dom';
 
 const Solicitud = () => {
+  const { id_pet } = useParams();
   const [responseData, setResponseData] = useState(null);
   const [responseStatus, setResponseStatus] = useState('');
   const [responseMessage, setResponseMessage] = useState('');
@@ -18,7 +19,7 @@ const Solicitud = () => {
   useEffect(() => {
     async function fetchData() {
       try {
-        await GetRequestsEach().then(checking => {
+        await GetRequestsEach(id_pet).then(checking => {
           setResponseData(checking.data);
           setResponseStatus(checking.response_status);
           setResponseMessage(checking.response_message);
@@ -31,18 +32,30 @@ const Solicitud = () => {
         console.error('Error al realizar la solicitud:', error.message);
       }
     }
-    
     fetchData(); 
   }, []);  
 
   
-  if(responseData && responseData.length > 0){
+  while(!responseData || responseStatus !== 'success' ){
+    console.log(responseData)
+    return (
+      <Principio>
+        <Lamina>
+          <Flip top>
+            <p>ID de pet: {id_pet}</p>
+
+            <Titulo style={{color:'red'}}>HUBO UN ERROR EN EL PROCESAMIENTO</Titulo>
+          </Flip>
+        </Lamina>
+      </Principio>
+    );}
     return (
       <>
         <NavBar />
         <Principio>
           <Lamina>
             <Flip top>
+              <p>ID de pet: {id_pet}</p>
               <Titulo>GENTE QUE QUIERE EL PERRO</Titulo>
             </Flip>
             <Hr />
@@ -52,32 +65,22 @@ const Solicitud = () => {
         </Principio>
   
         <Grid>
-          <Zoom>
-          {responseData.map((id_pet) => (
-
-            <Container>
-                  <CardPerson
-                  
-                  />
+        <Zoom>
+          {responseData.map((petData) => (
+            <Container key={petData.id_pet}>
+              <CardPerson
+                full_name={petData.pet.name}
+                district={petData.pet.name} // ¿Aquí querías pasar algo diferente?
+                telefono={petData.pet.name} // ¿Y aquí?
+              />
             </Container>
           ))}
-
-          </Zoom>
+        </Zoom>
         </Grid>
+
       </>
     );
-  } else {
-    return (
-      <Principio>
-        <Lamina>
-          <Flip top>
-            <Titulo style={{color:'red'}}>HUBO UN ERROR EN EL PROCESAMIENTO</Titulo>
-          </Flip>
-        </Lamina>
-      </Principio>
-    );
   }
-}
 
 export default Solicitud
 

@@ -8,10 +8,22 @@ import Jump from 'react-reveal/Jump';
 import videofondo from '../../../../images/videos/videofondo.mp4';
 import { Link } from 'react-router-dom';
 import KeyboardDoubleArrowDownIcon from '@mui/icons-material/KeyboardDoubleArrowDown';
+import Joyride, {STATUS} from 'react-joyride';
+
 
 function Section() {
   const [responseData, setResponseData] = useState(null);
-
+  const [{run, steps}, setRunTour] = useState({
+    run: true,
+    steps: [
+      {
+        content: <h2>TEST</h2>,
+        locate:{ skip: <strong>SKIP</strong>},
+        placement: "center",
+        target: "body"
+      }
+    ]
+  }); 
   useEffect(() => {
     async function fetchData() {
       try {
@@ -26,9 +38,16 @@ function Section() {
     fetchData(); 
   }, []);  
 
+
+
   if(responseData?.status === 200){
     return (
       <>
+      <Joyride 
+        callback={() => {}}
+        run= {run}
+        steps={steps}
+      />
         <Wrap>
           <BackgroundVideo autoPlay loop muted>
             <source src={videofondo} type="video/mp4" />
@@ -54,6 +73,7 @@ function Section() {
   } else {
     return (
       <>
+
         <Wrap>
           <BackgroundVideo autoPlay loop muted>
             <source src={videofondo} type="video/mp4" />
@@ -86,7 +106,25 @@ function Section() {
               </Arrow>
             </Jump> 
           </Content>
+          <Joyride
+          steps={steps}
+          continuous={true}
+          showProgress={true}
+          showSkipButton={true}
+          spotlightPadding={10}
+          run={run}
+          callback={(data) => {
+            if (data.status === 'finished') {
+              setRunTour(false); 
+            }
+            else{
+              console.log('no anda')
+            }
+          }}
+        />
         </Wrap>
+
+
       </>
     );
   }

@@ -64,6 +64,8 @@ export async function GetRequestsEach(id_pet) {
     }
     return response_react(response.status, response_message, response.data.response);
   } catch (error) {
+    console.log(id_pet)
+    console.log(`shelter/requests?id_pet=${id_pet}`)
     console.log(response)
     let response_message = 'Ocurrió un error';
     return response_react(500, response_message, null);
