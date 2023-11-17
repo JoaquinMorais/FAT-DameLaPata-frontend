@@ -99,7 +99,6 @@
       if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birth.getDate())) {
         age--;
       }
-
       return age;
     };
 
@@ -182,7 +181,7 @@
                   foto={item.image_path}
                   nombre={item.name}
                   titulo={`${item.name} es un perro muy feliz :D`}
-                  descripcion={`${item.name} nació el ${item.birth_date}.`}
+                  descripcion={`${item.name} tiene ${calculateAge(item.birth_date)} años. Nació el ${item.birth_date}.`}
                   onFavoriteToggle={() => toggleFavorite(item.id_pet)}
                   isFavorite={favoritePets.includes(item.id_pet)}
                 />
