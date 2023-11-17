@@ -173,7 +173,7 @@
         </Principio>
 
         <Grid>
-          {responseData?.sort(sortByAge).map((item) => (
+          {responseData?.sort(sortByName).map((item) => (
             <Container key={item.id}>
               <Zoom>
                 <Cards
