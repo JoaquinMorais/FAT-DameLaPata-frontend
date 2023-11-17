@@ -20,6 +20,7 @@
     const [favoritePets, setFavoritePets] = useState([]);
     const [updatedPets, setUpdatedPets] = useState([]);
     const [nameOrder, setNameOrder] = useState('asc');
+    const [ageOrder, setAgeOrder] = useState('desc');
 
     // Función para cargar los datos de las mascotas
     async function fetchData() {
@@ -83,6 +84,32 @@
       return 0;
     };
 
+    // Función para cambiar el orden de la edad
+    const toggleAgeOrder = () => {
+      setAgeOrder(ageOrder === 'asc' ? 'desc' : 'asc');
+    };
+
+    // Función para calcular la edad en años a partir de la fecha de nacimiento
+    const calculateAge = (birthDate) => {
+      const today = new Date();
+      const birth = new Date(birthDate);
+      let age = today.getFullYear() - birth.getFullYear();
+      const monthDiff = today.getMonth() - birth.getMonth();
+
+      if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birth.getDate())) {
+        age--;
+      }
+
+      return age;
+    };
+
+    // Función para ordenar las mascotas por edad
+    const sortByAge = (a, b) => {
+      const ageA = calculateAge(a.birth_date);
+      const ageB = calculateAge(b.birth_date);
+      return ageOrder === 'asc' ? ageA - ageB : ageB - ageA;
+    };
+
     // Renderiza un spinner mientras se cargan los datos
     if (isLoading) {
       return (
@@ -142,12 +169,12 @@
           </Slide>
 
           <Slide bottom>
-            <Filters onToggleOrder={toggleNameOrder} onNameFilter={() => {}} />
+          <Filters onToggleOrder={toggleNameOrder} onAgeFilter={toggleAgeOrder} ageOrder={ageOrder} />
           </Slide>
         </Principio>
 
         <Grid>
-          {responseData?.sort(sortByName).map((item) => (
+          {responseData?.sort(sortByAge).map((item) => (
             <Container key={item.id}>
               <Zoom>
                 <Cards
