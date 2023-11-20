@@ -1,5 +1,4 @@
 import React from 'react';
-import Swiper from 'swiper';
 import 'swiper/css';
 import styled from 'styled-components';
 
@@ -22,10 +21,6 @@ const StyledImage = styled.img`
   width: 30%; /* Tamaño predeterminado de la imagen */
   height: auto;
 
-  /* Media query para pantallas más pequeñas */
-  @media (max-width: 768px) {
-    width: 70%; /* Cambia el tamaño de la imagen en pantallas más pequeñas */
-  }
 `;
 
 export default function CartaInd({ name, img, swiperInstance }) {
@@ -35,7 +30,7 @@ export default function CartaInd({ name, img, swiperInstance }) {
       flexDirection: 'column',
       justifyContent: 'flex-end',
       alignItems: 'center',
-      fontSize: '30px',
+      fontSize: '15px',
       paddingBottom: '20px',
       width: '100%',
     }}>

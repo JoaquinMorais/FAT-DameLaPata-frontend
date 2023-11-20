@@ -8,6 +8,7 @@ import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
 import styled from 'styled-components';
 import CartaInd from './CartaInd';
+import useMediaQuery from '@mui/material/useMediaQuery';
 
 const StyledCard = styled(Card)`
   margin: 20px;
@@ -20,14 +21,24 @@ const StyledTitle = styled(Typography)`
   text-align: center;
 `;
 
+const StyledSwiperContainer = styled.div`
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 20px;
+`;
+
 export default function CardTeam() {
   const [swiperInitialized, setSwiperInitialized] = useState(false);
   let swiper; // Declara una variable para la instancia de Swiper
 
+  const isMobile = useMediaQuery('(max-width: 600px)');
+
   useEffect(() => {
     if (!swiperInitialized) {
+      const slidesPerView = isMobile ? 1 : 4;
+
       swiper = new Swiper('.swiper-container', {
-        slidesPerView: 4, // Mostrar 4 cartas por slide
+        slidesPerView: slidesPerView, // Mostrar 1 carta por slide en móviles, 4 en otros casos
         spaceBetween: 20, // Espacio entre las cartas
         pagination: {
           el: '.swiper-pagination',
@@ -42,14 +53,16 @@ export default function CardTeam() {
       });
 
       setSwiperInitialized(true);
+    } else {
+      swiper && swiper.update(); // Actualiza el Swiper cuando cambia el número de slides
     }
-  }, [swiperInitialized]);
+  }, [swiperInitialized, isMobile]);
 
   return (
     <StyledCard>
       <CardContent>
         <StyledTitle variant="h2">ESTE GRUPO ESTÁ COMPUESTO POR:</StyledTitle>
-        <div className="swiper-container" >
+        <StyledSwiperContainer className="swiper-container">
           <div className="swiper-wrapper" >
             <CartaInd name={'Yaco Babiachuk'} img={'https://i.postimg.cc/bvhQJWs5/yaco.jpg'}/>
             <CartaInd name={'Maximo Tomas Blazquez'} img={'https://i.postimg.cc/PJ9DkFg2/facha.jpg'} />
@@ -61,7 +74,7 @@ export default function CardTeam() {
             <CartaInd name={'Agustin Jose Salonia'} img={'https://i.postimg.cc/3R6Ny0tw/salo.jpg'} />
           </div>
           <div className="swiper-pagination"></div>
-        </div>
+        </StyledSwiperContainer>
       </CardContent>
     </StyledCard>
   );
