@@ -49,17 +49,13 @@ const StyledButton = styled(Button)`
   height: 100%;
 `;
 function CardPerson({ full_name, district, telefono }) {
-  const [status, setStatus] = useState('Pendiente'); // Estado inicial
+  const [status, setStatus] = useState('Pendiente'); 
 
   const handleAccept = () => {
-    // Realiza alguna acción para aceptar la solicitud, por ejemplo, una solicitud HTTP
-    // Luego, actualiza el estado
     setStatus('Aceptada');
   };
 
   const handleReject = () => {
-    // Realiza alguna acción para rechazar la solicitud
-    // Luego, actualiza el estado
     setStatus('Rechazada');
   };
 

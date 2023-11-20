@@ -20,7 +20,6 @@ import VisibilityOff from '@mui/icons-material/VisibilityOff';
 
 // Enlace de la imagen de fondo
 
-const backgroundImageUrl = "https://cloudfront-us-east-1.images.arcpublishing.com/metroworldnews/PWEJPEIL7NFRBFEGPBTJSSNLAA.jpg";
 
 const validationSchema = Yup.object({
   password: Yup.string().required('La contraseña es requerida'),
@@ -82,13 +81,15 @@ function Login() {
         )}
 
           <Paper elevation={10} style={{ padding: '20px', textAlign: 'center' }}>
-            <h1 style={{ marginBottom: '20px' }}>INICIA SESIÓN</h1>
+          <h1 style={{fontFamily:'Grape Nuts'}}>Dame La Pata</h1>
+          <h1 style={{fontWeight:'bold', marginBottom:'50px', fontSize:'30px'}}>BIENVENIDO/A DE VUELTA</h1>
+
             <form onSubmit={formik.handleSubmit}>
               <Grid container spacing={2}>
                 <Grid item xs={12} >
                   <TextField
                     fullWidth
-                    label="Usuario"
+                    label="Nombre de Usuario"
                     variant="outlined"
                     id="username"
                     name="username"
@@ -133,7 +134,12 @@ function Login() {
               </Button>
             </form>
           </Paper>
+
+          <div style={{display:'flex', justifyContent:'center'}}>
+            <Button href='/' variant="contained" sx={{marginTop:'30px'}}>VOLVER</Button>
+          </div>
         </CenteredContainer>
+        
       </BackgroundImage>
 
       <Footer/>
@@ -146,12 +152,11 @@ function Login() {
 export default Login;
 
 const BackgroundImage = styled.div`
-  background-image: url(${backgroundImageUrl});
-  background-size: cover;
-  background-repeat: no-repeat;
+  background-color:#FFE697;
   background-position: center;
   min-height: 100vh;
   display: flex;
+  flex-direction:column;
   align-items: center;
   justify-content: center;
 `;

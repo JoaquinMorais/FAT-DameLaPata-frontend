@@ -69,9 +69,9 @@ const Solicitud = () => {
           {responseData.map((petData) => (
             <Container key={petData.id_pet}>
               <CardPerson
-                full_name={petData.pet.name}
-                district={petData.pet.name} // ¿Aquí querías pasar algo diferente?
-                telefono={petData.pet.name} // ¿Y aquí?
+                full_name={petData.id_pet}
+                district={petData.pet.name} 
+                telefono={petData.pet.name}
               />
             </Container>
           ))}
