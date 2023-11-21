@@ -1,24 +1,32 @@
-import React from 'react'
-import { styled } from 'styled-components'
+import React from 'react';
+import { styled } from 'styled-components';
 import Fade from 'react-reveal/Fade';
+import { useNavigate } from 'react-router-dom';
 
 function Post() {
+  const navigate = useNavigate();
+
+  const goBack = () => {
+    navigate(-1); 
+  };
+    
   return (
     <>
-        <Volver href='/dogs'>volver</Volver>
-        <Background>
-            <Link href='/add'>
-                <Container>
-                    <Fade top><Image src="Images/agregar-huella-2.png"></Image></Fade>
-                    <Fade bottom><Title>¡Agregá un perrito para que pueda ser adoptado!</Title></Fade>
-                </Container>
-            </Link>
-        </Background>
+      <Volver onClick={goBack}>Volver</Volver>
+      <Background>
+        <Link to="/add">
+          <Container>
+            <Fade top><Image src="Images/agregar-huella-2.png" /></Fade>
+            <Fade bottom><Title>¡Agregá un perrito para que pueda ser adoptado!</Title></Fade>
+          </Container>
+        </Link>
+      </Background>
     </>
-  )
+  );
 }
 
-export default Post
+export default Post;
+
 
 const Volver = styled.a`
     position: absolute;

@@ -10,6 +10,9 @@
   import { useEffect } from 'react';
   import { LogOut } from '../my_methods/session_methods';
   import Footer from '../components/Footer/Footer';
+  import videofondo from '../images/videos/videofondo.mp4';
+  import styled from 'styled-components';
+  import { Button } from '@mui/material';
 
   function Register() {
     useEffect(() => {
@@ -27,10 +30,6 @@
         {/* <Navbar /> */}
         <div
           style={{
-            backgroundImage: 'url("https://media.diariouno.com.ar/p/f54249878a58173518d1bc7ec8f5814e/adjuntos/298/imagenes/008/806/0008806731/1200x0/smart/perro-callejerojpg.jpg")',
-            backgroundSize: 'cover', // Ensure the image covers the entire container
-            backgroundRepeat: 'no-repeat',
-            backgroundPosition: 'center', // Center the background image
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
@@ -38,6 +37,10 @@
             minHeight: '100vh', // Use vh to ensure it covers the viewport height
           }}
         >
+                      <BackgroundVideo autoPlay loop muted>
+              <source src={videofondo} type="video/mp4" />
+            </BackgroundVideo>
+
           <Box sx={{ width: '100%', maxWidth: '600px', typography: 'body1', backgroundColor: 'rgba(255, 255, 255, 0.8)', borderRadius: '20px', maxHeight: '100%' }}>
             <TabContext value={value}>
               <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
@@ -49,9 +52,15 @@
               <TabPanel value="1" sx={{ height: '100%' }}><ShelterRegister /></TabPanel>
               <TabPanel value="2" sx={{ height: '100%' }}><AdopterRegister /></TabPanel>
             </TabContext>
+            
           </Box>
-        </div>
 
+
+          <div style={{display:'flex', justifyContent:'center'}}>
+            <Button href='/' variant="contained" sx={{marginTop:'30px'}}>VOLVER</Button>
+          </div>
+
+        </div>
         <Footer/>
       </>
     );
@@ -59,3 +68,13 @@
 
   export default Register;
 
+  const BackgroundVideo = styled.video`
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: -1;
+  filter: blur(3px);
+`;

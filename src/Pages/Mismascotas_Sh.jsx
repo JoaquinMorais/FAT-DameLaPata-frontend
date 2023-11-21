@@ -31,7 +31,13 @@ function Mismascotas_Sh() {
     fetchData();
   }, []);
 
-  if (responseData && responseData.length > 0) {
+  while (!responseData)
+  {
+    console.log(responseData)
+    return (<h1>Error 404</h1>);
+  }
+  console.log(responseData  )
+
     return (
       <>
         <NavBar />
@@ -69,10 +75,7 @@ function Mismascotas_Sh() {
         </Lamina>
       </>
     );
-  } else {
-    return (<h1>Error 404</h1>);
-  }
-}
+  } 
 
 export default Mismascotas_Sh;
 

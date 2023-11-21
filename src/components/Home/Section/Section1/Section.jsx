@@ -1,98 +1,135 @@
-import React, { useEffect, useState } from 'react'; 
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { styled } from 'styled-components';
 import Button from '../Button';
 import { Fade } from 'react-reveal';
-import { Slide } from 'react-reveal';
 import Jump from 'react-reveal/Jump';
 import videofondo from '../../../../images/videos/videofondo.mp4';
 import { Link } from 'react-router-dom';
 import KeyboardDoubleArrowDownIcon from '@mui/icons-material/KeyboardDoubleArrowDown';
+import Joyride from 'react-joyride';
 
 function Section() {
   const [responseData, setResponseData] = useState(null);
+  const [showJoyride, setShowJoyride] = useState(false);
 
   useEffect(() => {
     async function fetchData() {
       try {
         const response = await axios.get('http://localhost:5000/user/requests');
         setResponseData(response.data);
-        console.log('response Data:' + responseData)
       } catch (error) {
         console.error('Error al realizar la solicitud:', error.message);
       }
     }
-    
-    fetchData(); 
-  }, []);  
 
-  if(responseData?.status === 200){
-    return (
-      <>
-        <Wrap>
-          <BackgroundVideo autoPlay loop muted>
-            <source src={videofondo} type="video/mp4" />
-          </BackgroundVideo>
-          <Overlay />
-          <Content>
-            <CenterContent>
-              <Fade top>
-                <Title>Dame La Pata</Title>
-                <Slogan>"Rescatar, proteger y encontrar hogares amorosos para perros necesitados."</Slogan>
-              </Fade>             
-            </CenterContent>
-            <Jump>
-              <Arrow>
-                <ArrowText>Más info.</ArrowText>
-                <KeyboardDoubleArrowDownIcon sx={{ color: 'white', fontSize: 40, marginBottom: 5 }}></KeyboardDoubleArrowDownIcon>
-              </Arrow>
-            </Jump> 
-          </Content>
-        </Wrap>
-      </>
-    );
-  } else {
-    return (
-      <>
-        <Wrap>
-          <BackgroundVideo autoPlay loop muted>
-            <source src={videofondo} type="video/mp4" />
-          </BackgroundVideo>
-          <Overlay />
-          <Content>
-            <CenterContent>
-              <Fade top>
-                <Title>Dame La Pata</Title>
-                <Slogan>"Rescatar, proteger y encontrar hogares amorosos para perros necesitados."</Slogan>
-              </Fade>
-                <Container>
-                <Fade bottom>
-                  <ButtonContainer>
-                    <Link to="/register" style={{ textDecoration: 'none' }}>
-                      <ButtonContainer>
-                        <ButtonAdop src='/Images/pataa.jpg' />
-                        <ButtonText style={{ color: 'white', fontWeight: 'bold' }}>INICIAR</ButtonText>
-                      </ButtonContainer>
-                    </Link>
-                  </ButtonContainer>
+    fetchData();
+  }, []);
+
+  useEffect(() => {
+    const hasSeenJoyride = localStorage.getItem('hasSeenJoyride');
+    if (!hasSeenJoyride && responseData?.status === 200) {
+      setShowJoyride(true);
+    }
+  }, [responseData]);
+
+  const handleJoyrideCallback = (data) => {
+    const { status } = data;
+    if (status === 'finished') {
+      localStorage.setItem('hasSeenJoyride', 'true');
+    }
+    // You can handle other status as needed
+  };
+
+  const joyrideSteps = [
+    {
+      content: (
+        <p style={{ fontSize: '20px' }}>
+          Bienvenido a <span style={{ color: 'orange', fontWeight: 'bold' }}>DAME LA PATA</span>
+        </p>
+      ),
+      locate: { skip: <strong>SKIP</strong> },
+      placement: 'center',
+      target: 'body',
+    },
+    // Add other steps as needed
+  ];
+
+  return (
+    <>
+      <Joyride
+        callback={handleJoyrideCallback}
+        run={showJoyride}
+        steps={joyrideSteps}
+        // Other Joyride props as needed
+      />
+      {responseData?.status === 200 ? (
+        <>
+          {/* Content when user is registered */}
+          <Wrap>
+            <BackgroundVideo autoPlay loop muted>
+              <source src={videofondo} type="video/mp4" />
+            </BackgroundVideo>
+            <Overlay />
+            <Content>
+              <CenterContent>
+                <Fade top>
+                  <Title>Dame La Pata</Title>
+                  <Slogan>"Rescatar, proteger y encontrar hogares amorosos para perros necesitados."</Slogan>
                 </Fade>
-              </Container>
-              
-            </CenterContent>
-            <Jump>
-              <Arrow>
-                <ArrowText>Más info.</ArrowText>
-                <KeyboardDoubleArrowDownIcon sx={{ color: 'white', fontSize: 40, marginBottom: 5 }}></KeyboardDoubleArrowDownIcon>
-              </Arrow>
-            </Jump> 
-          </Content>
-        </Wrap>
-      </>
-    );
-  }
+              </CenterContent>
+              <Jump>
+                <Arrow>
+                  <ArrowText>Más info.</ArrowText>
+                  <KeyboardDoubleArrowDownIcon sx={{ color: 'white', fontSize: 40, marginBottom: 5 }} />
+                </Arrow>
+              </Jump>
+            </Content>
+          </Wrap>
+        </>
+      ) : (
+        <>
+          {/* Content when user is not registered */}
+          <Wrap>
+            <BackgroundVideo autoPlay loop muted>
+              <source src={videofondo} type="video/mp4" />
+            </BackgroundVideo>
+            <Overlay />
+            <Content>
+              <CenterContent>
+                <Fade top>
+                  <Title>Dame La Pata</Title>
+                  <Slogan>"Rescatar, proteger y encontrar hogares amorosos para perros necesitados."</Slogan>
+                </Fade>
+                <Container>
+                  <Fade bottom>
+                    <ButtonContainer>
+                      <Link to="/register" style={{ textDecoration: 'none' }}>
+                        <ButtonContainer>
+                          <ButtonAdop src="/Images/pataa.jpg" />
+                          <ButtonText style={{ color: 'white', fontWeight: 'bold' }}>INICIAR</ButtonText>
+                        </ButtonContainer>
+                      </Link>
+                    </ButtonContainer>
+                  </Fade>
+                </Container>
+              </CenterContent>
+              <Jump>
+                <Arrow>
+                  <ArrowText>Más info.</ArrowText>
+                  <KeyboardDoubleArrowDownIcon sx={{ color: 'white', fontSize: 40, marginBottom: 5 }} />
+                </Arrow>
+              </Jump>
+            </Content>
+          </Wrap>
+        </>
+      )}
+    </>
+  );
 }
 
 export default Section;
+
 
 const Title = styled.h1`
   font-size: 90px;
