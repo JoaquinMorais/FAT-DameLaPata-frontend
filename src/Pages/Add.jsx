@@ -433,5 +433,6 @@ const dropzoneStyle = {
   textAlign: 'center',
   color: '#f76402',
   cursor: 'pointer',
+  marginTop: '20px',
 };
 
