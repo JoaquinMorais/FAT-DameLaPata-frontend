@@ -24,17 +24,19 @@ import { useNavigate } from 'react-router-dom';
 import { PutDogs } from '../my_methods/dogs_methods';
 import { getColors, getCharacteristics } from '../my_methods/query_methods';
 
+// Styled component for the subtitle
 const Subtitulo = styled(Typography)`
   text-align: center;
-  margin: 20px 0; /* Añadir margen superior e inferior */
+  margin: 20px 0;
 `;
-//a
 
+// Styled component for the button
 const Boton = styled(Button)`
   margin-top: 20px;
   font-weight: bold;
   margin-bottom: 30px;
 `;
+
 
 function Add() {
   const [selectedColors, setSelectedColors] = useState([]);
@@ -106,7 +108,16 @@ function Add() {
   const validationSchema = Yup.object({
     name: Yup.string().required('El nombre es obligatorio.'),
     gender: Yup.number().required('El género es obligatorio.'),
-    birthdate: Yup.date().required('La fecha de nacimiento es obligatoria.'),
+    birthdate: Yup.date()
+      .required('La fecha de nacimiento es obligatoria.')
+      .test(
+        'birthdate',
+        'La fecha de nacimiento debe estar entre 2000 y la fecha actual.',
+        (value) => {
+          const minDate = new Date('2000-01-01');
+          const maxDate = new Date();
+          const birthdate = new Date(value);
+          return birthdate >= minDate && birthdate <= maxDate;}),
     size: Yup.number().required('El tamaño es obligatorio.'),
     weight: Yup.number().required('El peso es obligatorio.'),
     image_path: Yup.string().required('La imagen es obligatoria.'),
@@ -184,11 +195,16 @@ function Add() {
                         {...field}
                         label="Nacimiento"
                         type="date"
-                        defaultValue="2022-12-18"
+                        defaultValue="2000-01-01"
                         InputLabelProps={{
                           shrink: true,
                         }}
                         fullWidth
+                        // Set max and min attributes for date input
+                        inputProps={{
+                          max: new Date().toISOString().split('T')[0], // Current date
+                          min: '2000-01-01',
+                        }}
                       />
                     )}
                   </Field>
