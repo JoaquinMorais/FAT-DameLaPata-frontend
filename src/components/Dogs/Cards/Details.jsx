@@ -24,7 +24,7 @@ const Details = () => {
     const { id } = useParams();
     const [responseData, setResponseData] = useState(null); 
     const [imagenDesplazada, setImagenDesplazada] = useState(false);
-
+    const navigate = useNavigate();
 
     useEffect(() => {
         async function fetchData() {
@@ -98,9 +98,6 @@ const Details = () => {
 
 /* ------------------------------------ */
 
-const navigate = useNavigate();
-
-
 /* ------------------------------------ */
 
 const estado = {
@@ -133,6 +130,7 @@ const handleClickOpen = () => {
 const handleClose = () => {
   CreateRequest(responseData?.response.id_pet, 4)
   setOpen(false);
+  navigate('/dogs')
 };
 
 /* ------------------------------------ */
