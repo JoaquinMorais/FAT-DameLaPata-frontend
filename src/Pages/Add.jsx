@@ -18,6 +18,7 @@ import Select from '@mui/material/Select';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
+import Footer from '../components/Footer/Footer';
 
 import NavBar from '../components/NavBar/NavBar'; 
 import IsLogged, { GetProfile } from '../my_methods/session_methods';
@@ -169,10 +170,13 @@ function Add() {
       <NavBar />
       <Container maxWidth="md"><br/><br/><br/> {/* Ignoren los "BR", fue mi solucion al estres */}
         <Typography variant="h3" align="center" gutterBottom>
-          Empezá a dibujar la felicidad de una persona.
+          Empezá a rellenar la felicidad de una persona.
         </Typography>
+
+        <hr />
         <Subtitulo variant="subtitle1">¡Agregá un perrito a la lista de adopción!</Subtitulo>
         <hr />
+
         <Formik
           initialValues={initialValues}
           validationSchema={validationSchema}
@@ -295,6 +299,8 @@ function Add() {
                 </Grid> */}
  
               <Grid item xs={12}>
+              <hr />
+                <Typography variant="h5">Imagen de la Mascota</Typography>
                 <Dropzone
                   onDrop={(acceptedFiles) => {
                     formik.setFieldValue('image_path', acceptedFiles[0]);
@@ -310,7 +316,7 @@ function Add() {
                           style={{ maxWidth: '100%', maxHeight: '200px', marginTop: '10px' }}
                         />
                       ) : (
-                        <p>Arrastra y suelta una imagen aquí, o haz clic para seleccionar una</p>
+                        <p>Arrastra y suelta una imagen aquí, o haz clic para seleccionar una foto.</p>
                       )}
                     </div>
                   )}
@@ -322,6 +328,7 @@ function Add() {
 
 
                 <Grid item xs={12}>
+                <hr />
                   <Typography variant="h4">Color de la mascota</Typography>
                   <FormGroup>
                     <Grid container spacing={2}>
@@ -355,6 +362,7 @@ function Add() {
                   </FormGroup>
                 </Grid>
                 <Grid item xs={12}>
+                <hr />
                   <Typography variant="h4">Características de la mascota</Typography>
                   <FormGroup>
                     <Grid container spacing={2}>
@@ -389,6 +397,7 @@ function Add() {
                 </Grid>
               </Grid>
               <Grid item xs={12}>
+              <hr />
                 <Button
                   variant="contained"
                   style={{
@@ -410,6 +419,7 @@ function Add() {
           )}
         </Formik>
       </Container>
+      <Footer/>
     </>
   );
 }
