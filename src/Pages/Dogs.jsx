@@ -44,7 +44,7 @@
       }
 
       fetchData(); // Llama a la función fetchData para obtener los datos
-    }, []);
+    }, [responseData]);
 
     // Función para agregar o quitar una mascota a favoritos
     const toggleFavorite = (id_pet) => {

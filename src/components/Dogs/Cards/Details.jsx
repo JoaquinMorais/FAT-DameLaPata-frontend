@@ -15,6 +15,8 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 
 import CustomizedTabs from './CustomizedTabs';
+import { CreateRequest } from '../../../my_methods/dogs_methods';
+
 
 
 
@@ -123,11 +125,13 @@ const handlePerroNoClick = async () => {
 const [open, setOpen] = React.useState(false);
 
 const handleClickOpen = () => {
+  CreateRequest(responseData?.response.id_pet, 3)
   setImagenDesplazada(false);
   setOpen(true);
 };
 
 const handleClose = () => {
+  CreateRequest(responseData?.response.id_pet, 4)
   setOpen(false);
 };
 

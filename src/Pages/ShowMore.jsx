@@ -4,9 +4,6 @@ import NavBar from '../components/NavBar/NavBar';
 
 
 function ShowMore() {
-
-  // ALEJO PARTE
-
   return (
     <>
         <NavBar />

@@ -9,7 +9,7 @@ import { GetRequests } from '../my_methods/dogs_methods';
 import { Grid } from '@mui/material';
 
 function Mismascotas_Sh() {
-  const [responseData, setResponseData] = useState(null);
+  const [responseData, setResponseData] = useState([]);
   const [responseStatus, setResponseStatus] = useState('');
   const [responseMessage, setResponseMessage] = useState('');
   const [isLoading, setIsLoading] = useState(true);
@@ -18,6 +18,7 @@ function Mismascotas_Sh() {
     async function fetchData() {
       try {
         await GetRequests().then(checking => {
+          console.log(checking.data)
           setResponseData(checking.data);
           setResponseStatus(checking.response_status);
           setResponseMessage(checking.response_message);
