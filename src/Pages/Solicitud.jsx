@@ -12,9 +12,6 @@ const Solicitud = () => {
   const [responseData, setResponseData] = useState(null);
   const [responseStatus, setResponseStatus] = useState('');
   const [responseMessage, setResponseMessage] = useState('');
-  const [isLoading, setIsLoading] = useState(true);
-
-  const [requests, setRequests] = useState([]);
 
   useEffect(() => {
     async function fetchData() {
@@ -23,8 +20,6 @@ const Solicitud = () => {
           setResponseData(checking.data);
           setResponseStatus(checking.response_status);
           setResponseMessage(checking.response_message);
-          console.log(checking.data)
-          console.log(checking.response_message)
 
         });
       }
@@ -36,15 +31,23 @@ const Solicitud = () => {
   }, []);  
 
   
-  while(!responseData || responseStatus !== 'success' ){
-    console.log(responseData)
+  while(responseData){
     return (
       <Principio>
         <Lamina>
           <Flip top>
             <p>ID de pet: {id_pet}</p>
 
-            <Titulo style={{color:'red'}}>HUBO UN ERROR EN EL PROCESAMIENTO</Titulo>
+            {responseData.map((item) => (
+  item.requests.map((request) => (
+    <CardPerson 
+      key={request.adopter.id} // Asegúrate de tener una clave única para cada iteración
+      full_name={`${request.adopter.name} ${request.adopter.surname}`}
+      telefono={request.adopter.phone_number}
+      district={request.adopter.id_address}
+    />
+  ))
+))}
           </Flip>
         </Lamina>
       </Principio>
@@ -55,7 +58,6 @@ const Solicitud = () => {
         <Principio>
           <Lamina>
             <Flip top>
-              <p>ID de pet: {id_pet}</p>
               <Titulo>GENTE QUE QUIERE EL PERRO</Titulo>
             </Flip>
             <Hr />
@@ -66,15 +68,6 @@ const Solicitud = () => {
   
         <Grid>
         <Zoom>
-          {responseData.map((petData) => (
-            <Container key={petData.id_pet}>
-              <CardPerson
-                full_name={petData.id_pet}
-                district={petData.pet.name} 
-                telefono={petData.pet.name}
-              />
-            </Container>
-          ))}
         </Zoom>
         </Grid>
 
