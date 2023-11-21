@@ -54,12 +54,6 @@
             </TabContext>
             
           </Box>
-
-
-          <div style={{display:'flex', justifyContent:'center'}}>
-            <Button href='/' variant="contained" sx={{marginTop:'30px'}}>VOLVER</Button>
-          </div>
-
         </div>
         <Footer/>
       </>

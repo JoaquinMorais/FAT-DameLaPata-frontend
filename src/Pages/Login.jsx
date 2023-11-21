@@ -134,10 +134,6 @@ function Login() {
               </Button>
             </form>
           </Paper>
-
-          <div style={{display:'flex', justifyContent:'center'}}>
-            <Button href='/' variant="contained" sx={{marginTop:'30px'}}>VOLVER</Button>
-          </div>
         </CenteredContainer>
         
       </BackgroundImage>
