@@ -6,7 +6,6 @@ import ShowMore from './Pages/ShowMore';
 import Pinder from './Pages/Pinder';
 import Home from './Pages/Home';
 import Who from './Pages/Who';
-import Post from './Pages/Post';
 import Add from './Pages/Add';
 import Login from './Pages/Login';
 import Register from './Pages/Register';
@@ -63,7 +62,6 @@ const App = () => {
           <Route path="/pet/details/:id" element={<ShowMore />} />
           <Route path="/pinder" element={<Pinder />} />
           <Route path="/about" element={<Who />} />
-          <Route path="/post" element={<Post />} />
           <Route path="/add" element={<Add />} />
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
