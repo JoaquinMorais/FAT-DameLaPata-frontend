@@ -3,7 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Grid from '@material-ui/core/Grid';
-import { FaFacebook, FaTwitter, FaInstagram } from 'react-icons/fa'; // Importa los íconos de redes sociales
+import { FaFacebook, FaTwitter, FaInstagram } from 'react-icons/fa';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -13,9 +13,9 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'space-between', // Mover el contenido hacia los lados
+    justifyContent: 'space-between',
     padding: '20px 0',
-    marginLeft: '60px', // Agregar margen alrededor del contenido
+    marginLeft: '60px',
     marginRight: '60px',
   },
   messageContainer: {
@@ -28,10 +28,9 @@ const useStyles = makeStyles((theme) => ({
     marginTop: '10px',
     fontSize: '17px',
     fontFamily: 'cursive',
-    marginRight: '10px', // Separar el texto del contenido del icono
+    marginRight: '10px',
   },
   iconContainer: {
-    marginLeft: '350px',
     display: 'flex',
     alignItems: 'center',
     textAlign: 'left',
@@ -42,6 +41,10 @@ const useStyles = makeStyles((theme) => ({
     cursor: 'pointer',
   },
   '@media (max-width: 600px)': {
+    toolbar: {
+      flexDirection: 'column',
+      alignItems: 'center',
+    },
     messageContainer: {
       flexDirection: 'column',
       textAlign: 'center',
@@ -60,7 +63,6 @@ const useStyles = makeStyles((theme) => ({
 const Footer = () => {
   const classes = useStyles();
 
-  // Funciones para redirigir a las páginas de redes sociales
   const redirectToFacebook = () => {
     window.location.href = 'https://www.facebook.com/tu-pagina-de-facebook';
   };
@@ -76,15 +78,15 @@ const Footer = () => {
   return (
     <AppBar position="static" className={classes.root}>
       <Toolbar className={classes.toolbar}>
-      <div className={classes.messageContainer}>
+        <div className={classes.messageContainer}>
           <div className={classes.message}>
             © 2023 Fundación Ruare. Todos los derechos reservados. Aporta tu granito de arena al mundo.
           </div>
-          <div className={classes.iconContainer}>
-            <FaFacebook className={classes.icon} onClick={redirectToFacebook} />
-            <FaTwitter className={classes.icon} onClick={redirectToTwitter} />
-            <FaInstagram className={classes.icon} onClick={redirectToInstagram} />
-          </div>
+        </div>
+        <div className={classes.iconContainer}>
+          <FaFacebook className={classes.icon} onClick={redirectToFacebook} />
+          <FaTwitter className={classes.icon} onClick={redirectToTwitter} />
+          <FaInstagram className={classes.icon} onClick={redirectToInstagram} />
         </div>
       </Toolbar>
     </AppBar>
