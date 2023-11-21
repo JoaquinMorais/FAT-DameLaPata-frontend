@@ -13,16 +13,20 @@ import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 
-// Import your FetchNavbarItems function here
+// Importa la función FetchNavbarItems
 import { FetchNavbarItems } from '../../my_methods/session_methods';
 
+// Componente principal
 function Navbar() {
+  // Estado para almacenar los elementos de las páginas y configuraciones
   const [pages, setPagesArray] = useState([]);
   const [settings, setSettingsArray] = useState([]);
 
+  // Estados para manejar los menús desplegables
   const [anchorElNav, setAnchorElNav] = useState(null);
   const [anchorElUser, setAnchorElUser] = useState(null);
 
+  // useEffect para cargar los elementos de la barra de navegación al montar el componente
   useEffect(() => {
     const fetchData = async () => {
       const navbarItems = await FetchNavbarItems();
@@ -33,6 +37,7 @@ function Navbar() {
     fetchData();
   }, []);
 
+  // Manejadores para abrir y cerrar los menús
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
   };
@@ -49,7 +54,7 @@ function Navbar() {
     setAnchorElUser(null);
   };
 
-  // Function to get the corresponding page routes
+  // Función para obtener la ruta correspondiente a una página
   function getPageLink(page) {
     switch (page) {
       case 'Inicio':
@@ -64,18 +69,18 @@ function Navbar() {
         return '/peticiones';
       case 'Mis Mascotas':
         return '/mis-mascotas-shelter';
+      default:
+        return '/';
     }
   }
 
-  // Function to get the corresponding settings routes
+  // Función para obtener la ruta correspondiente a una configuración
   function getSettingsLink(setting) {
     switch (setting) {
       case 'Mi Perfil':
-        return '/profile';
       case 'Mi Refugio':
         return '/profile';
       case 'Iniciar Sesion':
-        return '/login';
       case 'Cerrar Sesion':
         return '/login';
       case 'Registrarse':
@@ -85,11 +90,12 @@ function Navbar() {
     }
   }
 
+  // Renderizado del componente
   return (
     <AppBar
       position="static"
       sx={{
-        backgroundColor: '#FF5722',
+        backgroundColor: '#FF5722 !important',
         position: 'fixed',
         zIndex: '9998',
         height: '50px',
@@ -98,9 +104,12 @@ function Navbar() {
     >
       <Container maxWidth="xl">
         <Toolbar disableGutters>
+          {/* Logo */}
           <a href="/">
             <Imagen1 src="/Images/dame_logo.png" alt="Logo" style={{ width: '40px', marginRight: '16px' }} />
           </a>
+
+          {/* Título de la página en desktop */}
           <Typography
             variant="h6"
             noWrap
@@ -116,9 +125,10 @@ function Navbar() {
               textDecoration: 'none',
             }}
           >
-            {/* Your page title */}
+            {/* Tu título de página */}
           </Typography>
 
+          {/* Menú desplegable en dispositivos móviles */}
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none', zIndex: '9998' } }}>
             <IconButton
               size="large"
@@ -130,6 +140,8 @@ function Navbar() {
             >
               <MenuIcon />
             </IconButton>
+
+            {/* Menú de navegación en dispositivos móviles */}
             <Menu
               id="menu-appbar"
               anchorEl={anchorElNav}
@@ -154,7 +166,7 @@ function Navbar() {
                     key={page}
                     onClick={handleCloseNavMenu}
                     component={Link}
-                    to={getPageLink(page)} // Navigate to the corresponding route
+                    to={getPageLink(page)} // Navegar a la ruta correspondiente
                   >
                     {page}
                   </MenuItem>
@@ -162,6 +174,7 @@ function Navbar() {
             </Menu>
           </Box>
 
+          {/* Título de la página en móviles */}
           <Typography
             variant="h5"
             noWrap
@@ -178,9 +191,10 @@ function Navbar() {
               textDecoration: 'none',
             }}
           >
-            {/* Your mobile page title */}
+            {/* Tu título de página en dispositivos móviles */}
           </Typography>
 
+          {/* Enlaces de navegación en desktop */}
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
             {pages.length > 0 &&
               pages.map((page) => (
@@ -190,14 +204,16 @@ function Navbar() {
               ))}
           </Box>
 
+          {/* Menú de usuario */}
           <Box sx={{ flexGrow: 0, zIndex: '9999' }}>
-            <Tooltip title="Open settings">
-              <Link to={getSettingsLink(settings[0])} />
+            <Tooltip title="Abrir configuración">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                {/* Replace the src with your user avatar */}
+                {/* Reemplaza el src con tu avatar de usuario */}
                 <Avatar src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png" />
               </IconButton>
             </Tooltip>
+
+            {/* Menú de usuario desplegable */}
             <Menu
               sx={{ mt: '45px', zIndex: '9999' }}
               id="menu-appbar"
@@ -217,7 +233,7 @@ function Navbar() {
               {settings.length > 0 &&
                 settings.map((setting) => (
                   <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                    {/* Use Link to redirect */}
+                    {/* Usar Link para redirigir */}
                     <Link to={getSettingsLink(setting)}>
                       <Typography textAlign="center" color="#212529">
                         {setting}
@@ -235,26 +251,13 @@ function Navbar() {
 
 export default Navbar;
 
+// Estilos adicionales
 const Imagen1 = styled.img`
   width: 50px;
   display: flex;
-  // @media (max-width: 899px) {
-  //   display: none;
-  // }
 `;
 
 const Avatar = styled.img`
   width: 40px;
   border-radius: 100%;
 `;
-
-// const Imagen2 = styled.img`
-//   width: 50px;
-//   display: none;
-//   @media (max-width: 899px) {
-//     display: flex;
-//   }
-// `;
-
-
-
