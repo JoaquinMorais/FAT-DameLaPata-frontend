@@ -59,7 +59,7 @@ function Navbar() {
       case 'Quienes Somos':
         return '/about';
       case 'Publicar':
-        return '/post';
+        return '/add';
       case 'Peticiones':
         return '/peticiones';
       case 'Mis Mascotas':
