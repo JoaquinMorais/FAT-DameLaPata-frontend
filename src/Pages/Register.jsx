@@ -45,12 +45,12 @@
             <TabContext value={value}>
               <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
                 <TabList onChange={handleChange} aria-label="lab API tabs example" sx={{ justifyContent: 'space-around' }}>
-                  <Tab label="Fundacion" value="1" sx={{ flex: 1, textAlign: 'center', fontSize: '20px', marginTop: '50px' }} />
-                  <Tab label="Adoptante" value="2" sx={{ flex: 1, textAlign: 'center', fontSize: '20px', marginTop: '50px' }} />
+                <Tab label="Adoptante" value="1" sx={{ flex: 1, textAlign: 'center', fontSize: '20px', marginTop: '50px' }} />
+                  <Tab label="Fundacion" value="2" sx={{ flex: 1, textAlign: 'center', fontSize: '20px', marginTop: '50px' }} />
                 </TabList>
               </Box>
-              <TabPanel value="1" sx={{ height: '100%' }}><ShelterRegister /></TabPanel>
-              <TabPanel value="2" sx={{ height: '100%' }}><AdopterRegister /></TabPanel>
+              <TabPanel value="1" sx={{ height: '100%' }}><AdopterRegister /></TabPanel>
+              <TabPanel value="2" sx={{ height: '100%' }}><ShelterRegister /></TabPanel>
             </TabContext>
             
           </Box>
