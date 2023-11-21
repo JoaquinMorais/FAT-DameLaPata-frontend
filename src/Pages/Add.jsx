@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { styled } from 'styled-components';
 import { Field, FieldArray, Form, Formik, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
+import Dropzone from 'react-dropzone';
+
 
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
@@ -100,7 +102,7 @@ function Add() {
     birthdate: '',
     size: '',
     weight: '',
-    image_path: '',
+    image_path: null,
     characteristics: [],
     colors: [],
   };
@@ -120,7 +122,8 @@ function Add() {
           return birthdate >= minDate && birthdate <= maxDate;}),
     size: Yup.number().required('El tamaño es obligatorio.'),
     weight: Yup.number().required('El peso es obligatorio.'),
-    image_path: Yup.string().required('La imagen es obligatoria.'),
+    image_path: Yup.mixed().required('La imagen es obligatoria.').nullable(),
+
     characteristics: Yup.array()
       .of(Yup.number())
       .required('Mínimo 1 característica.'),
@@ -130,11 +133,36 @@ function Add() {
   });
 
   const handleSubmit = async (values, { setSubmitting }) => {
-    const response = PutDogs(values);
-    console.log('a');
-    navigate('/successful');
+    // Antes de enviar, convierte la imagen a base64
+    if (values.image_path) {
+      const imageBase64 = await convertImageToBase64(values.image_path);
+      values.image_path = imageBase64;
+    }
+    const response = await PutDogs(values);
+    if (response.response_status === 200) {
+      navigate('/successful');
+    } else {
+      console.error('Error al publicar el perro:', response.response_message);
+    }
     setSubmitting(false);
   };
+
+
+  const convertImageToBase64 = (file) => {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+
+      reader.onloadend = () => {
+        resolve(reader.result);
+      };
+
+      reader.onerror = reject;
+
+      reader.readAsDataURL(file);
+    });
+  };
+
+
 
   return (
     <>
@@ -249,7 +277,7 @@ function Add() {
                   </Grid>
                 </Grid>
                 
-                <Grid item xs={12}>
+                {/* <Grid item xs={12}>
                   <Field name="image_path">
                     {({ field }) => (
                       <TextField
@@ -264,29 +292,34 @@ function Add() {
                   <Grid item xs={12}>
                     <ErrorMessage name="name" component="div" style={{ color: 'red' }} />
                   </Grid>
-                </Grid>
-
-                {/* 
-                <Grid item xs={12}>
-                  <Field name="image_path">
-                    {({ field, form }) => (
-                      <div>
-                        <input
-                          type="file"
-                          accept="image/*"
-                          onChange={(event) => {
-                            form.setFieldValue('image_path', event.currentTarget.files[0]);
-                          }}
-                          onBlur={field.onBlur}
+                </Grid> */}
+ 
+              <Grid item xs={12}>
+                <Dropzone
+                  onDrop={(acceptedFiles) => {
+                    formik.setFieldValue('image_path', acceptedFiles[0]);
+                  }}
+                >
+                  {({ getRootProps, getInputProps }) => (
+                    <div {...getRootProps()} style={dropzoneStyle}>
+                      <input {...getInputProps()} />
+                      {formik.values.image_path ? (
+                        <img
+                          src={URL.createObjectURL(formik.values.image_path)}
+                          alt="Vista previa"
+                          style={{ maxWidth: '100%', maxHeight: '200px', marginTop: '10px' }}
                         />
-                        {form.errors.image_path && form.touched.image_path && (
-                          <div style={{ color: 'red' }}>{form.errors.image_path}</div>
-                        )}
-                      </div>
-                    )}
-                  </Field>
-                </Grid>
-                */}
+                      ) : (
+                        <p>Arrastra y suelta una imagen aquí, o haz clic para seleccionar una</p>
+                      )}
+                    </div>
+                  )}
+                </Dropzone>
+                {formik.errors.image_path && formik.touched.image_path && (
+                  <div style={{ color: 'red' }}>{formik.errors.image_path}</div>
+                )}
+              </Grid>
+
 
                 <Grid item xs={12}>
                   <Typography variant="h4">Color de la mascota</Typography>
@@ -382,3 +415,13 @@ function Add() {
 }
 
 export default Add;
+
+const dropzoneStyle = {
+  border: '2px dashed #f76402',
+  borderRadius: '4px',
+  padding: '20px',
+  textAlign: 'center',
+  color: '#f76402',
+  cursor: 'pointer',
+};
+
