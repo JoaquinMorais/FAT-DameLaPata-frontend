@@ -5,39 +5,44 @@ import styled from 'styled-components';
 const StyledCard = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: flex-end;
   align-items: center;
-  font-size: 24px;
-  padding-bottom: 20px;
-  background-size: cover;
-  background-position: center;
-  color: white;
-  font-weight: bold;
-  padding: 20px;
-  width: 100%;
+  padding: 10px 14px;
 `;
 
 const StyledImage = styled.img`
-  width: 30%; /* Tamaño predeterminado de la imagen */
-  height: auto;
-
+    height: 100px;
+    width: 100px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 3px solid #ff5722;
 `;
+
+const ImageContent = styled.div`
+
+`
+
+const StyledName = styled.div`
+
+`
 
 export default function CartaInd({ name, img, swiperInstance }) {
   return (
     <div className="swiper-slide" style={{
       display: 'flex',
       flexDirection: 'column',
-      justifyContent: 'flex-end',
+      justifyContent: 'center',
       alignItems: 'center',
-      fontSize: '15px',
+      fontSize: '18px',
+      fontWeight: 'bold',
       paddingBottom: '20px',
       width: '100%',
     }}>
       <StyledCard>
-      <StyledImage src={img} alt={name} />
+        <ImageContent>
+          <StyledImage src={img} alt={name} />
+        </ImageContent>
+       <StyledName>{name}</StyledName>
       </StyledCard>
-      <div className="name">{name}</div>
     </div>
   );
 }
