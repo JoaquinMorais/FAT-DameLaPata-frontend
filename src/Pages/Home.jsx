@@ -21,7 +21,6 @@ function Home() {
       {isLoading ? (
         <LoaderComp />
       ) : (
-        // Render the content once loading is complete
         <>
           <Section />
           {/* <Section_2 /> */}
