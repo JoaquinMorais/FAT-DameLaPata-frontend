@@ -61,11 +61,11 @@ function CardPerson({ full_name, district, telefono }) {
 
   return (
     <Content>
-      <StyledCard>
+      <StyledCard sx={{border:'1px solid black', padding:'30px'}}>
         <StyledCardMedia />
         <StyledCardContent>
           <Typography gutterBottom variant="h5" component="div" sx={{ borderBottom: 1 }}>
-            Nombre: {full_name}
+            {full_name}
           </Typography>
           <Typography variant="body2" color="text.secondary">
             Barrio: {district}

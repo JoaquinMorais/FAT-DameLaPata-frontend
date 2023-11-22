@@ -6,12 +6,14 @@ import NavBar from '../components/NavBar/NavBar';
 import CardPerson from '../components/Mismascotas/CardPersona';
 import { GetRequestsEach } from '../my_methods/dogs_methods';
 import { useParams } from 'react-router-dom';
+import Footer from '../components/Footer/Footer';
 
 const Solicitud = () => {
   const { id_pet } = useParams();
   const [responseData, setResponseData] = useState(null);
   const [responseStatus, setResponseStatus] = useState('');
   const [responseMessage, setResponseMessage] = useState('');
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     async function fetchData() {
@@ -20,7 +22,7 @@ const Solicitud = () => {
           setResponseData(checking.data);
           setResponseStatus(checking.response_status);
           setResponseMessage(checking.response_message);
-
+          setIsLoading(false);
         });
       }
       catch (error) {
@@ -31,55 +33,45 @@ const Solicitud = () => {
   }, []);  
 
   
-  while(responseData){
-    return (
-      <Principio>
-        <Lamina>
-          <Flip top>
-            <p>ID de pet: {id_pet}</p>
-
-            {responseData.map((item) => (
-  item.requests.map((request) => (
-    <CardPerson 
-      key={request.adopter.id} // Asegúrate de tener una clave única para cada iteración
-      full_name={`${request.adopter.name} ${request.adopter.surname}`}
-      telefono={request.adopter.phone_number}
-      district={request.adopter.id_address}
-    />
-  ))
-))}
-          </Flip>
-        </Lamina>
-      </Principio>
-    );}
     return (
       <>
-        <NavBar />
-        <Principio>
-          <Lamina>
-            <Flip top>
-              <Titulo>GENTE QUE QUIERE EL PERRO</Titulo>
+      <NavBar />
+      <Principio>
+        <Lamina>
+        <Flip top>
+              <Titulo>ESTAS PERSONAS BUSCAN ESTA MASCOTITA</Titulo>
             </Flip>
-            <Hr />
+          <Contenedor >
+          <Flip top>
+          {!isLoading ? (
+            responseData.map((item) =>
+            item.requests.map((request) => (
+            <CardPerson 
+              key={request.adopter.id}
+              full_name={`${request.adopter.name} ${request.adopter.surname}`}
+              telefono={request.adopter.phone_number}
+              district={request.adopter.id_address}
+            />
+          ))
+        )
+      ) : (
+        <p>Loading...</p>
+      )}
+          </Flip>
 
+          </Contenedor>
+        </Lamina>
+      </Principio>
+      <Footer />
+    </>
 
-          </Lamina>
-        </Principio>
-  
-        <Grid>
-        <Zoom>
-        </Zoom>
-        </Grid>
-
-      </>
-    );
-  }
+    );}
 
 export default Solicitud
 
 const Principio = styled.div`
   width: 100%;
-  min-height: 40vh;
+  min-height: 100vh;
   background-position: top center;
   display: flex;
   justify-content: center;
@@ -93,6 +85,20 @@ const Lamina = styled.div`
   align-items: center;
 `;
 
+const Contenedor = styled.div`
+  width: 100%;
+  height: auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 2fr));
+  gap: 20px;
+  padding: 20px;
+  justify-items: center;
+  align-items: center;
+
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+  }
+`;
 const Titulo = styled.h1`
   color: black;
   font-size: 40px;
@@ -102,35 +108,5 @@ const Titulo = styled.h1`
 
   @media (max-width: 768px) {
     font-size: 30px;
-  }
-`;
-
-const Hr = styled.hr`
-  width: 75%;
-  border-top: 3px solid black;
-`;
-
-const Grid = styled.div`
-  width: 50%;
-  margin: 0 auto 150px auto;
-  display: grid;
-  height: 100vh;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-  gap: 20px;
-  text-align: center;
-
-  @media (max-width: 768px) {
-    grid-template-columns: repeat(auto-fill, minmax(100%, 1fr));
-    width: 100%;
-
-  }
-`;
-
-const Container = styled.div`
-  width: 100%;
-  transition: transform 0.2s ease-in-out;
-
-  &:hover {
-    transform: scale(0.97);
   }
 `;
