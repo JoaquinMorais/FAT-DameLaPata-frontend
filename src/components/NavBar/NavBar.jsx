@@ -78,6 +78,7 @@ function Navbar() {
   function getSettingsLink(setting) {
     switch (setting) {
       case 'Mi Perfil':
+        return '/profile';
       case 'Mi Refugio':
         return '/profile';
       case 'Iniciar Sesion':

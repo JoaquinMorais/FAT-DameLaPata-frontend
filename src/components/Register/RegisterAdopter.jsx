@@ -215,7 +215,7 @@ function AdopterRegister() {
           fullWidth
           id="repeatPassword"
           name="repeatPassword"
-          type={showRepeatPassword ? 'text' : 'password'} // Cambia el tipo de entrada según el estado showRepeatPassword
+          type={showRepeatPassword ? 'text' : 'password'}
           label="Repetir Contraseña"
           value={formik.values.repeatPassword}
           onChange={formik.handleChange}
@@ -293,11 +293,11 @@ function AdopterRegister() {
             id="street"
             name="street"
             label="Calle"
-            value={formik.values.street} // Agrega este campo
+            value={formik.values.street}
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
-            error={formik.touched.street && Boolean(formik.errors.street)} // Agrega este campo
-            helperText={formik.touched.street && formik.errors.street} // Agrega este campo
+            error={formik.touched.street && Boolean(formik.errors.street)} 
+            helperText={formik.touched.street && formik.errors.street} 
           />
         </Grid>
         <Grid item xs={12} sm={6}>

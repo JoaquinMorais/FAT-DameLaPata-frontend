@@ -122,7 +122,11 @@ function Add() {
           const birthdate = new Date(value);
           return birthdate >= minDate && birthdate <= maxDate;}),
     size: Yup.number().required('El tamaño es obligatorio.'),
-    weight: Yup.number().required('El peso es obligatorio.'),
+    weight: Yup.number()
+      .required('El peso es obligatorio.')
+      .min(0, 'El peso no puede ser negativo.')
+      .max(45, 'El peso no puede ser mayor a 45.')
+      .positive('El peso debe ser un número positivo.'),
     image_path: Yup.mixed().required('La imagen es obligatoria.').nullable(),
 
     characteristics: Yup.array()
@@ -198,7 +202,7 @@ function Add() {
                     )}
                   </Field>
                   <Grid item xs={12}>
-                    <ErrorMessage name="name" component="div" style={{ color: 'red' }} />
+                    <ErrorMessage name="gender" component="div" style={{ color: 'red' }} />
                   </Grid>
                 </Grid>
                 <Grid item xs={6}>
@@ -270,14 +274,16 @@ function Add() {
                       <TextField
                         {...field}
                         label="Peso"
-                        placeholder="123... kg"
+                        placeholder="8 kg, 12 kg, 5 kg"
                         fullWidth
                         variant="standard"
+                        type="number"
+                        InputProps={{ inputProps: { min: 0, max: 45 } }}
                       />
                     )}
                   </Field>
                   <Grid item xs={12}>
-                    <ErrorMessage name="name" component="div" style={{ color: 'red' }} />
+                    <ErrorMessage name="weight" component="div" style={{ color: 'red' }} />
                   </Grid>
                 </Grid>
                 
