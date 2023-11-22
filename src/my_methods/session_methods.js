@@ -23,7 +23,7 @@ export async function FetchNavbarItems() {
         setting_array = ['Mi Perfil', 'Cerrar Sesion'];
       } else if (localStorage.getItem('type') === 'shelter') {
         pages_array = ['Inicio', 'Quienes Somos', 'Publicar', 'Mis Mascotas'];
-        setting_array = ['Perfil del Refugio', 'Cerrar Sesion'];
+        setting_array = ['Mi Perfil', 'Cerrar Sesion'];
       }
     }
   } catch {
