@@ -178,7 +178,7 @@ function Add() {
         </Typography>
 
         <hr />
-        <Subtitulo variant="subtitle1">¡Agregá un perrito a la lista de adopción!</Subtitulo>
+        <Subtitulo variant="subtitle1">¡Agregá una mascota a la lista de adopción!</Subtitulo>
         <hr />
 
         <Formik
