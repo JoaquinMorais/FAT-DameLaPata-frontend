@@ -80,6 +80,7 @@
     ]
   },
   "devDependencies": {
-    "eslint-plugin-react-refresh": "^0.4.4"
+    "eslint-plugin-react-refresh": "^0.4.4",
+    "@types/react": "17.0.71"
   }
 }
