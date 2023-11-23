@@ -434,20 +434,10 @@ function Add() {
         </Formik>
           )}
       </Container>
+      
       <Footer/>
     </>
   );
 }
 
 export default Add;
-
-const dropzoneStyle = {
-  border: '2px dashed #f76402',
-  borderRadius: '4px',
-  padding: '20px',
-  textAlign: 'center',
-  color: '#f76402',
-  cursor: 'pointer',
-  marginTop: '20px',
-};
-
