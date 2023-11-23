@@ -142,24 +142,6 @@ const Peticiones = () => {
       <Footer/>
     </>
   );
-  // } else {
-  //   return (
-  //     <>
-  //       <NavBar />
-  //       <Principio>
-  //         <Lamina>
-  //           <Flip top>
-  //             <Titulo>MIS MASCOTAS</Titulo>
-  //           </Flip>
-  //           <Hr />
-  //         </Lamina>
-  //       </Principio>
-  //       <Grid style={{ textAlign: 'center' }}>
-  //         No hay perros que cumplan tus requisitos
-  //       </Grid>
-  //     </>
-  //   );
-  // }
 };
 
 export default Peticiones;
