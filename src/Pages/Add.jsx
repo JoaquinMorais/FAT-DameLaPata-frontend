@@ -122,8 +122,20 @@ function Add() {
     colors: [],
   };
 
+  
   const validationSchema = Yup.object({
-    name: Yup.string().required('El nombre es obligatorio.'),
+    name: Yup.string()
+      .required('El nombre es obligatorio.')
+      .test(
+        'invalid-words',
+        'El nombre contiene palabras inapropiadas.',
+        (value) => {
+          const invalidWords = ['pene', 'culo', 'teta', 'concha', 'mierda', 'caca', 'pito',
+        'sexo', 'anal', 'chupador']; 
+
+          return !invalidWords.some(word => value.toLowerCase().includes(word.toLowerCase()));
+        }
+      ),
     gender: Yup.number().required('El género es obligatorio.'),
     birthdate: Yup.date()
       .required('La fecha de nacimiento es obligatoria.')
