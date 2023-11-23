@@ -21,6 +21,16 @@
     const [updatedPets, setUpdatedPets] = useState([]);
     const [nameOrder, setNameOrder] = useState('asc');
     const [ageOrder, setAgeOrder] = useState('desc');
+    const [sizeOrder, setSizeOrder] = useState('asc');
+    const [filteredData, setFilteredData] = useState([]);
+
+    // Estado para almacenar los filtros seleccionados
+    const [activeFilters, setActiveFilters] = useState({
+      name: false,
+      age: false,
+      size: false,
+      // Agrega más filtros según sea necesario
+    });
 
     // Función para cargar los datos de las mascotas
     async function fetchData() {
@@ -36,7 +46,43 @@
       }
     }
 
-    // Efecto que se ejecuta cuando se carga el componente
+    // Función para cambiar el orden de los filtros
+    const toggleOrder = (filter) => {
+      switch (filter) {
+        case 'name':
+          setNameOrder(nameOrder === 'asc' ? 'desc' : 'asc');
+          break;
+        case 'age':
+          setAgeOrder(ageOrder === 'asc' ? 'desc' : 'asc');
+          break;
+        case 'size':
+          setSizeOrder(sizeOrder === 'asc' ? 'desc' : 'asc');
+          break;
+        // Agrega más casos según sea necesario
+        default:
+          break;
+      }
+    };
+
+    // Función para aplicar los filtros seleccionados
+    const applyFilters = () => {
+      let newData = responseData.slice(); // Copia del array original
+
+      // Aplicar filtros en el orden deseado
+      if (activeFilters.name) {
+        newData = newData.sort(sortByName);
+      }
+      if (activeFilters.age) {
+        newData = newData.sort(sortByAge);
+      }
+      // Agregar más filtros según sea necesario
+
+      // Actualizar el estado de los datos filtrados
+      setFilteredData(newData);
+    };
+
+
+     // Efecto que se ejecuta cuando se carga el componente
     useEffect(() => {
       // Verificar el tipo de usuario
       if (localStorage.getItem('type') !== 'adopter') {
@@ -168,12 +214,27 @@
           </Slide>
 
           <Slide bottom>
-          <Filters onToggleOrder={toggleNameOrder} onAgeFilter={toggleAgeOrder} ageOrder={ageOrder} />
+          <Filters 
+            onToggleOrder={() => {
+              toggleOrder('name');
+              setActiveFilters({ ...activeFilters, name: true, age: false, size: false });
+            }} 
+            onAgeFilter={() => {
+              toggleOrder('age');
+              setActiveFilters({ ...activeFilters, name: false, age: true, size: false });
+            }} 
+            onSizeFilter={() => {
+              toggleOrder('size');
+              setActiveFilters({ ...activeFilters, name: false, age: false, size: true });
+            }} 
+            ageOrder={ageOrder} 
+            applyFilters={applyFilters}  // Pasa la función applyFilters como prop
+          />
           </Slide>
         </Principio>
 
         <Grid>
-          {responseData?.sort(sortByName).map((item) => (
+          {filteredData?.map((item) => (
             <Container key={item.id}>
               <Zoom>
                 <Cards
