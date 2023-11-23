@@ -48,6 +48,7 @@ export async function GetRequests() {
     if (response.status === 200) {
       response_message = '';
     }
+    console.log(response.data.response)
   } catch (error) {
     response_message = 'Ocurrió un error';
   }

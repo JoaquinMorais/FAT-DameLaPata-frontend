@@ -46,6 +46,9 @@ function Add() {
   const [responseDataColors, setResponseDataColors] = useState(null);
   const [responseDataCharacteristics, setResponseDataCharacteristics] = useState(null);
   const [responseDataCategoryCharacteristics, setResponseDataCategoryCharacteristics] = useState(null);
+  
+  const [isLoading, setIsLoading] = useState(true);
+  
   const [colorsLoaded, setColorsLoaded] = useState(false);
   const [age, setAge] = useState('');
   const navigate = useNavigate();
@@ -90,6 +93,7 @@ function Add() {
       } catch (error) {
         console.error('Error al realizar la solicitud de categorias características:', error.message);
       }
+      setIsLoading(false)
 
     }
 
@@ -190,7 +194,11 @@ function Add() {
         <hr />
         <Subtitulo variant="subtitle1">¡Agregá una mascota a la lista de adopción!</Subtitulo>
         <hr />
-
+        {isLoading ? (
+          <Grid style={{ textAlign: 'center' }}>
+            Loading...
+          </Grid>
+          ) : (
         <Formik
           initialValues={initialValues}
           validationSchema={validationSchema}
@@ -296,24 +304,7 @@ function Add() {
                     <ErrorMessage name="weight" component="div" style={{ color: 'red' }} />
                   </Grid>
                 </Grid>
-                
-                {/* <Grid item xs={12}>
-                  <Field name="image_path">
-                    {({ field }) => (
-                      <TextField
-                        {...field}
-                        label="Imagen"
-                        placeholder="perro.jpg..."
-                        fullWidth
-                        variant="standard"
-                      />
-                    )}
-                  </Field>
-                  <Grid item xs={12}>
-                    <ErrorMessage name="name" component="div" style={{ color: 'red' }} />
-                  </Grid>
-                </Grid> */}
- 
+               
               <Grid item xs={12}>
               <hr />
                 <Typography variant="h5">Imagen de la Mascota</Typography>
@@ -446,6 +437,7 @@ function Add() {
             </Form>
           )}
         </Formik>
+          )}
       </Container>
       <Footer/>
     </>

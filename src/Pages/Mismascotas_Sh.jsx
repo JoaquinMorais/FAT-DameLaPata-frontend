@@ -32,13 +32,6 @@ function Mismascotas_Sh() {
     fetchData();
   }, []);
 
-  while (!responseData)
-  {
-    console.log(responseData)
-    return (<h1>Error 404</h1>);
-  }
-  console.log(responseData  )
-
     return (
       <>
         <NavBar />
