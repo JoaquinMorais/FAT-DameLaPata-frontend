@@ -32,31 +32,40 @@ const Solicitud = () => {
     fetchData(); 
   }, []);  
 
+  console.log('aaa', responseData);
+  console.log('isLoading:', isLoading);
+  console.log('responseData:', responseData);
   
-    return (
-      <>
+  return (
+    <>
       <NavBar />
       <Principio>
         <Lamina>
-        <Flip top>
-              <Titulo>ESTAS PERSONAS BUSCAN ESTA MASCOTITA</Titulo>
-            </Flip>
-          <Contenedor >
           <Flip top>
-          {!isLoading ? (
-            responseData.map((item) =>
-            item.requests.map((request) => (
-            <CardPerson 
-              key={request.adopter.id}
-              full_name={`${request.adopter.name} ${request.adopter.surname}`}
-              telefono={request.adopter.phone_number}
-              district={request.adopter.id_address}
-            />
-          ))
-        )
-      ) : (
-        <p>Loading...</p>
-      )}
+            <Titulo>ESTAS PERSONAS BUSCAN ESTA MASCOTITA</Titulo>
+          </Flip>
+          <Contenedor>
+          <Flip left>
+            {!isLoading ? (
+              <div style={{display:'flex', gap: '20px'}}>
+              {responseData.map((item) =>
+                item.requests.map((request) => {
+                  const card = (
+                    <CardPerson 
+                      key={request.adopter.id}
+                      full_name={`${request.adopter.name} ${request.adopter.surname}`}
+                      telefono={request.adopter.phone_number}
+                      district={request.adopter.id_address}
+                    />
+                  );
+                  console.log('Card:', card);
+                  return card;
+                })
+              ).flat()}
+              </div>
+            ) : (
+              <p>Loading...</p>
+            )}
           </Flip>
 
           </Contenedor>
@@ -64,14 +73,16 @@ const Solicitud = () => {
       </Principio>
       <Footer />
     </>
-
-    );}
+  );
+  ;}
 
 export default Solicitud
 
 const Principio = styled.div`
   width: 100%;
   min-height: 100vh;
+  max-height: auto;
+
   background-position: top center;
   display: flex;
   justify-content: center;
@@ -83,22 +94,25 @@ const Lamina = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  width: 100%;
+
 `;
 
 const Contenedor = styled.div`
   width: 100%;
-  height: auto;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 2fr));
   gap: 20px;
   padding: 20px;
   justify-items: center;
   align-items: center;
 
+  grid-template-columns: repeat(auto-fit, minmax(300px, 2fr));
+
   @media (max-width: 768px) {
-    grid-template-columns: 1fr;
+    grid-template-rows: 1fr;
   }
 `;
+
 const Titulo = styled.h1`
   color: black;
   font-size: 40px;

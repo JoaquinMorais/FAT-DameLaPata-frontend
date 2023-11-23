@@ -28,7 +28,7 @@ export default function CardPets({id_pet, title, imageUrl, descr, num }) {
         />
         <CardContent>
           <Typography color="text.primary" sx={{ fontSize: '20px' }}>
-          {title} - <span style={{ color: 'red' }}>{num} requests</span>
+          {title} - <span style={{ color: 'red' }}>{num} peticiones</span>
             </Typography>
           <Typography variant="body2" color="text.secondary">
             Ver Detalles / Caracteristicas abajo
