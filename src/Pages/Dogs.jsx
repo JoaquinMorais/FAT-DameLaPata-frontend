@@ -35,12 +35,14 @@
     // Función para cargar los datos de las mascotas
     async function fetchData() {
       try {
-        await GetPets().then((checking) => {
-          setResponseData(checking.data);
-          setResponseStatus(checking.response_status);
-          setResponseMessage(checking.response_message);
-          setIsLoading(false);
-        });
+        const checking = await GetPets();
+        setResponseData(checking.data);
+        setResponseStatus(checking.response_status);
+        setResponseMessage(checking.response_message);
+        setIsLoading(false);
+
+        // Aplicar filtros después de cargar los datos inicialmente
+        applyFilters();
       } catch (error) {
         console.error('Error al realizar la solicitud:', error.message);
       }
@@ -234,7 +236,7 @@
         </Principio>
 
         <Grid>
-          {filteredData?.map((item) => (
+          {(filteredData.length > 0 ? filteredData : responseData)?.map((item) => (
             <Container key={item.id}>
               <Zoom>
                 <Cards
