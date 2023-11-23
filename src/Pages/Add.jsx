@@ -25,7 +25,7 @@ import IsLogged, { GetProfile } from '../my_methods/session_methods';
 import LoaderComp from '../components/Loader/Loader';
 import { useNavigate } from 'react-router-dom';
 import { PutDogs } from '../my_methods/dogs_methods';
-import { getColors, getCharacteristics } from '../my_methods/query_methods';
+import { getColors, getCharacteristics, getCategoryCharacteristics } from '../my_methods/query_methods';
 
 // Styled component for the subtitle
 const Subtitulo = styled(Typography)`
@@ -45,6 +45,7 @@ function Add() {
   const [selectedColors, setSelectedColors] = useState([]);
   const [responseDataColors, setResponseDataColors] = useState(null);
   const [responseDataCharacteristics, setResponseDataCharacteristics] = useState(null);
+  const [responseDataCategoryCharacteristics, setResponseDataCategoryCharacteristics] = useState(null);
   const [colorsLoaded, setColorsLoaded] = useState(false);
   const [age, setAge] = useState('');
   const navigate = useNavigate();
@@ -81,6 +82,15 @@ function Add() {
       } catch (error) {
         console.error('Error al realizar la solicitud de características:', error.message);
       }
+
+      try {
+        // Llama a la función para obtener características
+        const categoryCharacteristicsResponse = await getCategoryCharacteristics();
+        setResponseDataCategoryCharacteristics(categoryCharacteristicsResponse);
+      } catch (error) {
+        console.error('Error al realizar la solicitud de categorias características:', error.message);
+      }
+
     }
 
     fetchData();
@@ -369,37 +379,49 @@ function Add() {
                 </Grid>
                 <Grid item xs={12}>
                 <hr />
-                  <Typography variant="h4">Características de la mascota</Typography>
+
+                {/* CARACTERISTICAS DE LAS MASCOTAS */}  
+                <Typography variant="h4">Características de la mascota</Typography>
                   <FormGroup>
-                    <Grid container spacing={2}>
-                      {responseDataCharacteristics?.response.map((item) => (
-                        <Grid item key={item.id_characteristic} xs={4}>
-                          <FormControlLabel
-                            control={
-                              <Checkbox
-                                name={`characteristics[${item.id_characteristic}]`}
-                                value={item.id_characteristic}
-                                checked={formik.values.characteristics.includes(item.id_characteristic)}
-                                onChange={(e) => {
-                                  const isChecked = e.target.checked;
-                                  if (isChecked) {
-                                    formik.setFieldValue('characteristics', [...formik.values.characteristics, item.id_characteristic]);
-                                  } else {
-                                    formik.setFieldValue('characteristics', formik.values.characteristics.filter((c) => c !== item.id_characteristic));
-                                  }
-                                }}
-                                style={{
-                                  color: '#f76402',
-                                }}
-                              />
-                            }
-                            label={item.title}
-                          />
-                        </Grid>
+
+                      {responseDataCategoryCharacteristics?.response.map((item) => (
+                        <div key={item.id_category}>
+                          <h3>{item.title}</h3>
+
+                          <Grid container spacing={2}>
+                          {item.characteristics?.map((characteristic) => (
+                            <Grid item key={characteristic.id_characteristic} xs={4}>
+                              <FormControlLabel
+                              control={
+                                <Checkbox
+                                  name={`characteristics[${characteristic.id_characteristic}]`}
+                                  value={characteristic.id_characteristic}
+                                  checked={formik.values.characteristics.includes(characteristic.id_characteristic)}
+                                  onChange={(e) => {
+                                    const isChecked = e.target.checked;
+                                    if (isChecked) {
+                                      formik.setFieldValue('characteristics', [...formik.values.characteristics, characteristic.id_characteristic]);
+                                    } else {
+                                      formik.setFieldValue('characteristics', formik.values.characteristics.filter((c) => c !== characteristic.id_characteristic));
+                                    }
+                                  }}
+                                  style={{
+                                    color: '#f76402',
+                                  }}
+                                />
+                              }
+                              label={characteristic.title}/>
+                            </Grid>
+                          ))} 
+                          </Grid>
+                        </div>
                       ))}
-                    </Grid>
+
                     <ErrorMessage name="characteristics" component="div" />
                   </FormGroup>
+                  
+
+
                 </Grid>
               </Grid>
               <Grid item xs={12}>

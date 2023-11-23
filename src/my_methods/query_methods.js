@@ -89,3 +89,13 @@ export async function getCharacteristics() {
     throw error; // Re-lanza el error para que el componente pueda manejarlo
   }
 }
+
+export async function getCategoryCharacteristics() {
+  try {
+    const response = await axios.get('pets/info/category-characteristics');
+    return response.data;
+  } catch (error) {
+    console.error('Error al realizar la solicitud de características por categoria:', error.message);
+    throw error; // Re-lanza el error para que el componente pueda manejarlo
+  }
+}
