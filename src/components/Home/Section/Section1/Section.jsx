@@ -75,7 +75,7 @@ function Section() {
               <CenterContent>
                 <Fade top>
                   <Title>Dame La Pata</Title>
-                  <Slogan>"Rescatar, proteger y encontrar hogares amorosos para mascotas necesitadas."</Slogan>
+                  <Slogan>"Rescatar, proteger y encontrar hogares amorosos para mascotas necesitadas"</Slogan>
                 </Fade>
               </CenterContent>
               <Jump>
@@ -99,7 +99,7 @@ function Section() {
               <CenterContent>
                 <Fade top>
                   <Title>Dame La Pata</Title>
-                  <Slogan>"Rescatar, proteger y encontrar hogares amorosos para perros necesitados."</Slogan>
+                  <Slogan>"Rescatar, proteger y encontrar hogares amorosos para perros necesitados"</Slogan>
                 </Fade>
                 <Container>
                   <Fade bottom>
