@@ -220,9 +220,8 @@ function Add() {
         <hr />
         <Subtitulo variant="subtitle1">¡Agregá una mascota a la lista de adopción!</Subtitulo>
         <hr />
-        <Typography variant="h5">Datos de la Mascota</Typography>
         {isLoading ? (
-          <Grid style={{ textAlign: 'center' }}>
+          <Grid style={{ textAlign: 'center', marginBottom: '100%' }}>
             Loading...
           </Grid>
           ) : (
@@ -233,6 +232,7 @@ function Add() {
         >
           {(formik) => (
             <Form>
+              <Typography variant="h5">Datos de la Mascota</Typography>
               <Grid container spacing={2}>
                 <Grid item xs={12}>
                   <Field name="name">
