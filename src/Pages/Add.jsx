@@ -1,9 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { styled } from 'styled-components';
-import { Field, FieldArray, Form, Formik, ErrorMessage } from 'formik';
+import {
+  Field,
+  FieldArray,
+  Form,
+  Formik,
+  ErrorMessage
+} from 'formik';
 import * as Yup from 'yup';
 import Dropzone from 'react-dropzone';
-
 
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
@@ -18,6 +23,7 @@ import Select from '@mui/material/Select';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
+
 import Footer from '../components/Footer/Footer';
 import CheckBoxCategories from '../components/Add/CheckBoxCategories'; 
 import NavBar from '../components/NavBar/NavBar'; 
@@ -25,7 +31,11 @@ import IsLogged, { GetProfile } from '../my_methods/session_methods';
 import LoaderComp from '../components/Loader/Loader';
 import { useNavigate } from 'react-router-dom';
 import { PutDogs } from '../my_methods/dogs_methods';
-import { getColors, getCharacteristics, getCategoryCharacteristics } from '../my_methods/query_methods';
+import {
+  getColors,
+  getCharacteristics,
+  getCategoryCharacteristics
+} from '../my_methods/query_methods';
 
 // Styled component for the subtitle
 const Subtitulo = styled(Typography)`
@@ -40,6 +50,15 @@ const Boton = styled(Button)`
   margin-bottom: 30px;
 `;
 
+const dropzoneStyle = {
+  border: '2px dashed #f76402',
+  borderRadius: '4px',
+  padding: '20px',
+  textAlign: 'center',
+  color: '#f76402',
+  cursor: 'pointer',
+  marginTop: '20px',
+};
 
 function Add() {
   const [selectedColors, setSelectedColors] = useState([]);
@@ -48,7 +67,6 @@ function Add() {
   const [responseDataCategoryCharacteristics, setResponseDataCategoryCharacteristics] = useState(null);
   
   const [isLoading, setIsLoading] = useState(true);
-  
   const [colorsLoaded, setColorsLoaded] = useState(false);
   const [age, setAge] = useState('');
   const navigate = useNavigate();
@@ -69,7 +87,6 @@ function Add() {
 
       if (!colorsLoaded) {
         try {
-          // Llama a la función para obtener colores
           const colorsResponse = await getColors();
           setResponseDataColors(colorsResponse);
           setColorsLoaded(true);
@@ -79,7 +96,6 @@ function Add() {
       }
 
       try {
-        // Llama a la función para obtener características
         const characteristicsResponse = await getCharacteristics();
         setResponseDataCharacteristics(characteristicsResponse);
       } catch (error) {
@@ -87,19 +103,17 @@ function Add() {
       }
 
       try {
-        // Llama a la función para obtener características
         const categoryCharacteristicsResponse = await getCategoryCharacteristics();
         setResponseDataCategoryCharacteristics(categoryCharacteristicsResponse);
       } catch (error) {
         console.error('Error al realizar la solicitud de categorias características:', error.message);
       }
-      setIsLoading(false)
 
+      setIsLoading(false);
     }
 
     fetchData();
   }, [colorsLoaded]);
-
 
   const handleCheckboxChange = (event) => {
     const value = parseInt(event.target.value, 10);
@@ -123,7 +137,18 @@ function Add() {
   };
 
   const validationSchema = Yup.object({
-    name: Yup.string().required('El nombre es obligatorio.'),
+    name: Yup.string()
+      .required('El nombre es obligatorio.')
+      .test(
+        'invalid-words',
+        'El nombre contiene palabras inapropiadas.',
+        (value) => {
+          const invalidWords = ['pene', 'culo', 'teta', 'concha', 'mierda', 'caca', 'pito',
+        'sexo', 'anal', 'chupador']; 
+
+          return !invalidWords.some(word => value.toLowerCase().includes(word.toLowerCase()));
+        }
+      ),
     gender: Yup.number().required('El género es obligatorio.'),
     birthdate: Yup.date()
       .required('La fecha de nacimiento es obligatoria.')
@@ -134,7 +159,9 @@ function Add() {
           const minDate = new Date('2000-01-01');
           const maxDate = new Date();
           const birthdate = new Date(value);
-          return birthdate >= minDate && birthdate <= maxDate;}),
+          return birthdate >= minDate && birthdate <= maxDate;
+        }
+      ),
     size: Yup.number().required('El tamaño es obligatorio.'),
     weight: Yup.number()
       .required('El peso es obligatorio.')
@@ -152,20 +179,21 @@ function Add() {
   });
 
   const handleSubmit = async (values, { setSubmitting }) => {
-    // Antes de enviar, convierte la imagen a base64
     if (values.image_path) {
       const imageBase64 = await convertImageToBase64(values.image_path);
       values.image_path = imageBase64;
     }
+    
     const response = await PutDogs(values);
+    
     if (response.response_status === 200) {
       navigate('/successful');
     } else {
       console.error('Error al publicar el perro:', response.response_message);
     }
+    
     setSubmitting(false);
   };
-
 
   const convertImageToBase64 = (file) => {
     return new Promise((resolve, reject) => {
@@ -180,8 +208,6 @@ function Add() {
       reader.readAsDataURL(file);
     });
   };
-
-
 
   return (
     <>
@@ -408,20 +434,10 @@ function Add() {
         </Formik>
           )}
       </Container>
+      
       <Footer/>
     </>
   );
 }
 
 export default Add;
-
-const dropzoneStyle = {
-  border: '2px dashed #f76402',
-  borderRadius: '4px',
-  padding: '20px',
-  textAlign: 'center',
-  color: '#f76402',
-  cursor: 'pointer',
-  marginTop: '20px',
-};
-
