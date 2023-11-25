@@ -220,6 +220,7 @@ function Add() {
         <hr />
         <Subtitulo variant="subtitle1">¡Agregá una mascota a la lista de adopción!</Subtitulo>
         <hr />
+        <Typography variant="h5">Datos de la Mascota</Typography>
         {isLoading ? (
           <Grid style={{ textAlign: 'center' }}>
             Loading...

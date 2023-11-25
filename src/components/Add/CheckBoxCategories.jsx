@@ -11,7 +11,9 @@ const CheckBoxCategories = ({ categoryCharacteristicsResponse, formik }) => {
   return (
     categoryCharacteristicsResponse?.map((item) => (
       <div key={item.id_category}>
+        <hr />
         <h3>{item.title[0].toUpperCase() + item.title.slice(1)}</h3>
+        <hr />
         
         <Grid container spacing={2}>
           {item.characteristics?.map((characteristic) => (
