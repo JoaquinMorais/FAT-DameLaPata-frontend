@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { styled } from 'styled-components';
 import {
   Field,
-  FieldArray,
   Form,
   Formik,
   ErrorMessage
@@ -28,8 +27,6 @@ import Footer from '../components/Footer/Footer';
 import CheckBoxCategories from '../components/Add/CheckBoxCategories'; 
 import NavBar from '../components/NavBar/NavBar'; 
 import IsLogged, { GetProfile } from '../my_methods/session_methods';
-import LoaderComp from '../components/Loader/Loader';
-import { useNavigate } from 'react-router-dom';
 import { PutDogs } from '../my_methods/dogs_methods';
 import {
   getColors,
