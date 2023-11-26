@@ -7,6 +7,8 @@ import CardsPets from '../components/Dogs/Cards/CardsPets';
 import { getUserDogs } from '../my_methods/salo_methods';
 import Footer from '../components/Footer/Footer';
 
+import CircularProgress from '@mui/material/CircularProgress';
+
 const Peticiones = () => {
   const [responseData, setResponseData] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -45,8 +47,10 @@ const Peticiones = () => {
         </Container>
       </Section>
       {isLoading ? (
-        "a, no"
-      ):(
+      <Grid container justifyContent="center" alignItems="center" style={{ height: '80vh' }}>
+        <CircularProgress color="secondary" size={80} thickness={4} />
+      </Grid>
+    ):(
         <Grid>
         {filterByState(3).map((item) => (
           <CardContainer key={item.pet.id_pet}>
@@ -73,8 +77,10 @@ const Peticiones = () => {
         </Container>
       </Section>
       {isLoading ? (
-        "a"
-      ):(
+      <Grid container justifyContent="center" alignItems="center" style={{ height: '80vh' }}>
+      <CircularProgress color="secondary"  size={80} thickness={4} />
+    </Grid>
+    ):(
         <Grid>
         {filterByState(2).map((item) => (
           <CardContainer key={item.pet.id_pet}>
@@ -101,8 +107,10 @@ const Peticiones = () => {
         </Container>
       </Section>
       {isLoading ? (
-        "a"
-      ):(
+      <Grid container justifyContent="center" alignItems="center" style={{ height: '80vh' }}>
+      <CircularProgress color="secondary" size={80} thickness={4} />
+    </Grid>
+    ):(
         <Grid>
         {filterByState(4).map((item) => (
           <CardContainer key={item.pet.id_pet}>
