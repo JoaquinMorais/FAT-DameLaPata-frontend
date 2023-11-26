@@ -43,9 +43,9 @@ function Mismascotas_Sh() {
             <Hr />
           </Lamina>
         </Principio>
-        <Grid container spacing={2}>
+        <Grid container spacing={2} sx={{display:'flex', justifyContent:'center'}}>
           {responseData.map((item) => (
-            <Grid item xs={12} sm={6} md={4} key={item.id}>
+            <Grid item xs={12} sm={6} md={4} key={item.id} sx={{display:'flex', justifyContent:'center'}}>
               <CardPets
                 id_pet = {item.pet.id_pet}
                 imageUrl={item.pet.image_path}
@@ -86,9 +86,6 @@ const Principio = styled.div`
 
 
 const Lamina = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
   align-items: center;
 `;
 
@@ -105,8 +102,8 @@ const Titulo = styled.h1`
 `;
 
 const Hr = styled.hr`
-  width: 75%;
-  border-top: 3px solid black;
+ border-top: 3px solid black;
+  text-align:center;
 `;
 
 
