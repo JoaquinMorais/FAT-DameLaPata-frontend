@@ -11,6 +11,7 @@ import axios from 'axios';
 import { useParams } from 'react-router-dom';
 
 function CardsPets(props) {
+  console.log(props)
   const { id } = useParams();
   const [isDeleting, setIsDeleting] = useState(false); // State para controlar si se está eliminando o no
 
@@ -47,17 +48,34 @@ function CardsPets(props) {
           </Typography>
         </CardContent>
         <CardActions sx={{ justifyContent: 'center' }}>
+        {console.log(props.canCancel)}
+        {props.canCancel && ( // Render only if canCancel is true
           <Button
             size="small"
             sx={{ backgroundColor: 'red', color: 'white', marginTop: '15px' }}
             onClick={handlePerroEliminar}
             disabled={isDeleting} // Deshabilitar el botón mientras se está eliminando
-          >
+            >
             <a style={{ textDecoration: 'none', color: 'white', fontWeight: 'bold' }}>
               {isDeleting ? 'Eliminando...' : 'Eliminar'}
             </a>
           </Button>
+        )}
+        {console.log(props.canAdopt)}
+        {props.canCancel && ( // Render only if canCancel is true
+          <Button
+            size="small"
+            sx={{ backgroundColor: 'red', color: 'white', marginTop: '15px' }}
+            onClick={handlePerroEliminar}
+            disabled={isDeleting} // Deshabilitar el botón mientras se está eliminando
+            >
+            <a style={{ textDecoration: 'none', color: 'white', fontWeight: 'bold' }}>
+              {isDeleting ? 'Eliminando...' : 'Eliminar'}
+            </a>
+          </Button>
+        )}
         </CardActions>
+
       </Card>
     </Content>
   );

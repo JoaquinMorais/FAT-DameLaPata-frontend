@@ -7,64 +7,36 @@ import CardsPets from '../components/Dogs/Cards/CardsPets';
 import { getUserDogs } from '../my_methods/salo_methods';
 import Footer from '../components/Footer/Footer';
 
+import CircularProgress from '@mui/material/CircularProgress';
+
 const Peticiones = () => {
   const [responseData, setResponseData] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
-  const [favoritePets, setFavoritePets] = useState([]);
 
   useEffect(() => {
-    getUserDogs()
-      .then((response) => {
-        setResponseData(response.data.response);
-        setIsLoading(false);
-  
-        // Filtra perros favoritos y actualiza el estado
-        const favoriteDogs = filterByState(8); // 8 es el estado para favoritos
-        setFavoritePets(favoriteDogs);
-      })
-      .catch((error) => {
-        console.error(error);
-      });
+    async function fetchData() {
+      try {
+          console.log("begin")
+          const response = await getUserDogs();
+          setResponseData(response.data.response);
+          setIsLoading(false)
+        } catch (error) {
+          console.error('Error al realizar la solicitud:', error.message);
+      }
+      }
+      
+      fetchData();
+    
   }, []);
   
 
   const filterByState = (stateId) => {
-    if (responseData && responseData.response && Array.isArray(responseData.response)) {
-      return responseData.response.filter((item) => item.id_state === 8);
-    } else {
-      return [];
-    }
+    return responseData.filter((item) => item.id_state === stateId);
   };
-
-  // if (responseData?.status === 200)
-  console.log(responseData);
 
   return (
     <>
       <NavBar />
-      <Section>
-        <Container>
-          <Flip top>
-            <Title>CON ¡MATCH!</Title>
-          </Flip>
-          <Hr />
-        </Container>
-      </Section>
-      <Grid>
-        {filterByState(2).map((item) => (
-          <CardContainer key={item.pet.id_pet}>
-            <Zoom>
-              <CardsPets
-                id_pet={`${item.id_pet}`}
-                foto={`${item.pet.image_path}`}
-                nombre={`${item.pet.name}`}
-                titulo={`${item.pet.name} es un perro muy feliz :D`}
-                descripcion={`${item.pet.name} nació el ${item.pet.birth_date}.`}
-              />
-            </Zoom>
-          </CardContainer>
-        ))}
-      </Grid>
 
       <Section>
         <Container>
@@ -74,61 +46,47 @@ const Peticiones = () => {
           <Hr />
         </Container>
       </Section>
-      <Grid>
+      {isLoading ? (
+      <Grid container justifyContent="center" alignItems="center" style={{ height: '80vh' }}>
+        <CircularProgress color="secondary"  size={80} thickness={4} />
+      </Grid>
+    ):(
+        <Grid>
         {filterByState(3).map((item) => (
           <CardContainer key={item.pet.id_pet}>
             <Zoom>
               <CardsPets
-                id_pet={`${item.id_pet}`}
+                id_pet={item.pet.id_pet}
                 foto={`${item.pet.image_path}`}
                 nombre={`${item.pet.name}`}
                 titulo={`${item.pet.name} es un perro muy feliz :D`}
                 descripcion={`${item.pet.name} nació el ${item.pet.birth_date}.`}
+                canCancel={true}
               />
             </Zoom>
           </CardContainer>
         ))}
       </Grid>
-
+      )}
       <Section>
         <Container>
           <Flip top>
-            <Title>ADOPTADOS</Title>
+            <Title>CON ¡MATCH!</Title>
           </Flip>
           <Hr />
         </Container>
       </Section>
-      <Grid>
-        {filterByState(1).map((item) => (
-          <CardContainer key={item.id}>
-            <Zoom>
-              <CardsPets
-                id_pet={`${item.id_pet}`}
-                foto={`${item.pet.image_path}`}
-                nombre={`${item.pet.name}`}
-                titulo={`${item.pet.name} es un perro muy feliz :D`}
-                descripcion={`${item.pet.name} nació el ${item.pet.birth_date}.`}
-              />
-            </Zoom>
-          </CardContainer>
-        ))}
-
-
-      </Grid>
-      <Section>
-        <Container>
-          <Flip top>
-            <Title>FAVORITOS</Title>
-          </Flip>
-          <Hr />
-        </Container>
-      </Section>
-      <Grid>
-        {favoritePets.map((item) => (
+      {isLoading ? (
+      <Grid container justifyContent="center" alignItems="center" style={{ height: '80vh' }}>
+      <CircularProgress color="secondary"  size={80} thickness={4} />
+    </Grid>
+    ):(
+        <Grid>
+        {filterByState(2).map((item) => (
           <CardContainer key={item.pet.id_pet}>
             <Zoom>
               <CardsPets
-                id_pet={`${item.id_pet}`}
+                id_pet={item.pet.id_pet}
                 foto={`${item.pet.image_path}`}
                 nombre={`${item.pet.name}`}
                 titulo={`${item.pet.name} es un perro muy feliz :D`}
@@ -138,7 +96,37 @@ const Peticiones = () => {
           </CardContainer>
         ))}
       </Grid>
+      )}
 
+      <Section>
+        <Container>
+          <Flip top>
+            <Title>Rechazados</Title>
+          </Flip>
+          <Hr />
+        </Container>
+      </Section>
+      {isLoading ? (
+      <Grid container justifyContent="center" alignItems="center" style={{ height: '80vh' }}>
+      <CircularProgress color="secondary" size={80} thickness={4} />
+    </Grid>
+    ):(
+        <Grid>
+        {filterByState(4).map((item) => (
+          <CardContainer key={item.pet.id_pet}>
+            <Zoom>
+              <CardsPets
+                id_pet={item.pet.id_pet}
+                foto={`${item.pet.image_path}`}
+                nombre={`${item.pet.name}`}
+                titulo={`${item.pet.name} es un perro muy feliz :D`}
+                descripcion={`${item.pet.name} nació el ${item.pet.birth_date}.`}
+              />
+            </Zoom>
+          </CardContainer>
+        ))}
+      </Grid>
+      )}
       <Footer/>
     </>
   );

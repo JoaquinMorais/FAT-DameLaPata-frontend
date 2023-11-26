@@ -1,21 +1,15 @@
 import React, { useEffect, useState } from 'react'; 
-import { Swiper, SwiperSlide } from 'swiper/react';
 import { styled } from 'styled-components'
-import axios from 'axios';
 import { useParams, useNavigate } from 'react-router-dom';
 /* ANIMACIONES */
 import Flip from 'react-reveal/Flip';
 import Zoom from 'react-reveal/Zoom';
 
-import Button from '@mui/material/Button';
-import Dialog from '@mui/material/Dialog';
-import DialogActions from '@mui/material/DialogActions';
-import DialogContent from '@mui/material/DialogContent';
-import DialogContentText from '@mui/material/DialogContentText';
-import DialogTitle from '@mui/material/DialogTitle';
-
 import CustomizedTabs from './CustomizedTabs';
-import { CreateRequest } from '../../../my_methods/dogs_methods';
+
+import { CreateRequest, GetSinglePet } from '../../../my_methods/dogs_methods';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 
@@ -23,13 +17,19 @@ import { CreateRequest } from '../../../my_methods/dogs_methods';
 const Details = () => {
     const { id } = useParams();
     const [responseData, setResponseData] = useState(null); 
+<<<<<<< HEAD
     const [imagenDesplazada, setImagenDesplazada] = useState(false);
     const navigate = useNavigate();
+=======
+
+    const [loadingRequest, setLoadingRequest] = useState(false)
+
+>>>>>>> calladitatevezmasbonita
 
     useEffect(() => {
         async function fetchData() {
         try {
-            const response = await axios.get(`http://localhost:5000/pet/${id}`);
+            const response = await GetSinglePet(id);
             setResponseData(response.data);
         } catch (error) {
             console.error('Error al realizar la solicitud:', error.message);
@@ -41,6 +41,7 @@ const Details = () => {
 
   /* ------------------------------------ */
 
+<<<<<<< HEAD
     const [responseDataColors, setresponseDataColors] = useState(null); 
 
     useEffect(() => {
@@ -108,40 +109,82 @@ console.log(estado);
 
 const handlePerroNoClick = async () => {
   setImagenDesplazada(true);
+=======
+const navigate = useNavigate();
+
+const handleDecline = () => {
+>>>>>>> calladitatevezmasbonita
   try{
-    const response = axios.put('http://localhost:5000/adopter/match', estado);
+      if(!loadingRequest){
+        setLoadingRequest(true)
+        toast.promise(
+          CreateRequest(responseData?.response.id_pet, 4),
+          {
+            pending: 'Guardando... (que lastima 😔)',
+            success: 'Guardado Correctamente 👋',
+            error: 'Ocurrio un Error... 🤯'
+          }
+        ).then(() =>{
+          setTimeout(() => {
+            navigate("/dogs");
+          }, 3000);
+        })
+      }
   }
   catch{
-    alert("no");
-  }
-}
-
-
-/* ------------------------------------ */
-
-const [open, setOpen] = React.useState(false);
-
-const handleClickOpen = () => {
-  CreateRequest(responseData?.response.id_pet, 3)
-  setImagenDesplazada(false);
-  setOpen(true);
+    console.log("error")
+  } 
 };
 
+
+const handleAccept = () => {
+  try{
+      if(!loadingRequest){
+        setLoadingRequest(true)
+        toast.promise(
+          CreateRequest(responseData?.response.id_pet, 3),
+          {
+            pending: 'Creando peticion de adopcion... 😮',
+            success: 'Peticion creada 🥳 🎉🎉🎉',
+            error: 'Ocurrio un Error... 🤯'
+          }
+        ).then(() =>{
+          setTimeout(() => {
+            navigate("/dogs");
+          }, 3000);
+        })
+
+      }
+  }
+  catch{
+    console.log("error")
+  } 
+};
+
+<<<<<<< HEAD
 const handleClose = () => {
   CreateRequest(responseData?.response.id_pet, 4)
   setOpen(false);
   navigate('/dogs')
+=======
+const calcularEdad = () => {
+  if (responseData?.response.birth_date) {
+      const fechaNacimiento = new Date(responseData?.response.birth_date);
+      const fechaHoy = new Date();
+      const diferenciaMilisegundos = fechaHoy - fechaNacimiento;
+      const edadPerro = Math.floor(diferenciaMilisegundos / (365.25 * 24 * 60 * 60 * 1000));
+      return `${edadPerro} años`;
+  }
+  return '';
+>>>>>>> calladitatevezmasbonita
 };
-
-/* ------------------------------------ */
 
   return (
     <>
         {
-        <SwiperSlide key={responseData?.response.id_pet}>
           <Carta>
           <ImagenContainer>
-              <Imagen src={`${responseData?.response.image_path}`} alt="" imagenDesplazada={imagenDesplazada} />          
+              <Imagen src={`${responseData?.response.image_path}`} alt=""/>          
                 <Abajo>
                   <Texto>
                       <Flip top>
@@ -155,7 +198,7 @@ const handleClose = () => {
                     <No>
                       <PerroNo
                         src={'https://cdn-icons-png.flaticon.com/256/9804/9804047.png'}
-                        onClick={handlePerroNoClick}
+                        onClick={handleDecline}
                         
                       ></PerroNo>
                     </No>
@@ -164,27 +207,8 @@ const handleClose = () => {
                     <Si>
                       <PerroSi
                         src={'https://cdn-icons-png.flaticon.com/256/9804/9804062.png'}
-                        // onClick={handlePerroSiClick}
-                        onClick={handleClickOpen}
+                        onClick={handleAccept}
                       ></PerroSi>
-                      <Dialog
-                        open={open}
-                        onClose={handleClose}
-                        aria-labelledby="alert-dialog-title"
-                        aria-describedby="alert-dialog-description"
-                      >
-                        <DialogTitle id="alert-dialog-title">
-                          {"FELICIDADES"}
-                        </DialogTitle>
-                        <DialogContent>
-                          <DialogContentText id="alert-dialog-description">
-                            Tu peticion ha sido enviada con exito 
-                          </DialogContentText>
-                        </DialogContent>
-                        <DialogActions>
-                          <Button onClick={handleClose}>Continuar</Button>
-                        </DialogActions>
-                      </Dialog>
                     </Si>
                   </Zoom>
                 </Botones>
@@ -192,7 +216,6 @@ const handleClose = () => {
               </ImagenContainer>
               <CustomizedTabs/>
           </Carta>
-        </SwiperSlide>
         }
     </>
   )
