@@ -48,7 +48,7 @@ const Peticiones = () => {
       </Section>
       {isLoading ? (
       <Grid container justifyContent="center" alignItems="center" style={{ height: '80vh' }}>
-        <CircularProgress color="secondary" size={80} thickness={4} />
+        <CircularProgress color="secondary"  size={80} thickness={4} />
       </Grid>
     ):(
         <Grid>
