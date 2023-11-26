@@ -77,8 +77,10 @@ export async function CreateRequest(dog, state) {
   try {
     response = await axios.put('adopter/match', { 'id_pet': dog, 'id_state': state });
     console.log(response);
-  } catch {
+  } catch (error){
     console.log('error...');
+    throw error;
+
   }
 }
 
