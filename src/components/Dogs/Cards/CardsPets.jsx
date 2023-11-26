@@ -61,6 +61,19 @@ function CardsPets(props) {
             </a>
           </Button>
         )}
+        {console.log(props.canAdopt)}
+        {props.canCancel && ( // Render only if canCancel is true
+          <Button
+            size="small"
+            sx={{ backgroundColor: 'red', color: 'white', marginTop: '15px' }}
+            onClick={handlePerroEliminar}
+            disabled={isDeleting} // Deshabilitar el botón mientras se está eliminando
+            >
+            <a style={{ textDecoration: 'none', color: 'white', fontWeight: 'bold' }}>
+              {isDeleting ? 'Eliminando...' : 'Eliminar'}
+            </a>
+          </Button>
+        )}
         </CardActions>
 
       </Card>
