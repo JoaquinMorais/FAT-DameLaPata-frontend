@@ -3,11 +3,11 @@ import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Grid from '@material-ui/core/Grid';
-import { FaFacebook, FaTwitter, FaInstagram } from 'react-icons/fa';
+import { FaWhatsapp, FaInstagram } from 'react-icons/fa';
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    backgroundColor: '#333',
+    backgroundColor: '#333333',
   },
   toolbar: {
     display: 'flex',
@@ -18,6 +18,7 @@ const useStyles = makeStyles((theme) => ({
     marginLeft: '60px',
     marginRight: '60px',
   },
+  
   messageContainer: {
     display: 'flex',
     alignItems: 'center',
@@ -29,6 +30,9 @@ const useStyles = makeStyles((theme) => ({
     fontSize: '17px',
     fontFamily: 'cursive',
     marginRight: '10px',
+    fontWeight:'bold',
+    fontFamily: 'Arial, sans-serif',
+
   },
   iconContainer: {
     display: 'flex',
@@ -62,17 +66,8 @@ const useStyles = makeStyles((theme) => ({
 
 const Footer = () => {
   const classes = useStyles();
-
-  const redirectToFacebook = () => {
-    window.location.href = 'https://www.facebook.com/tu-pagina-de-facebook';
-  };
-
-  const redirectToTwitter = () => {
-    window.location.href = 'https://www.twitter.com/tu-cuenta-de-twitter';
-  };
-
-  const redirectToInstagram = () => {
-    window.location.href = 'https://www.instagram.com/tu-cuenta-de-instagram';
+  const redirectToWhastsapp = () => {
+    window.location.href = `https://api.whatsapp.com/send?phone=5493515221539`;
   };
 
   return (
@@ -84,9 +79,8 @@ const Footer = () => {
           </div>
         </div>
         <div className={classes.iconContainer}>
-          <FaFacebook className={classes.icon} onClick={redirectToFacebook} />
-          <FaTwitter className={classes.icon} onClick={redirectToTwitter} />
-          <FaInstagram className={classes.icon} onClick={redirectToInstagram} />
+          <p style={{marginTop:'15px'}}>Soporte tecnico:</p>
+          <FaWhatsapp className={classes.icon} onClick={redirectToWhastsapp} />
         </div>
       </Toolbar>
     </AppBar>
