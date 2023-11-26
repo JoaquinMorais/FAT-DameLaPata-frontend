@@ -17,14 +17,9 @@ import 'react-toastify/dist/ReactToastify.css';
 const Details = () => {
     const { id } = useParams();
     const [responseData, setResponseData] = useState(null); 
-<<<<<<< HEAD
-    const [imagenDesplazada, setImagenDesplazada] = useState(false);
-    const navigate = useNavigate();
-=======
 
     const [loadingRequest, setLoadingRequest] = useState(false)
 
->>>>>>> calladitatevezmasbonita
 
     useEffect(() => {
         async function fetchData() {
@@ -41,79 +36,9 @@ const Details = () => {
 
   /* ------------------------------------ */
 
-<<<<<<< HEAD
-    const [responseDataColors, setresponseDataColors] = useState(null); 
-
-    useEffect(() => {
-    async function fetchData() {
-      try {
-        const response = await axios.get('http://localhost:5000/pets/info/colors'); 
-        setresponseDataColors(response.data);
-      } catch (error) {
-        console.error('Error al realizar la solicitud:', error.message);
-      }
-    }
-    
-    fetchData(); // Llama a la función fetchData para obtener los datos
-    }, []);
-
-  /* ------------------------------------ */
-
-  const ifGuion = (mylist,element) => {
-    if(mylist[mylist.length - 1] === element){
-      return ''
-    }
-    return ' - '
-  }
-
-  /* ------------------------------------ */
-
-  const [availablePetIds, setAvailablePetIds] = useState([]);
-
-  // Obtener lista de IDs disponibles (excluyendo el ID actual)
-  useEffect(() => {
-    async function fetchAvailablePetIds() {
-      try {
-        const response = await axios.get('http://localhost:5000/adopter/match');
-        const availableIds = response.data.filter((id_pet) => id_pet !== id);
-        setAvailablePetIds(availableIds);
-      } catch (error) {
-        console.error('Error al obtener los IDs disponibles:', error.message);
-      }
-    }
-    fetchAvailablePetIds();
-  }, [id]);
-
-  /* ------------------------------------ */
-
-  const calcularEdad = () => {
-    if (responseData?.response.birth_date) {
-        const fechaNacimiento = new Date(responseData?.response.birth_date);
-        const fechaHoy = new Date();
-        const diferenciaMilisegundos = fechaHoy - fechaNacimiento;
-        const edadPerro = Math.floor(diferenciaMilisegundos / (365.25 * 24 * 60 * 60 * 1000));
-        return `${edadPerro} años`;
-    }
-    return '';
-};
-
-/* ------------------------------------ */
-
-/* ------------------------------------ */
-
-const estado = {
-  id_pet: parseInt(id),
-  id_status: 4,
-}
-console.log(estado);
-
-const handlePerroNoClick = async () => {
-  setImagenDesplazada(true);
-=======
 const navigate = useNavigate();
 
 const handleDecline = () => {
->>>>>>> calladitatevezmasbonita
   try{
       if(!loadingRequest){
         setLoadingRequest(true)
@@ -161,12 +86,6 @@ const handleAccept = () => {
   } 
 };
 
-<<<<<<< HEAD
-const handleClose = () => {
-  CreateRequest(responseData?.response.id_pet, 4)
-  setOpen(false);
-  navigate('/dogs')
-=======
 const calcularEdad = () => {
   if (responseData?.response.birth_date) {
       const fechaNacimiento = new Date(responseData?.response.birth_date);
@@ -176,7 +95,6 @@ const calcularEdad = () => {
       return `${edadPerro} años`;
   }
   return '';
->>>>>>> calladitatevezmasbonita
 };
 
   return (
