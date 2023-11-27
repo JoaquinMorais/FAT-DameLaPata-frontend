@@ -70,6 +70,11 @@ const Footer = () => {
     window.location.href = `https://api.whatsapp.com/send?phone=5493515221539`;
   };
 
+  const redirectToInstagram = () => {
+    window.location.href = `https://www.instagram.com/team.lussary/`;
+  };
+
+
   return (
     <AppBar position="static" className={classes.root}>
       <Toolbar className={classes.toolbar}>
@@ -81,6 +86,7 @@ const Footer = () => {
         <div className={classes.iconContainer}>
           <p style={{marginTop:'15px'}}>Soporte tecnico:</p>
           <FaWhatsapp className={classes.icon} onClick={redirectToWhastsapp} />
+          <FaInstagram className={classes.icon} onClick={redirectToInstagram} />
         </div>
       </Toolbar>
     </AppBar>
