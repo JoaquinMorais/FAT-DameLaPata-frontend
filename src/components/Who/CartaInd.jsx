@@ -1,46 +1,103 @@
 import React from 'react';
-import Swiper from 'swiper';
 import 'swiper/css';
 import styled from 'styled-components';
+import LinkedInImage from '../../images/LI-In-Bug.svg';
 
-const StyledCard = styled.div`
+
+const Card = styled.div`
+  margin-top: 10px;
+  width: 250px;
+  border-radius: 25px;
+  background-color: #ff5722;
   display: flex;
   flex-direction: column;
-  justify-content: flex-end;
   align-items: center;
-  font-size: 24px;
-  padding-bottom: 20px;
-  background-size: cover;
-  background-position: center;
-  color: white;
-  font-weight: bold;
-  padding: 20px;
-  width: 100%;
+  box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.3);
 `;
 
-const StyledImage = styled.img`
-  width: 30%; /* Tamaño predeterminado de la imagen */
-  height: auto;
+const CardImage = styled.img`
+  position: relative;
+  height: 130px;
+  width: 130px;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 3px solid #fff;
+  padding: 3px;
+`;
 
-  /* Media query para pantallas más pequeñas */
-  @media (max-width: 768px) {
-    width: 70%; /* Cambia el tamaño de la imagen en pantallas más pequeñas */
+const ImageContent = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 15px 19px;
+  row-gap: 5px;
+`;
+
+const StyledName = styled.text`
+  font-size: 18px;
+  font-weight: 500;
+  color: #333;
+  display: flex;
+  text-align: center;
+`;
+
+const StyledBtn = styled.div`
+  padding: 8px 16px;
+  img{
+    height:40px;
+    width:40px;
+    object-fit: cover;
+    cursor: pointer;
   }
 `;
+const StyledRol =styled.text`
+  font-size: 14px;
+  color: #707070;
+  text-align: center;
+  padding: 3px;
+`;
 
-export default function CartaInd({ name, img, swiperInstance }) {
+const CardContent = styled.div`
+  width: 100%;
+  border-radius: 25px;
+  background-color: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 10px 14px;
+`
+
+export default function CartaInd({ name, img, rol, link, swiperInstance }) {
+  const handleButtonClick = () => {
+    window.open(link, '_blank');
+  };
+
   return (
-    <div className="swiper-slide" style={{
-      display: 'flex',
-      flexDirection: 'column',
-      justifyContent: 'flex-end',
-      alignItems: 'center',
-      fontSize: '30px',
-      paddingBottom: '20px',
-      width: '100%',
-    }}>
-      <StyledImage src={img} alt={name} />
-      <div className="name">{name}</div>
+    <div
+      className="swiper-slide"
+      style={{
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'center',
+        alignItems: 'center',
+        fontSize: '18px',
+        fontWeight: 'bold',
+        paddingBottom: '20px',
+        width: '100%',
+      }}
+    >
+      <Card>
+        <ImageContent>
+          <CardImage src={img} />
+        </ImageContent>
+        <CardContent>
+          <StyledName>{name}</StyledName>
+          <StyledRol>{rol}</StyledRol>
+          <StyledBtn onClick={handleButtonClick}>
+            <img src={LinkedInImage} alt="" />
+          </StyledBtn>
+        </CardContent>
+      </Card>
     </div>
   );
 }
