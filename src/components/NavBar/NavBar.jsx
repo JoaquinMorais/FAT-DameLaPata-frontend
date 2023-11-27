@@ -63,6 +63,8 @@ function Navbar() {
         return '/dogs';
       case 'Quienes Somos':
         return '/about';
+      case '¿Dudas?':
+        return '/tips';
       case 'Publicar':
         return '/add';
       case 'Peticiones':
@@ -81,6 +83,8 @@ function Navbar() {
         return '/profile';
       case 'Mi Refugio':
         return '/profile';
+      case '¿Dudas?':
+        return '/tips';
       case 'Iniciar Sesion':
       case 'Cerrar Sesion':
         return '/login';

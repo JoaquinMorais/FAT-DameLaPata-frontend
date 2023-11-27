@@ -9,7 +9,7 @@ let setting_array = [];
 
 // Función para establecer los elementos de navegación predeterminados.
 function setDefaultNavigationArrays() {
-  pages_array = ['Inicio', 'Quienes Somos'];
+  pages_array = ['Inicio', 'Quienes Somos','¿Dudas?'];
   setting_array = ['Iniciar Sesion', 'Registrarse'];
 }
 
@@ -19,7 +19,7 @@ export async function FetchNavbarItems() {
       setDefaultNavigationArrays();
     if (localStorage.getItem('id') !== null) {
       if (localStorage.getItem('type') === 'adopter') {
-        pages_array = ['Inicio', 'Quienes Somos', 'Adoptar', 'Peticiones'];
+        pages_array = ['Inicio', 'Quienes Somos', '¿Dudas?','Adoptar', 'Peticiones'];
         setting_array = ['Mi Perfil', 'Cerrar Sesion'];
       } else if (localStorage.getItem('type') === 'shelter') {
         pages_array = ['Inicio', 'Quienes Somos', 'Publicar', 'Mis Mascotas'];
