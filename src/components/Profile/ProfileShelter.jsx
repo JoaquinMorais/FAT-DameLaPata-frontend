@@ -148,6 +148,23 @@ const ShelterProfile = () => {
     },
   };
 
+  const [selectedImage, setSelectedImage] = useState('');
+  const [isHovered, setIsHovered] = useState(false);
+
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+  
+    if (file) {
+      const reader = new FileReader();
+  
+      reader.onload = (event) => {
+        setSelectedImage(event.target.result);
+      };
+  
+      reader.readAsDataURL(file);
+    }
+  };
+
   return (
     <BackgroundImage>
       <NavBar />
@@ -158,14 +175,54 @@ const ShelterProfile = () => {
           <StyledHr />
 
           <Grid container spacing={2} justifyContent="center">
-            <Grid item xs={12} md={8} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-              <UserProfileAvatarContainer>
-                <UserProfileAvatar
-                  alt="User Profile"
-                  src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png"
-                />
-              </UserProfileAvatarContainer>
-            </Grid>
+          <Grid item xs={12} md={8} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+            <UserProfileAvatarContainer
+              onMouseEnter={() => setIsHovered(true)}
+              onMouseLeave={() => setIsHovered(false)}
+            >
+              <label htmlFor="fileInput">
+                <div
+                  style={{
+                    position: 'relative',
+                    overflow: 'hidden',
+                    borderRadius: '50%',
+                    filter: isHovered ? 'blur(2px)' : 'none', 
+                    cursor: 'pointer'
+                  }}
+                >
+                  <UserProfileAvatar
+                    alt="User Profile"
+                    src={selectedImage || "https://d500.epimg.net/cincodias/imagenes/2016/07/04/lifestyle/1467646262_522853_1467646344_noticia_normal.jpg"}
+                  />
+                </div>
+              </label>
+              <input
+                id="fileInput"
+                type="file"
+                style={{ display: 'none' }}
+                onChange={(e) => handleImageChange(e)}
+              />
+              {isHovered && (
+                <div
+                  style={{
+                    
+                    position: 'absolute',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    marginRight: '-20px',
+                    textAlign: 'center',
+                    cursor: 'pointer',
+                    color: 'black',
+                    fontWeight: 'bold',
+                    fontStyle: 'italic',
+                  }}
+                >
+                  Cambiar Imagen
+                </div>
+              )}
+            </UserProfileAvatarContainer>
+          </Grid>
 
             <Grid item xs={12} md={8} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
               <Typography variant="h4" sx={{ textAlign: 'center' }}>
