@@ -7,28 +7,63 @@ import CardMedia from '@mui/material/CardMedia';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import './Cards.css';
-import axios from 'axios';
-import { useParams } from 'react-router-dom';
+import {  useNavigate } from 'react-router-dom';
+
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
+import { CreateRequest } from '../../../my_methods/dogs_methods';
 
 function CardsPets(props) {
-  console.log(props)
-  const { id } = useParams();
-  const [isDeleting, setIsDeleting] = useState(false); // State para controlar si se está eliminando o no
+  const [loadingRequest, setLoadingRequest] = useState(false);
+  const navigate = useNavigate();
 
-  const estado = {
-    id_status: 5,
+  const handleRequestDog = () => {
+    try{
+        if(!loadingRequest){
+          setLoadingRequest(true)
+          toast.promise(
+            CreateRequest(props.id_pet, 3),
+            {
+              pending: 'Creando peticion de adopcion... 😮',
+              success: 'Peticion creada 🥳 🎉🎉🎉',
+              error: 'Ocurrio un Error... 🤯'
+            }
+          ).then(() =>{
+            setTimeout(() => {
+              window.location.reload(true);
+            }, 3000);
+          })
+  
+        }
+    }
+    catch{
+      console.log("error")
+    } 
   };
 
-  const handlePerroEliminar = async () => {
-    try {
-      setIsDeleting(true); // Cambiar el estado a true para indicar que se está eliminando
-      const response = await axios.put('http://localhost:5000/adopter/match', estado);
-      // Realizar alguna lógica adicional si es necesario después de eliminar
-    } catch (error) {
-      alert("Hubo un error al eliminar el perro.", error.message);
-    } finally {
-      setIsDeleting(false); // Cambiar el estado de nuevo a false después de finalizar
+  const handleDeleteRequest = () => {
+    try{
+        if(!loadingRequest){
+          setLoadingRequest(true)
+          toast.promise(
+            CreateRequest(props.id_pet, 4),
+            {
+              pending: 'Creando peticion de adopcion... 😮',
+              success: 'Peticion creada 🥳 🎉🎉🎉',
+              error: 'Ocurrio un Error... 🤯'
+            }
+          ).then(() =>{
+            setTimeout(() => {
+              window.location.reload(true);
+            }, 3000);
+          })
+  
+        }
     }
+    catch{
+      console.log("error")
+    } 
   };
 
   return (
@@ -48,29 +83,28 @@ function CardsPets(props) {
           </Typography>
         </CardContent>
         <CardActions sx={{ justifyContent: 'center' }}>
-        {console.log(props.canCancel)}
-        {props.canCancel && ( // Render only if canCancel is true
+        {props.canCancel && ( 
           <Button
             size="small"
             sx={{ backgroundColor: 'red', color: 'white', marginTop: '15px' }}
-            onClick={handlePerroEliminar}
-            disabled={isDeleting} // Deshabilitar el botón mientras se está eliminando
+            onClick={() => handleDeleteRequest()}
+
+            disabled={loadingRequest}
             >
             <a style={{ textDecoration: 'none', color: 'white', fontWeight: 'bold' }}>
-              {isDeleting ? 'Eliminando...' : 'Eliminar'}
+              {loadingRequest ? 'Cancelando...' : 'Cancelar'}
             </a>
           </Button>
         )}
-        {console.log(props.canAdopt)}
-        {props.canCancel && ( // Render only if canCancel is true
+        {props.canAdopt && (
           <Button
             size="small"
-            sx={{ backgroundColor: 'red', color: 'white', marginTop: '15px' }}
-            onClick={handlePerroEliminar}
-            disabled={isDeleting} // Deshabilitar el botón mientras se está eliminando
+            sx={{ backgroundColor: 'green', color: 'white', marginTop: '15px' }}
+            onClick={() => handleRequestDog()}
+            disabled={loadingRequest} 
             >
             <a style={{ textDecoration: 'none', color: 'white', fontWeight: 'bold' }}>
-              {isDeleting ? 'Eliminando...' : 'Eliminar'}
+              {loadingRequest ? 'Adoptando...' : 'Adoptar?'}
             </a>
           </Button>
         )}

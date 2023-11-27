@@ -19,6 +19,8 @@ const Details = () => {
     const [responseData, setResponseData] = useState(null); 
 
     const [loadingRequest, setLoadingRequest] = useState(false)
+    const navigate = useNavigate();
+
 
 
     useEffect(() => {
@@ -35,9 +37,6 @@ const Details = () => {
     }, []);
 
   /* ------------------------------------ */
-
-const navigate = useNavigate();
-
 const handleDecline = () => {
   try{
       if(!loadingRequest){
@@ -116,7 +115,7 @@ const calcularEdad = () => {
                     <No>
                       <PerroNo
                         src={'https://cdn-icons-png.flaticon.com/256/9804/9804047.png'}
-                        onClick={handleDecline}
+                        onClick={() => handleDecline()}
                         
                       ></PerroNo>
                     </No>
@@ -125,7 +124,7 @@ const calcularEdad = () => {
                     <Si>
                       <PerroSi
                         src={'https://cdn-icons-png.flaticon.com/256/9804/9804062.png'}
-                        onClick={handleAccept}
+                        onClick={() => handleAccept()}
                       ></PerroSi>
                     </Si>
                   </Zoom>

@@ -4,8 +4,9 @@ import Flip from 'react-reveal/Flip';
 import Zoom from 'react-reveal/Zoom';
 import NavBar from '../components/NavBar/NavBar';
 import CardsPets from '../components/Dogs/Cards/CardsPets';
-import { getUserDogs } from '../my_methods/salo_methods';
 import Footer from '../components/Footer/Footer';
+import { ToastContainer } from 'react-toastify';
+import { getUserDogs } from '../my_methods/dogs_methods';
 
 const Peticiones = () => {
   const [responseData, setResponseData] = useState(null);
@@ -14,7 +15,6 @@ const Peticiones = () => {
   useEffect(() => {
     async function fetchData() {
       try {
-          console.log("begin")
           const response = await getUserDogs();
           setResponseData(response.data.response);
           setIsLoading(false)
@@ -35,35 +35,19 @@ const Peticiones = () => {
   return (
     <>
       <NavBar />
+      <ToastContainer
+        position="top-center"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable={false}
+        pauseOnHover
+        theme="light"
+        />
 
-      <Section>
-        <Container>
-          <Flip top>
-            <Title>SOLICITADOS</Title>
-          </Flip>
-          <Hr />
-        </Container>
-      </Section>
-      {isLoading ? (
-        "a, no"
-      ):(
-        <Grid>
-        {filterByState(3).map((item) => (
-          <CardContainer key={item.pet.id_pet}>
-            <Zoom>
-              <CardsPets
-                id_pet={item.pet.id_pet}
-                foto={`${item.pet.image_path}`}
-                nombre={`${item.pet.name}`}
-                titulo={`${item.pet.name} es un perro muy feliz :D`}
-                descripcion={`${item.pet.name} nació el ${item.pet.birth_date}.`}
-                canCancel={true}
-              />
-            </Zoom>
-          </CardContainer>
-        ))}
-      </Grid>
-      )}
       <Section>
         <Container>
           <Flip top>
@@ -95,6 +79,35 @@ const Peticiones = () => {
       <Section>
         <Container>
           <Flip top>
+            <Title>SOLICITADOS</Title>
+          </Flip>
+          <Hr />
+        </Container>
+      </Section>
+      {isLoading ? (
+        "a, no"
+      ):(
+        <Grid>
+        {filterByState(3).map((item) => (
+          <CardContainer key={item.pet.id_pet}>
+            <Zoom>
+              <CardsPets
+                id_pet={item.pet.id_pet}
+                foto={`${item.pet.image_path}`}
+                nombre={`${item.pet.name}`}
+                titulo={`${item.pet.name} es un perro muy feliz :D`}
+                descripcion={`${item.pet.name} nació el ${item.pet.birth_date}.`}
+                canCancel={true}
+              />
+            </Zoom>
+          </CardContainer>
+        ))}
+      </Grid>
+      )}
+
+      <Section>
+        <Container>
+          <Flip top>
             <Title>Rechazados</Title>
           </Flip>
           <Hr />
@@ -113,6 +126,7 @@ const Peticiones = () => {
                 nombre={`${item.pet.name}`}
                 titulo={`${item.pet.name} es un perro muy feliz :D`}
                 descripcion={`${item.pet.name} nació el ${item.pet.birth_date}.`}
+                canAdopt={true}
               />
             </Zoom>
           </CardContainer>

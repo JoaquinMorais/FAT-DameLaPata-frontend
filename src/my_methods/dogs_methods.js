@@ -44,14 +44,12 @@ export async function GetPets() {
 export async function GetRequests() {
   try {
     response = await axios.get('shelter/requests');
-    response_message = 'Error al traer a las mascotas, intente de nuevo más tarde';
-    if (response.status === 200) {
-      response_message = '';
-    }
   } catch (error) {
-    response_message = 'Ocurrió un error';
+
+    console.log( "error here", error)
+    throw error;
   }
-  return response_react(response.status, response_message, response.data.response);
+  return response;
 }
 
 
@@ -103,4 +101,31 @@ export async function ChangePetStatusToAdopted(idPet) {
   } catch (error) {
     return response_react(null, 'Ocurrió un error al actualizar el estado de la mascota', error);
   }
+}
+
+
+
+export async function getUserDogs() {
+    let response_message = "ocurrio un error"
+    let response_status = 200
+  try {
+    response = await axios.get('http://localhost:5000/user/requests');
+    if (response.status === 200) {
+      response_message = "salio bien"
+      response_status = 200
+    } else {
+        response_message = "salio mal"
+        response_status = 400
+    }
+  } catch (error) {
+    return {
+      response_status: 402, 
+      response_message: 'Error brodi',
+    };
+  }
+  return {
+        data: response.data,
+        response_status: response.status,
+        response_message: 'Error en la solicitud',
+      };
 }

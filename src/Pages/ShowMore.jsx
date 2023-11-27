@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react'
+import React from 'react'
 import Details from '../components/Dogs/Cards/Details';
 import NavBar from '../components/NavBar/NavBar';
 import { ToastContainer } from 'react-toastify';
