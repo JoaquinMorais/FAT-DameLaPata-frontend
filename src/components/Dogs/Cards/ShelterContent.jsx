@@ -69,20 +69,18 @@ function ShelterContent() {
               
             <Fade>
               <Div2>
-                <Titulo2>Localidad</Titulo2>
-                <Caracteristicas>Provincia / Ciudad</Caracteristicas>
+                <Titulo2>Ubicacion</Titulo2>
+                <Caracteristicas>Provincia: </Caracteristicas>
+                <Caracteristicas>Ciudad: </Caracteristicas>
+                <Caracteristicas>Barrio: </Caracteristicas>
+                <Caracteristicas>Calle: </Caracteristicas>
               </Div2>
             </Fade>
             <Fade>
               <Div3>
-                <Titulo2>Calle</Titulo2>
-                <Caracteristicas>Calle</Caracteristicas>
-              </Div3>
-            </Fade>
-            <Fade>
-              <Div3>
-                <Titulo2>Numero de Contacto</Titulo2>
-                <Caracteristicas>tel</Caracteristicas>
+                <Titulo2>Contacto</Titulo2>
+                <Caracteristicas>telefono: </Caracteristicas>
+                <Caracteristicas>Gmail: </Caracteristicas>
               </Div3>
             </Fade>
 
