@@ -146,8 +146,7 @@ function Add() {
         'invalid-words',
         'El nombre contiene palabras inapropiadas.',
         (value) => {
-          const invalidWords = ['pene', 'culo', 'teta', 'concha', 'mierda', 'caca', 'pito',
-        'sexo', 'anal', 'chupador', 'hitler', 'nazi', 'pussy', 'videla', 'maduro', 'sorete']; 
+          const invalidWords = ['pene', 'culo', 'teta', 'concha', 'mierda', 'caca', 'sexo', 'anal', 'chupador', 'hitler', 'nazi', 'pussy', 'videla', 'maduro', 'sorete']; 
 
           return !invalidWords.some(word => value.toLowerCase().includes(word.toLowerCase()));
         }
@@ -322,7 +321,7 @@ function Add() {
                       <TextField
                         {...field}
                         label="Peso"
-                        placeholder="8 kg, 12 kg, 5 kg"
+                        placeholder="30... (Poner solo el número)"
                         fullWidth
                         variant="standard"
                         type="number"
