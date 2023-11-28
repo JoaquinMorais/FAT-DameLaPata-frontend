@@ -47,10 +47,10 @@ const Peticiones = () => {
         </Container>
       </Section>
       {isLoading ? (
-      <Grid container justifyContent="center" alignItems="center" style={{ height: '80vh' }}>
-        <CircularProgress color="secondary"  size={80} thickness={4} />
-      </Grid>
-    ):(
+        <Grid container justifyContent="center" alignItems="center" style={{ minHeight: '100vh', width:'100%', display:'flex', justifyContent:'center' }}>
+          <CircularProgress color="primary" />
+        </Grid>
+         ):(
         <Grid>
         {filterByState(3).map((item) => (
           <CardContainer key={item.pet.id_pet}>
@@ -77,10 +77,10 @@ const Peticiones = () => {
         </Container>
       </Section>
       {isLoading ? (
-      <Grid container justifyContent="center" alignItems="center" style={{ height: '80vh' }}>
-      <CircularProgress color="secondary"  size={80} thickness={4} />
-    </Grid>
-    ):(
+        <Grid container justifyContent="center" alignItems="center" style={{ minHeight: '100vh', width:'100%', display:'flex', justifyContent:'center' }}>
+        <CircularProgress color="primary" />
+      </Grid>
+  ):(
         <Grid>
         {filterByState(2).map((item) => (
           <CardContainer key={item.pet.id_pet}>
@@ -107,10 +107,10 @@ const Peticiones = () => {
         </Container>
       </Section>
       {isLoading ? (
-      <Grid container justifyContent="center" alignItems="center" style={{ height: '80vh' }}>
-      <CircularProgress color="secondary" size={80} thickness={4} />
-    </Grid>
-    ):(
+        <Grid container justifyContent="center" alignItems="center" style={{ minHeight: '100vh', width:'100%', display:'flex', justifyContent:'center' }}>
+        <CircularProgress color="primary" />
+      </Grid>
+  ):(
         <Grid>
         {filterByState(4).map((item) => (
           <CardContainer key={item.pet.id_pet}>
