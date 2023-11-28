@@ -89,7 +89,7 @@ console.log(estado);
             <Fade>
               <Div2>
                 <Titulo2>Nacimiento</Titulo2>
-                <Caracteristicas>Nacii el <span style={{color:'red'}}>{`${responseData?.response.birth_date}`}</span>, osea que tengo <span style={{color:'red'}}>{calcularEdad()}</span></Caracteristicas>
+                <Caracteristicas>Naci el <span style={{color:'red'}}>{`${responseData?.response.birth_date}`}</span>, es decir que tengo <span style={{color:'red'}}>{calcularEdad()}</span></Caracteristicas>
               </Div2>
             </Fade>
 
