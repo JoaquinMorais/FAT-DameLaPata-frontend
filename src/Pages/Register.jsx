@@ -34,7 +34,7 @@
             flexDirection: 'column',
             alignItems: 'center',
             justifyContent: 'center',
-            minHeight: '100vh', // Use vh to ensure it covers the viewport height
+            minHeight: '100vh',
           }}
         >
                       <BackgroundVideo autoPlay loop muted>
@@ -79,10 +79,5 @@ const StyledTab = styled(Tab)`
   font-size: 20px;
   margin-top: 50px;
   cursor: pointer;
-  background-color: ${({ selected }) => (selected ? '#4CAF50' : 'transparent')};
   color: ${({ selected }) => (selected ? 'white' : 'black')};
-
-  &:hover {
-    background-color: ${({ selected }) => (selected ? '#45a049' : 'rgba(0, 0, 0, 0.1)')};
-  }
 `;
