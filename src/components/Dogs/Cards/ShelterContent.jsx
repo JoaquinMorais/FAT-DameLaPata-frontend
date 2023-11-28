@@ -7,6 +7,15 @@ import { useParams } from 'react-router';
 function ShelterContent() {
     const { id } = useParams();
     const [responseData, setResponseData] = useState(null); 
+    const [shelter, setShelter] = useState({
+      name: '',
+      username: '',
+      email: '',
+      location: '',
+      street: '',
+      district: '',
+      phone_number: '',
+    });
 
 
     useEffect(() => {
@@ -14,6 +23,16 @@ function ShelterContent() {
         try {
             const response = await axios.get(`http://localhost:5000/shelter/${id}`);
             setResponseData(response.data);
+
+            setShelter({
+              name: response.data.response.name,
+              username: response.data.response.username,
+              email: response.data.response.email,
+              location: response.data.response.address.district,
+              street: response.data.response.address.street,
+              district: response.data.response.address.location,
+              phone_number: response.data.response.phone_number,
+            });
         } catch (error) {
             console.error('Error al realizar la solicitud:', error.message);
         }
@@ -26,21 +45,6 @@ function ShelterContent() {
 
     const [selectedColors, setSelectedColors] = useState([]);
     const [responseDataColors, setresponseDataColors] = useState(null);
-
-    useEffect(() => {
-    async function fetchData() {
-      try {
-        const response = await axios.get('http://localhost:5000/shelter'); 
-        setresponseDataColors(response.data);
-      } catch (error) {
-        console.error('Error al realizar la solicitud:', error.message);
-      }
-    }
-
-    fetchData(); 
-    }, []);
-
-  /* ------------------------------------ */
 
   const ifGuion = (mylist,element) => {
     if(mylist[mylist.length - 1] === element){
@@ -63,46 +67,26 @@ function ShelterContent() {
             <Fade>
               <Div1>
                 <Titulo2>Nombre</Titulo2>
-                <Caracteristicas>{`${responseData?.response.username}`}</Caracteristicas>
+                <Caracteristicas>{shelter.name}</Caracteristicas>
               </Div1>
             </Fade>
               
             <Fade>
               <Div2>
                 <Titulo2>Ubicacion</Titulo2>
-                <Caracteristicas>Provincia: </Caracteristicas>
-                <Caracteristicas>Ciudad: </Caracteristicas>
-                <Caracteristicas>Barrio: </Caracteristicas>
-                <Caracteristicas>Calle: </Caracteristicas>
+                <Caracteristicas>Provincia: {shelter.location}</Caracteristicas>
+                <Caracteristicas>Ciudad: {shelter.district}</Caracteristicas>
+                <Caracteristicas>Barrio: {shelter.street}</Caracteristicas>
+                <Caracteristicas>Calle: {shelter.street}</Caracteristicas>
               </Div2>
             </Fade>
             <Fade>
               <Div3>
                 <Titulo2>Contacto</Titulo2>
-                <Caracteristicas>telefono: </Caracteristicas>
-                <Caracteristicas>Gmail: </Caracteristicas>
+                <Caracteristicas>telefono: {shelter.phone_number}</Caracteristicas>
+                <Caracteristicas>Gmail: {shelter.email}</Caracteristicas>
               </Div3>
             </Fade>
-
-
-
-
-            <Fade>
-              <Div3>
-                <Titulo2>‎ </Titulo2>
-                <Caracteristicas>‎ </Caracteristicas>
-              </Div3>
-            </Fade>
-
-
-            <Fade>
-              <Div3>
-                <Titulo2>‎ </Titulo2>
-                <Caracteristicas>‎ </Caracteristicas>
-              </Div3>
-            </Fade>
-
-   
     </Container>
   )
 }
