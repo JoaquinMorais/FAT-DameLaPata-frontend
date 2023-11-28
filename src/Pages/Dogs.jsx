@@ -228,9 +228,8 @@
                     nombre={item.name}
                     edad = {`${calculateAge(item.birth_date)} años`}
                     titulo={`${item.name} es un perro muy feliz :D`}
-                    descripcion={`
-                    Nacimiento: ${item.birth_date}. 
-                    \nTamaño: ${item.size}`}
+                    descripcion={`Tamaño: ${item.size}.
+                    Nacimiento: ${item.birth_date}.`}
                     onFavoriteToggle={() => toggleFavorite(item.id_pet)}
                     isFavorite={favoritePets.includes(item.id_pet)}
                   />
