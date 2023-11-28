@@ -10,6 +10,9 @@
   import Filters from '../components/Dogs/Filters/Filters';
   import { GetPets, ChangePetStatusToAdopted } from '../my_methods/dogs_methods';
   import Footer from '../components/Footer/Footer';
+  import { CircularProgress } from '@mui/material';
+
+
 
   const Dogs = () => {
     // Estados para manejar los datos
@@ -201,10 +204,20 @@
             </Slide>
           </Principio>
           {isLoading ? (
-          <Grid style={{ textAlign: 'center' }}>
-            Loading...
-          </Grid>
-          ) : (
+        <Grid
+          container
+          justifyContent="center"
+          alignItems="center"
+          style={{ minHeight: '100vh' }}
+      >
+        <CircularProgress color="primary" />
+        <CircularProgress color="primary" />
+        <CircularProgress color="primary" />
+        <CircularProgress color="primary" />
+        <CircularProgress color="primary" />
+
+      </Grid>
+    ) : (
           <Grid>
             {(filteredData.length > 0 ? filteredData : responseData)?.map((item) => (
               <Container key={item.id}>
@@ -213,8 +226,9 @@
                     id_pet={item.id_pet}
                     foto={item.image_path}
                     nombre={item.name}
+                    edad = {calculateAge(item.birth_date)}
                     titulo={`${item.name} es un perro muy feliz :D`}
-                    descripcion={`${item.name} tiene ${calculateAge(item.birth_date)} años. Nació el ${item.birth_date}.`}
+                    descripcion={`Esta es ${item.name} tiene ${calculateAge(item.birth_date)} años. Nació el ${item.birth_date}.`}
                     onFavoriteToggle={() => toggleFavorite(item.id_pet)}
                     isFavorite={favoritePets.includes(item.id_pet)}
                   />

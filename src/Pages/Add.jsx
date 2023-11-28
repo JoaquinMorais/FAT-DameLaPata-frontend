@@ -36,6 +36,9 @@ import {
   getCharacteristics,
   getCategoryCharacteristics
 } from '../my_methods/query_methods';
+import CircularProgress from '@mui/material/CircularProgress';
+
+
 
 // Styled component for the subtitle
 const Subtitulo = styled(Typography)`
@@ -144,7 +147,7 @@ function Add() {
         'El nombre contiene palabras inapropiadas.',
         (value) => {
           const invalidWords = ['pene', 'culo', 'teta', 'concha', 'mierda', 'caca', 'pito',
-        'sexo', 'anal', 'chupador']; 
+        'sexo', 'anal', 'chupador', 'hitler', 'nazi', 'pussy', 'videla', 'maduro', 'sorete']; 
 
           return !invalidWords.some(word => value.toLowerCase().includes(word.toLowerCase()));
         }
@@ -222,7 +225,7 @@ function Add() {
         <hr />
         {isLoading ? (
           <Grid style={{ textAlign: 'center', marginBottom: '100%' }}>
-            Loading...
+            <CircularProgress color="success" />
           </Grid>
           ) : (
         <Formik
