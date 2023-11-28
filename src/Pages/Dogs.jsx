@@ -226,9 +226,11 @@
                     id_pet={item.id_pet}
                     foto={item.image_path}
                     nombre={item.name}
-                    edad = {calculateAge(item.birth_date)}
+                    edad = {`${calculateAge(item.birth_date)} años`}
                     titulo={`${item.name} es un perro muy feliz :D`}
-                    descripcion={`Esta es ${item.name} tiene ${calculateAge(item.birth_date)} años. Nació el ${item.birth_date}.`}
+                    descripcion={`
+                    Nacimiento: ${item.birth_date}. 
+                    \nTamaño: ${item.size}`}
                     onFavoriteToggle={() => toggleFavorite(item.id_pet)}
                     isFavorite={favoritePets.includes(item.id_pet)}
                   />
