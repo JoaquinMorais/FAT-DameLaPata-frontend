@@ -166,7 +166,7 @@ function Add() {
     weight: Yup.number()
       .required('El peso es obligatorio.')
       .min(0, 'El peso no puede ser negativo.')
-      .max(45, 'El peso no puede ser mayor a 45.')
+      .max(80, 'El peso no puede ser mayor a 80.')
       .positive('El peso debe ser un número positivo.'),
     image_path: Yup.mixed().required('La imagen es obligatoria.').nullable(),
 

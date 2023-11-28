@@ -24,7 +24,7 @@ function Tips() {
     <>
       <Navbar />
       <div style={{ display: 'flex', flexDirection: 'column', height: '100vh', width: '100%', justifyContent: 'center', alignItems: 'center', backgroundImage: 'url("https://image.europafm.com/clipping/cmsimages02/2020/01/29/BE57BF60-F6B4-4D1F-AA00-1F076898EE12/58.jpg")', backgroundSize: 'cover', backgroundPosition: 'center', color: 'white' }}>
-        <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', backgroundColor: 'rgba(0, 0, 0, 0.5)' }}></div>
+        <div style={{ position: 'absolute', marginLeft: '20px', top: 0, left: 0, backgroundColor: 'rgba(0, 0, 0, 0.5)' }}></div>
         <AccordionSummary aria-controls="panel1a-content" id="panel1a-header">
           <Typography variant="h1" fontWeight="bold" style={titleStyles}>¿Dudas de adoptar una mascota?</Typography>
         </AccordionSummary>
